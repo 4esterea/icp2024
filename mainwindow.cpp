@@ -51,13 +51,6 @@ void MainWindow::on_pushButtonEdit_clicked(bool checked)
         qDebug() << "Editing is Enabled";
         ui->pushButtonEdit->setText("STOP EDITING");
         ui->pushButtonLaunch->setEnabled(0);
-        QWidget *newWidget = new QWidget;
-        QVBoxLayout *newLayout = new QVBoxLayout(newWidget);
-        QLabel *label = new QLabel("New Widget");
-        newLayout->addWidget(label);
-
-        // Add the widget to the main layout
-        ui->mainLayout->addWidget(newWidget);
     } else {
         ui->pushButtonEdit->setText("EDIT");
         qDebug() << "Editing is Disabled";
