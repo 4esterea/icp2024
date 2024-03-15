@@ -19,10 +19,24 @@ public:
 
 private slots:
     void on_comboBox_activated(int index);
-    void on_pushButton_clicked(bool checked);
-
+    void on_pushButtonEdit_clicked(bool checked);
+    void on_pushButtonLaunch_clicked(bool checked);
+    void on_pushButtonPause_clicked(bool checked);
+    void on_pushButtonLoad_clicked();
+    void on_pushButtonSave_clicked();
+    void updateRobotMoveSpeed(double value);
+    void updateRobotAngularSpeed(double value);
+    void updateCollisionDetectionDistance(double value);
 private:
     Ui::MainWindow *ui;
-    bool editingEnabled;
+    QString _fileToOpen;
+    QString _fileToSave;
+    bool _editingEnabled;
+    bool _isLaunched;
+    bool _isPaused;
+    bool _turnRight;
+    double _robotMoveSpeed;
+    double _robotAngularSpeed;
+    double _collisionDetectionDistance;
 };
 #endif // MAINWINDOW_H
