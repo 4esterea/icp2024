@@ -49,7 +49,7 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>241</width>
+      <width>251</width>
       <height>741</height>
      </rect>
     </property>
@@ -62,74 +62,16 @@
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QWidget" name="verticalLayoutWidget">
+    <widget class="QWidget" name="verticalLayoutWidget_2">
      <property name="geometry">
       <rect>
-       <x>9</x>
-       <y>10</y>
-       <width>221</width>
-       <height>701</height>
+       <x>10</x>
+       <y>130</y>
+       <width>231</width>
+       <height>441</height>
       </rect>
      </property>
-     <layout class="QVBoxLayout" name="mainLayout">
-      <property name="sizeConstraint">
-       <enum>QLayout::SetDefaultConstraint</enum>
-      </property>
-      <item>
-       <spacer name="verticalSpacer_2">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Fixed</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>15</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item alignment="Qt::AlignHCenter">
-       <widget class="QLabel" name="labelTitle">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>2D Robot Simulator</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="verticalSpacer">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Fixed</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>10</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="Line" name="line">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
       <item>
        <widget class="QLabel" name="labelCurrent">
         <property name="maximumSize">
@@ -148,15 +90,18 @@
       </item>
       <item>
        <layout class="QHBoxLayout" name="loadSaveLayout">
+        <property name="spacing">
+         <number>10</number>
+        </property>
         <item>
-         <widget class="QPushButton" name="pushButtonSave">
+         <widget class="QPushButton" name="pushButtonLoad">
           <property name="text">
            <string>Load</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButtonLoad">
+         <widget class="QPushButton" name="pushButtonSave">
           <property name="text">
            <string>Save</string>
           </property>
@@ -165,45 +110,13 @@
        </layout>
       </item>
       <item>
-       <spacer name="verticalSpacer_6">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Fixed</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>10</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
        <widget class="Line" name="line_3">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
        </widget>
       </item>
-      <item>
-       <spacer name="verticalSpacer_7">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Fixed</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>0</width>
-          <height>10</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
+      <item alignment="Qt::AlignHCenter">
        <widget class="QLabel" name="labelSettings">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
@@ -431,29 +344,6 @@
        </widget>
       </item>
       <item>
-       <spacer name="verticalSpacer_5">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Fixed</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>0</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="Line" name="line_2">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
-      <item>
        <spacer name="verticalSpacer_3">
         <property name="orientation">
          <enum>Qt::Vertical</enum>
@@ -464,12 +354,31 @@
         <property name="sizeHint" stdset="0">
          <size>
           <width>20</width>
-          <height>10</height>
+          <height>20</height>
          </size>
         </property>
        </spacer>
       </item>
-      <item alignment="Qt::AlignHCenter">
+     </layout>
+    </widget>
+    <widget class="QWidget" name="verticalLayoutWidget_3">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>580</y>
+       <width>231</width>
+       <height>137</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_4">
+      <item>
+       <widget class="Line" name="line_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
        <widget class="QPushButton" name="pushButtonEdit">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -493,6 +402,12 @@
       </item>
       <item>
        <layout class="QHBoxLayout" name="launchPauseLayout">
+        <property name="spacing">
+         <number>5</number>
+        </property>
+        <property name="sizeConstraint">
+         <enum>QLayout::SetNoConstraint</enum>
+        </property>
         <item>
          <widget class="QPushButton" name="pushButtonLaunch">
           <property name="sizePolicy">
@@ -564,14 +479,94 @@
         </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>20</width>
-          <height>10</height>
+          <width>226</width>
+          <height>12</height>
          </size>
         </property>
        </spacer>
       </item>
      </layout>
     </widget>
+    <widget class="QWidget" name="verticalLayoutWidget">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>231</width>
+       <height>111</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="titleLayout">
+      <property name="sizeConstraint">
+       <enum>QLayout::SetDefaultConstraint</enum>
+      </property>
+      <item>
+       <spacer name="verticalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>30</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item alignment="Qt::AlignHCenter">
+       <widget class="QLabel" name="labelTitle">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>2D Robot Simulator</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="verticalSpacer_7">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>0</width>
+          <height>30</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="Line" name="line">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="widgetSettings" native="true">
+    <property name="geometry">
+     <rect>
+      <x>1140</x>
+      <y>580</y>
+      <width>21</width>
+      <height>21</height>
+     </rect>
+    </property>
    </widget>
   </widget>
  </widget>

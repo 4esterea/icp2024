@@ -6,7 +6,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->labelCurrent->setText("Current layout: <none>");
+    ui->labelCurrent->setText("Current Layout: <none>");
     ui->comboBox->clear();
     ui->comboBox->addItem("Turn Left");
     ui->comboBox->addItem("Turn Right");
@@ -51,10 +51,12 @@ void MainWindow::on_pushButtonEdit_clicked(bool checked)
         qDebug() << "Editing is Enabled";
         ui->pushButtonEdit->setText("STOP EDITING");
         ui->pushButtonLaunch->setEnabled(0);
+        ui->labelSettings->parentWidget()->hide();
     } else {
         ui->pushButtonEdit->setText("EDIT");
         qDebug() << "Editing is Disabled";
         ui->pushButtonLaunch->setEnabled(1);
+        ui->labelSettings->parentWidget()->show();
     }
 }
 
@@ -66,8 +68,8 @@ void MainWindow::on_pushButtonLaunch_clicked(bool checked)
         ui->pushButtonLaunch->setText("STOP");
         ui->pushButtonLaunch->setFixedWidth(70);
         ui->pushButtonEdit->setEnabled(0);
-        ui->pushButtonSave->setEnabled(0);
         ui->pushButtonLoad->setEnabled(0);
+        ui->pushButtonSave->setEnabled(0);
         ui->doubleSpinBoxRMS->setEnabled(0);
         ui->doubleSpinBoxRAS->setEnabled(0);
         ui->doubleSpinBoxCDD->setEnabled(0);
@@ -78,8 +80,8 @@ void MainWindow::on_pushButtonLaunch_clicked(bool checked)
         ui->pushButtonLaunch->setText("LAUNCH");
         ui->pushButtonLaunch->setFixedWidth(150);
         ui->pushButtonEdit->setEnabled(1);
-        ui->pushButtonSave->setEnabled(1);
         ui->pushButtonLoad->setEnabled(1);
+        ui->pushButtonSave->setEnabled(1);
         ui->doubleSpinBoxRMS->setEnabled(1);
         ui->doubleSpinBoxRAS->setEnabled(1);
         ui->doubleSpinBoxCDD->setEnabled(1);
@@ -103,7 +105,11 @@ void MainWindow::on_pushButtonLoad_clicked()
 {
     _fileToOpen = QFileDialog::getOpenFileName(this, tr("Open JSON File"), QDir::homePath(), tr("JSON Files (*.json)"));
     QString fileName = QFileInfo(_fileToOpen).fileName();
-    ui->labelCurrent->setText("Current Layout: " + fileName);
+    if (fileName == ""){
+        ui->labelCurrent->setText("Current Layout: <none>");
+    } else{
+        ui->labelCurrent->setText("Current Layout: " + fileName);
+    }
     qDebug() << "Opening file " << _fileToOpen;
 }
 
