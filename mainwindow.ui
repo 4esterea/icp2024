@@ -577,7 +577,7 @@
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_5">
        <item alignment="Qt::AlignHCenter">
-        <widget class="QLabel" name="label">
+        <widget class="QLabel" name="labelComponents">
          <property name="maximumSize">
           <size>
            <width>16777215</width>
@@ -590,7 +590,7 @@
         </widget>
        </item>
        <item alignment="Qt::AlignHCenter">
-        <widget class="ClickableLabel" name="image1">
+        <widget class="ClickableLabel" name="autoRobotIcon">
          <property name="cursor">
           <cursorShape>PointingHandCursor</cursorShape>
          </property>
@@ -600,7 +600,7 @@
         </widget>
        </item>
        <item alignment="Qt::AlignHCenter">
-        <widget class="ClickableLabel" name="image2">
+        <widget class="ClickableLabel" name="RCRobotIcon">
          <property name="cursor">
           <cursorShape>PointingHandCursor</cursorShape>
          </property>
@@ -610,7 +610,7 @@
         </widget>
        </item>
        <item alignment="Qt::AlignHCenter">
-        <widget class="ClickableLabel" name="image3">
+        <widget class="ClickableLabel" name="obstacleIcon">
          <property name="cursor">
           <cursorShape>PointingHandCursor</cursorShape>
          </property>
@@ -633,14 +633,23 @@
      </rect>
     </property>
    </widget>
-   <widget class="QFrame" name="frame_2">
+   <widget class="QFrame" name="frameSimulation">
     <property name="geometry">
      <rect>
-      <x>690</x>
+      <x>260</x>
       <y>10</y>
-      <width>581</width>
+      <width>1011</width>
       <height>701</height>
      </rect>
+    </property>
+    <property name="mouseTracking">
+     <bool>true</bool>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::ClickFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border: 2px solid gray;</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::StyledPanel</enum>

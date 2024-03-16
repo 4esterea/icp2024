@@ -27,22 +27,19 @@ void MainWindow::setUiDefaultState()
     _isPaused = false;
     _turnRight = false;
     QPixmap pm("C:/Users/USer/Downloads/circlePlaceholder.png");
-    ui->image1->setPixmap(pm);
-    ui->image1->setScaledContents(true);
-    ui->image1->setFixedSize(140, 140);
-    ui->image2->setPixmap(pm);
-    ui->image2->setScaledContents(true);
-    ui->image2->setFixedSize(140, 140);
-    ui->image3->setPixmap(pm);
-    ui->image3->setScaledContents(true);
-    ui->image3->setFixedSize(140, 140);
+    ui->autoRobotIcon->setPixmap(pm);
+    ui->autoRobotIcon->setScaledContents(true);
+    ui->autoRobotIcon->setFixedSize(140, 140);
+    ui->RCRobotIcon->setPixmap(pm);
+    ui->RCRobotIcon->setScaledContents(true);
+    ui->RCRobotIcon->setFixedSize(140, 140);
+    ui->obstacleIcon->setPixmap(pm);
+    ui->obstacleIcon->setScaledContents(true);
+    ui->obstacleIcon->setFixedSize(140, 140);
     ui->editMode->hide();
     connect(ui->doubleSpinBoxRMS, SIGNAL(valueChanged(double)), this, SLOT(updateRobotMoveSpeed(double)));
     connect(ui->doubleSpinBoxRAS, SIGNAL(valueChanged(double)), this, SLOT(updateRobotAngularSpeed(double)));
     connect(ui->doubleSpinBoxCDD, SIGNAL(valueChanged(double)), this, SLOT(updateCollisionDetectionDistance(double)));
-    // connect(ui->image1, SIGNAL(clicked()), this, SLOT(on_image1_linkActivated()));
-    // connect(ui->image2, SIGNAL(clicked()), this, SLOT(on_image2_linkActivated()));
-    // connect(ui->image3, SIGNAL(clicked()), this, SLOT(on_image3_linkActivated()));
 }
 
 MainWindow::~MainWindow()
@@ -71,13 +68,13 @@ void MainWindow::on_pushButtonEdit_clicked(bool checked)
         qDebug() << "Editing is Enabled";
         ui->pushButtonEdit->setText("STOP EDITING");
         ui->pushButtonLaunch->setEnabled(0);
-        ui->labelSettings->parentWidget()->hide();
+        ui->widgetSettings->hide();
         ui->editMode->show();
     } else {
         ui->pushButtonEdit->setText("EDIT");
         qDebug() << "Editing is Disabled";
         ui->pushButtonLaunch->setEnabled(1);
-        ui->labelSettings->parentWidget()->show();
+        ui->widgetSettings->show();
         ui->editMode->hide();
     }
 }
@@ -129,31 +126,39 @@ void MainWindow::on_pushButtonLoad_clicked()
     QString fileName = QFileInfo(_fileToOpen).fileName();
     if (fileName == ""){
         ui->labelCurrent->setText("Current Layout: <none>");
+        qDebug() << "There was no file provided for loading";
     } else{
         ui->labelCurrent->setText("Current Layout: " + fileName);
+        qDebug() << "Opening file " << _fileToOpen;
     }
-    qDebug() << "Opening file " << _fileToOpen;
 }
 
 void MainWindow::on_pushButtonSave_clicked()
 {
     _fileToSave = QFileDialog::getSaveFileName(this, tr("Save JSON File"), QDir::homePath(), tr("JSON Files (*.json)"));
-    qDebug() << "Saving file " << _fileToSave;
+    QString fileName = QFileInfo(_fileToSave).fileName();
+    if (fileName == ""){
+        qDebug() << "There was no file provided for saving";
+    } else {
+        qDebug() << "Saving file " << _fileToSave;
+    }
+
 }
 
-void MainWindow::on_image1_clicked()
+void MainWindow::on_autoRobotIcon_clicked()
 {
-    qDebug() << "Click to add <temp1>";
+    qDebug() << "Click to add <robot> entity";
+
 }
 
-void MainWindow::on_image2_clicked()
+void MainWindow::on_RCRobotIcon_clicked()
 {
-    qDebug() << "Click to add <temp2>";
+    qDebug() << "Click to add <RCrobot> entity";
 }
 
-void MainWindow::on_image3_clicked()
+void MainWindow::on_obstacleIcon_clicked()
 {
-    qDebug() << "Click to add <temp3>";
+    qDebug() << "Click to add <obstacle> entity";
 }
 
 void MainWindow::updateRobotMoveSpeed(double value) {

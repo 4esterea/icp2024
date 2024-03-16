@@ -25,9 +25,9 @@ private slots:
     void on_pushButtonPause_clicked(bool checked);
     void on_pushButtonLoad_clicked();
     void on_pushButtonSave_clicked();
-    void on_image1_clicked();
-    void on_image2_clicked();
-    void on_image3_clicked();
+    void on_autoRobotIcon_clicked();
+    void on_RCRobotIcon_clicked();
+    void on_obstacleIcon_clicked();
     void updateRobotMoveSpeed(double value);
     void updateRobotAngularSpeed(double value);
     void updateCollisionDetectionDistance(double value);
@@ -42,5 +42,6 @@ private:
     double _robotMoveSpeed;
     double _robotAngularSpeed;
     double _collisionDetectionDistance;
+
 };
 #endif // MAINWINDOW_H
