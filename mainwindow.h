@@ -42,6 +42,8 @@ private:
     double _robotMoveSpeed;
     double _robotAngularSpeed;
     double _collisionDetectionDistance;
-
+    bool _robotIsChosen;
+    bool _RCRobotIsChosen;
+    bool _obstacleIsChosen;
 };
 #endif // MAINWINDOW_H

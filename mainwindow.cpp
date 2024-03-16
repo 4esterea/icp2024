@@ -26,6 +26,7 @@ void MainWindow::setUiDefaultState()
     _isLaunched = false;
     _isPaused = false;
     _turnRight = false;
+    _robotIsChosen = _RCRobotIsChosen = _obstacleIsChosen = false;
     QPixmap pm("C:/Users/USer/Downloads/circlePlaceholder.png");
     ui->autoRobotIcon->setPixmap(pm);
     ui->autoRobotIcon->setScaledContents(true);
@@ -64,6 +65,7 @@ void MainWindow::on_comboBox_activated(int index)
 void MainWindow::on_pushButtonEdit_clicked(bool checked)
 {
     _editingEnabled = !_editingEnabled;
+    _robotIsChosen = _RCRobotIsChosen = _obstacleIsChosen = false;
     if (_editingEnabled){
         qDebug() << "Editing is Enabled";
         ui->pushButtonEdit->setText("STOP EDITING");
@@ -147,18 +149,23 @@ void MainWindow::on_pushButtonSave_clicked()
 
 void MainWindow::on_autoRobotIcon_clicked()
 {
-    qDebug() << "Click to add <robot> entity";
-
+    _robotIsChosen = true;
+    _obstacleIsChosen = _RCRobotIsChosen = false;
+    qDebug() << "Click to add <robot> entity. [" << _robotIsChosen << _RCRobotIsChosen << _obstacleIsChosen << "]";
 }
 
 void MainWindow::on_RCRobotIcon_clicked()
 {
-    qDebug() << "Click to add <RCrobot> entity";
+    _RCRobotIsChosen = true;
+    _robotIsChosen = _obstacleIsChosen = false;
+    qDebug() << "Click to add <RCrobot> entity. [" << _robotIsChosen << _RCRobotIsChosen << _obstacleIsChosen << "]";
 }
 
 void MainWindow::on_obstacleIcon_clicked()
 {
-    qDebug() << "Click to add <obstacle> entity";
+    _obstacleIsChosen = true;
+    _robotIsChosen = _RCRobotIsChosen = false;
+    qDebug() << "Click to add <obstacle> entity. [" << _robotIsChosen << _RCRobotIsChosen << _obstacleIsChosen << "]";
 }
 
 void MainWindow::updateRobotMoveSpeed(double value) {
