@@ -1,11 +1,17 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "clickablelabel.h"
 #include <QFileDialog>
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    setUiDefaultState();
+}
+
+void MainWindow::setUiDefaultState()
+{
     ui->labelCurrent->setText("Current Layout: <none>");
     ui->comboBox->clear();
     ui->comboBox->addItem("Turn Left");
@@ -20,9 +26,23 @@ MainWindow::MainWindow(QWidget *parent)
     _isLaunched = false;
     _isPaused = false;
     _turnRight = false;
+    QPixmap pm("C:/Users/USer/Downloads/circlePlaceholder.png");
+    ui->image1->setPixmap(pm);
+    ui->image1->setScaledContents(true);
+    ui->image1->setFixedSize(140, 140);
+    ui->image2->setPixmap(pm);
+    ui->image2->setScaledContents(true);
+    ui->image2->setFixedSize(140, 140);
+    ui->image3->setPixmap(pm);
+    ui->image3->setScaledContents(true);
+    ui->image3->setFixedSize(140, 140);
+    ui->editMode->hide();
     connect(ui->doubleSpinBoxRMS, SIGNAL(valueChanged(double)), this, SLOT(updateRobotMoveSpeed(double)));
     connect(ui->doubleSpinBoxRAS, SIGNAL(valueChanged(double)), this, SLOT(updateRobotAngularSpeed(double)));
     connect(ui->doubleSpinBoxCDD, SIGNAL(valueChanged(double)), this, SLOT(updateCollisionDetectionDistance(double)));
+    // connect(ui->image1, SIGNAL(clicked()), this, SLOT(on_image1_linkActivated()));
+    // connect(ui->image2, SIGNAL(clicked()), this, SLOT(on_image2_linkActivated()));
+    // connect(ui->image3, SIGNAL(clicked()), this, SLOT(on_image3_linkActivated()));
 }
 
 MainWindow::~MainWindow()
@@ -52,11 +72,13 @@ void MainWindow::on_pushButtonEdit_clicked(bool checked)
         ui->pushButtonEdit->setText("STOP EDITING");
         ui->pushButtonLaunch->setEnabled(0);
         ui->labelSettings->parentWidget()->hide();
+        ui->editMode->show();
     } else {
         ui->pushButtonEdit->setText("EDIT");
         qDebug() << "Editing is Disabled";
         ui->pushButtonLaunch->setEnabled(1);
         ui->labelSettings->parentWidget()->show();
+        ui->editMode->hide();
     }
 }
 
@@ -117,6 +139,21 @@ void MainWindow::on_pushButtonSave_clicked()
 {
     _fileToSave = QFileDialog::getSaveFileName(this, tr("Save JSON File"), QDir::homePath(), tr("JSON Files (*.json)"));
     qDebug() << "Saving file " << _fileToSave;
+}
+
+void MainWindow::on_image1_clicked()
+{
+    qDebug() << "Click to add <temp1>";
+}
+
+void MainWindow::on_image2_clicked()
+{
+    qDebug() << "Click to add <temp2>";
+}
+
+void MainWindow::on_image3_clicked()
+{
+    qDebug() << "Click to add <temp3>";
 }
 
 void MainWindow::updateRobotMoveSpeed(double value) {

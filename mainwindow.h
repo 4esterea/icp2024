@@ -15,6 +15,7 @@ class MainWindow : public QMainWindow
 
 public:
     MainWindow(QWidget *parent = nullptr);
+    void setUiDefaultState();
     ~MainWindow();
 
 private slots:
@@ -24,6 +25,9 @@ private slots:
     void on_pushButtonPause_clicked(bool checked);
     void on_pushButtonLoad_clicked();
     void on_pushButtonSave_clicked();
+    void on_image1_clicked();
+    void on_image2_clicked();
+    void on_image3_clicked();
     void updateRobotMoveSpeed(double value);
     void updateRobotAngularSpeed(double value);
     void updateCollisionDetectionDistance(double value);
