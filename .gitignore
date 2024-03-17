@@ -1,0 +1,9 @@
+.vscode
+moc/
+objs/
+qMakefile
+.qmake.stash
+Application.pro.user
+ui_mainwindow.h
+Application
+xsnieh00-xlogin00.zip
