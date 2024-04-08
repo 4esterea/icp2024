@@ -6,6 +6,9 @@
  * @brief Definition of types used in program
  */
 
+#ifndef __TYPES_H__
+#define __TYPES_H__
+
 /**
  * @brief Type of object 
  */
@@ -29,3 +32,5 @@ typedef enum RotationDirection {
     none = 0,
     left = 1
 };
+
+#endif
