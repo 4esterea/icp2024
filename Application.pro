@@ -13,7 +13,19 @@ SOURCES += \
     src/mainwindow.cpp
 
 HEADERS += \
-    src/mainwindow.h
+    src/mainwindow.h\
+    src/IAutoRobot.h\
+    src/ICircleCollider.h\
+    src/ICollider.h\
+    src/IControlledRobot.h\
+    src/IGameObject.h\
+    src/IMap.h\
+    src/IObstacle.h\
+    src/IPosition.h\
+    src/IRectangleCollider.h\
+    src/IRobot.h\
+    src/ISquareCollider.h\
+    src/types.h
 
 FORMS += \
     src/mainwindow.ui
