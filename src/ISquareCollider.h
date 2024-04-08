@@ -6,6 +6,9 @@
  * @brief Definition of Square Collider interface
  */
 
+#ifndef __SQUAREICOLLIDER_H__
+#define __SQUAREICOLLIDER_H__
+
 #include "ICollider.h"
 
 using namespace std;
@@ -18,3 +21,5 @@ class ISquareCollider : public ICollider {
     private:
         float _sideLength;
 };
+
+#endif

@@ -6,6 +6,9 @@
  * @brief Definition of Circle Collider interface
  */
 
+#ifndef __ICIRCLECOLLIDER_H__
+#define __ICIRCLECOLLIDER_H__
+
 #include "ICollider.h"
 
 using namespace std;
@@ -18,3 +21,5 @@ class ICircleCollider : public ICollider {
     private:
         float _radius;
 };
+
+#endif

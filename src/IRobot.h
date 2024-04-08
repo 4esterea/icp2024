@@ -6,6 +6,9 @@
  * @brief Definition of Robot interface
  */
 
+#ifndef __IROBOT_H__
+#define __IROBOT_H__
+
 #include "IGameObject.h"
 
 using namespace std;
@@ -19,3 +22,5 @@ class IRobot : public IGameObject {
         float _speed; // Constant through run
         float _rotationAngle; // Constant through run
 };
+
+#endif

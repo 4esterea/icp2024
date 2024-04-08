@@ -6,6 +6,9 @@
  * @brief Definition of Rectangle Collider interface
  */
 
+#ifndef __IRECTANGLECOLLIDER_H__
+#define __IRECTANGLECOLLIDER_H__
+
 #include "ICollider.h"
 
 using namespace std;
@@ -19,3 +22,5 @@ class IRectangleCollider : public ICollider {
         float _width;
         float _height;
 };
+
+#endif

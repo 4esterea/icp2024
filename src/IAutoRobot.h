@@ -6,6 +6,9 @@
  * @brief Definition of Auto Robot interface
  */
 
+#ifndef __IAUTOROBOT_H__
+#define __IAUTOROBOT_H__
+
 #include <utility>
 
 #include "IRobot.h"
@@ -20,3 +23,5 @@ class IAutoRobot : public IRobot {
     private:
         pair<ICollider, ICollider> _collisionBox; // <Body collider, Sight collider>
 };
+
+#endif

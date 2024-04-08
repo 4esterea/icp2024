@@ -6,6 +6,9 @@
  * @brief Definition of Map interface
  */
 
+#ifndef __IMAP_H__
+#define __IMAP_H__
+
 #include "IGameObject.h"
 
 using namespace std;
@@ -21,3 +24,5 @@ class IMap {
         float _height;
         IGameObject * _gameObjects[];
 };
+
+#endif

@@ -6,6 +6,9 @@
  * @brief Definition of Controlled Robot interface
  */
 
+#ifndef __ICONTROLLEDROBOT_H__
+#define __ICONTROLLEDROBOT_H__
+
 #include <utility>
 
 #include "IRobot.h"
@@ -24,3 +27,5 @@ class IControlledRobot : public IRobot {
         RotationDirection _rotationDirection;
         ICollider * _collisionBox; // Body collider
 };
+
+#endif

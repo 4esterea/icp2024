@@ -6,6 +6,9 @@
  * @brief Definition of Collider interface
  */
 
+#ifndef __ICOLLIDER_H__
+#define __ICOLLIDER_H__
+
 #include "IPosition.h"
 
 using namespace std;
@@ -18,3 +21,5 @@ class ICollider {
     private:
         IPosition * _position;
 };
+
+#endif

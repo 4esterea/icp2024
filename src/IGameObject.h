@@ -6,6 +6,9 @@
  * @brief Definition of Game Object interface
  */
 
+#ifndef __IGAMEOBJECT_H__
+#define __IGAMEOBJECT_H__
+
 #include "IPosition.h"
 #include "ICollider.h"
 #include "types.h"
@@ -24,3 +27,5 @@ class IGameObject {
         ICollider * _collider;
         ObjectType _objectType;
 };
+
+#endif

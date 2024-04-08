@@ -6,6 +6,9 @@
  * @brief Definition of Position interface
  */
 
+#ifndef __IPOSITION_H__
+#define __IPOSITION_H__
+
 using namespace std;
 
 class IPosition {
@@ -16,3 +19,5 @@ class IPosition {
 
         virtual ~IPosition() = 0;        
 };
+
+#endif

@@ -6,6 +6,9 @@
  * @brief Definition of Obstacle interface
  */
 
+#ifndef __IOBSTACLE_H__
+#define __IOBSTACLE_H__
+
 #include "IGameObject.h"
 
 using namespace std;
@@ -14,3 +17,5 @@ class IObstacle : public IGameObject {
     public:
         virtual ~IObstacle() = 0;
 };
+
+#endif
