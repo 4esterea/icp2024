@@ -6,19 +6,34 @@ CONFIG += c++17
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
-#DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
+DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0 #0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    clickablelabel.cpp \
-    main.cpp \
-    mainwindow.cpp
+    src/clickableLabel.cpp\
+    src/main.cpp \
+    src/mainwindow.cpp
 
 HEADERS += \
-    clickablelabel.h \
-    mainwindow.h
+    src/mainwindow.h\
+    src/clickableLabel.h\
+    src/IAutoRobot.h\
+    src/ICircleCollider.h\
+    src/ICollider.h\
+    src/IControlledRobot.h\
+    src/IGameObject.h\
+    src/IMap.h\
+    src/IObstacle.h\
+    src/IPosition.h\
+    src/IRectangleCollider.h\
+    src/IRobot.h\
+    src/ISquareCollider.h\
+    src/types.h
 
 FORMS += \
-    mainwindow.ui
+    src/mainwindow.ui
+
+OBJECTS_DIR=objs/
+MOC_DIR=moc/
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
