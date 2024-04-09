@@ -9,11 +9,13 @@ CONFIG += c++17
 DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0 #0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    src/clickableLabel.cpp\
     src/main.cpp \
     src/mainwindow.cpp
 
 HEADERS += \
     src/mainwindow.h\
+    src/clickableLabel.h\
     src/IAutoRobot.h\
     src/ICircleCollider.h\
     src/ICollider.h\

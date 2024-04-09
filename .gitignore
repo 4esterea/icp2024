@@ -2,6 +2,7 @@
 .vscode
 moc/
 objs/
+build/
 qMakefile
 .qmake.stash
 Application.pro.user
