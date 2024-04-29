@@ -20,7 +20,7 @@ class IControlledRobot : public IRobot {
         virtual void SetSpeedDirection(SpeedDirection speedDirection) = 0;
         virtual void SetRotationDirection(RotationDirection rotationDirection) = 0;
         virtual void Update() = 0;
-        virtual ~IControlledRobot() = 0;
+        virtual ~IControlledRobot() {};
 
     private:
         SpeedDirection _speedDirection;

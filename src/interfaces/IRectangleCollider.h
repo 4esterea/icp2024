@@ -11,16 +11,17 @@
 
 #include "ICollider.h"
 
-using namespace std;
-
 class IRectangleCollider : public ICollider {
     public:
         virtual bool CheckCollision(ICollider * collider) = 0;
-        virtual ~IRectangleCollider() = 0;
+        virtual double GetWidth() = 0;
+        virtual double GetHeight() = 0;
+        virtual IPosition * GetPosition() = 0;
+        virtual ~IRectangleCollider() {};
 
-    private:
-        float _width;
-        float _height;
+    protected:
+        double _width;
+        double _height;
 };
 
 #endif

@@ -16,9 +16,10 @@ using namespace std;
 class ICollider {
     public:
         virtual bool CheckCollision(ICollider * collider) = 0;
-        virtual ~ICollider() = 0;
+        virtual IPosition * GetPosition() = 0;
+        virtual ~ICollider() {};
 
-    private:
+    protected:
         IPosition * _position;
 };
 

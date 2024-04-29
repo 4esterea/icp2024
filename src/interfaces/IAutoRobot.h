@@ -18,7 +18,7 @@ using namespace std;
 class IAutoRobot : public IRobot {
     public:
         virtual void Update() = 0;
-        virtual ~IAutoRobot() = 0;
+        virtual ~IAutoRobot() {};
 
     private:
         pair<ICollider, ICollider> _collisionBox; // <Body collider, Sight collider>

@@ -9,15 +9,13 @@
 #ifndef __IPOSITION_H__
 #define __IPOSITION_H__
 
-using namespace std;
-
 class IPosition {
     public:
-        float x;
-        float y; 
-        float angle;
+        double x;
+        double y;
+        double angle;
 
-        virtual ~IPosition() = 0;        
+        virtual ~IPosition() {};
 };
 
 #endif

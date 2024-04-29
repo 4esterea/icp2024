@@ -16,10 +16,10 @@ using namespace std;
 class ICircleCollider : public ICollider {
     public:
         virtual bool CheckCollision(ICollider * collider) = 0;
-        virtual ~ICircleCollider() = 0;
+        virtual ~ICircleCollider() {};
 
     private:
-        float _radius;
+        double _radius;
 };
 
 #endif
