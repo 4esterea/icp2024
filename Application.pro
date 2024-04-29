@@ -11,7 +11,12 @@ DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0 #0x060000    # disables all the APIs d
 SOURCES += \
     src/clickableLabel.cpp\
     src/main.cpp \
-    src/mainwindow.cpp
+    src/mainwindow.cpp\
+    src/common/Obstacle.cpp \
+    src/common/Map.cpp \
+    src/common/Position.cpp \
+    src/common/RectangleCollider.cpp
+
 
 HEADERS += \
     src/mainwindow.h\
@@ -21,13 +26,14 @@ HEADERS += \
     src/ICollider.h\
     src/IControlledRobot.h\
     src/IGameObject.h\
-    src/IMap.h\
-    src/IObstacle.h\
     src/IPosition.h\
-    src/IRectangleCollider.h\
     src/IRobot.h\
     src/ISquareCollider.h\
-    src/types.h
+    src/headers/Map.h\
+    src/headers/RectangleCollider.h\
+    src/headers/Position.h\
+    src/headers/Obstacle.h\
+    src/headers/types.h
 
 FORMS += \
     src/mainwindow.ui
