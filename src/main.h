@@ -9,3 +9,5 @@
 #include <QApplication>
 
 #include "mainwindow.h"
+#include "headers/Map.h"
+#include "headers/Obstacle.h"

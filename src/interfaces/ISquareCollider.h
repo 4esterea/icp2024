@@ -11,15 +11,13 @@
 
 #include "ICollider.h"
 
-using namespace std;
-
 class ISquareCollider : public ICollider {
     public:
         virtual bool CheckCollision(ICollider * collider) = 0;
-        virtual ~ISquareCollider() = 0;
+        virtual ~ISquareCollider() {};
 
     private:
-        float _sideLength;
+        double _sideLength;
 };
 
 #endif

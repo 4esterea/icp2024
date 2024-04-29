@@ -11,16 +11,14 @@
 
 #include "IGameObject.h"
 
-using namespace std;
-
 class IRobot : public IGameObject {
     public:
         virtual void Update() = 0;
-        virtual ~IRobot() = 0;
+        virtual ~IRobot() {};
 
     private:
-        float _speed; // Constant through run
-        float _rotationAngle; // Constant through run
+        double _speed; // Constant through run
+        double _rotationAngle; // Constant through run
 };
 
 #endif

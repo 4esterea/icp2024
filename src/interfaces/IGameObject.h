@@ -11,7 +11,7 @@
 
 #include "IPosition.h"
 #include "ICollider.h"
-#include "types.h"
+#include "../headers/types.h"
 
 using namespace std;
 
@@ -19,10 +19,11 @@ class IGameObject {
     public:
         virtual ICollider * GetCollider() = 0;
         virtual IPosition * GetPosition() = 0;
+        virtual ObjectType GetObjectType() = 0;
         virtual void Update() = 0;
-        virtual ~IGameObject() = 0;
+        virtual ~IGameObject() {};
 
-    private:
+    protected:
         IPosition * _position;
         ICollider * _collider;
         ObjectType _objectType;

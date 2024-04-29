@@ -15,7 +15,7 @@ using namespace std;
 
 class IObstacle : public IGameObject {
     public:
-        virtual ~IObstacle() = 0;
+        virtual ~IObstacle() {};
 };
 
 #endif
