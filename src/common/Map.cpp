@@ -61,24 +61,24 @@ string Map::SaveJSON() {
     QJsonObject rectangleCollider;
     QJsonObject json;
 
-    json.insert("width", QJsonValue::fromVariant(this->_width));
-    json.insert("height", QJsonValue::fromVariant(this->_height));
+    json.insert("width", this->_width);
+    json.insert("height", this->_height);
 
     for (uint64_t i = 0; i < this->_gameObjects.size(); i++) {
-        position.insert("x", QJsonValue::fromVariant(this->_gameObjects[i]->GetPosition()->x));
-        position.insert("y", QJsonValue::fromVariant(this->_gameObjects[i]->GetPosition()->y));
-        position.insert("angle", QJsonValue::fromVariant(this->_gameObjects[i]->GetPosition()->angle));
+        position.insert("x", this->_gameObjects[i]->GetPosition()->x);
+        position.insert("y", this->_gameObjects[i]->GetPosition()->y);
+        position.insert("angle", this->_gameObjects[i]->GetPosition()->angle);
         gameObject.insert("Position", position);
-        gameObject.insert("objectType", QJsonValue::fromVariant(this->_gameObjects[i]->GetObjectType()));
+        gameObject.insert("objectType", this->_gameObjects[i]->GetObjectType());
         switch (this->_gameObjects[i]->GetObjectType()) {
             case eot_null: continue;
             case eot_obstacle:
                 IRectangleCollider * rc = dynamic_cast<IRectangleCollider *>(this->_gameObjects[i]->GetCollider());
-                rectangleCollider.insert("width", QJsonValue::fromVariant(rc->GetWidth()));
-                rectangleCollider.insert("height", QJsonValue::fromVariant(rc->GetHeight()));
-                position.insert("x", QJsonValue::fromVariant(rc->GetPosition()->x));
-                position.insert("y", QJsonValue::fromVariant(rc->GetPosition()->y));
-                position.insert("angle", QJsonValue::fromVariant(rc->GetPosition()->angle));
+                rectangleCollider.insert("width", rc->GetWidth());
+                rectangleCollider.insert("height", rc->GetHeight());
+                position.insert("x", rc->GetPosition()->x);
+                position.insert("y", rc->GetPosition()->y);
+                position.insert("angle", rc->GetPosition()->angle);
                 rectangleCollider.insert("Position", position);
                 gameObject.insert("RectangleCollider", rectangleCollider);
                 break;
