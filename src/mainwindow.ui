@@ -702,7 +702,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QFrame" name="frameSimulation">
+   <widget class="Viewport" name="viewport">
     <property name="geometry">
      <rect>
       <x>260</x>
@@ -711,21 +711,6 @@
       <height>701</height>
      </rect>
     </property>
-    <property name="mouseTracking">
-     <bool>true</bool>
-    </property>
-    <property name="focusPolicy">
-     <enum>Qt::ClickFocus</enum>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">border: 2px solid rgb(20, 28, 32); background-color:rgb(54, 74, 85);</string>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::StyledPanel</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Raised</enum>
-    </property>
    </widget>
   </widget>
  </widget>
@@ -733,7 +718,12 @@
   <customwidget>
    <class>ClickableLabel</class>
    <extends>QLabel</extends>
-   <header>src/clickableLabel.h</header>
+   <header location="global">src/ui/clickableLabel.h</header>
+  </customwidget>
+  <customwidget>
+   <class>Viewport</class>
+   <extends>QGraphicsView</extends>
+   <header location="global">src/ui/Viewport.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

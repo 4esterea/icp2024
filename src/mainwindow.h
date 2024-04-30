@@ -5,7 +5,8 @@
 #include <QDebug>
 #include <QFileDialog>
 #include <QFileInfo>
-#include "src/clickableLabel.h"
+#include "src/ui/clickableLabel.h"
+#include "src/headers/Map.h"
 
 namespace Ui {
 class MainWindow;

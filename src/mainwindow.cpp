@@ -1,7 +1,14 @@
 #include "mainwindow.h"
-#include "ui_mainwindow.h"
-#include "src/clickableLabel.h"
+#include "ui/clickableLabel.h"
 #include <QFileDialog>
+#include <QGraphicsScene>
+#include <QGraphicsRectItem>
+#include <QGraphicsEllipseItem>
+#include <QFile>
+#include <QIODevice>
+#include <QPixmap>
+#include "ui/Viewport.h"
+#include "ui_mainwindow.h"
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -10,6 +17,23 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     setUiDefaultState();
+
+    QFile file("lvl/lvl1.json");
+    if (!file.open(QIODevice::ReadOnly)) {
+        qDebug() << "Failed to open the file\n";
+        return;
+    }
+    std::string json = file.readAll().toStdString();
+    Map *map = new Map(0, 0);
+    map->LoadJSON(json);
+
+
+    // auto item = ui->viewport->scene->addEllipse(200, 200, 100, 100, QPen(Qt::white, 2));
+    // item->setFlag(QGraphicsItem::ItemIsMovable);
+    // qDebug() << "ellipse is added\n";
+    ui->viewport->setMap(map);
+    ui->viewport->setRenderHint(QPainter::Antialiasing);
+    ui->viewport->drawAll();
 }
 
 void MainWindow::setUiDefaultState()

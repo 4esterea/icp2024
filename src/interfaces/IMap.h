@@ -21,6 +21,7 @@ class IMap {
         virtual void Update() {};
         virtual int LoadJSON(string json) {};
         virtual string SaveJSON() = 0;
+        virtual const std::vector<IGameObject*>& GetGameObjects() const = 0;
         virtual ~IMap() {};
 
     protected:

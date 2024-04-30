@@ -90,6 +90,12 @@ string Map::SaveJSON() {
     return QJsonDocument(json).toJson(QJsonDocument::Compact).toStdString();
 }
 
+
+
 void Map::AddGameObject(IGameObject * gameObject) {
     this->_gameObjects.push_back(gameObject);
+}
+
+const std::vector<IGameObject *> &Map::GetGameObjects() const {
+    return _gameObjects;
 }

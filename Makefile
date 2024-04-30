@@ -20,7 +20,7 @@ run: all
 
 doxygen:
 	doxygen doc/Doxyfile
-	
+
 zip:
 	zip -r ${ZIP_NAME} ${ZIP_TARGETS}
 
@@ -28,5 +28,5 @@ clean:
 	rm -rf ${OBJS_DIR}
 	rm -rf ${MOC_DIR}
 	rm -f ${TARGET}
-	rm -f ${ZIP_NAME} 
+	rm -f ${ZIP_NAME}
 	rm -f ${QBLOAT}
