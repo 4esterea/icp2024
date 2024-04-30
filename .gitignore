@@ -3,6 +3,7 @@
 moc/
 objs/
 build/
+.idea/
 qMakefile
 .qmake.stash
 Application.pro.user
