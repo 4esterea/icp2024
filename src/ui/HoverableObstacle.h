@@ -4,17 +4,24 @@
 #include <QGraphicsSceneHoverEvent>
 #include <QGraphicsRectItem>
 #include <QBrush>
+#include "ObstacleWidget.h"
+
+class ObstacleWidget;
 
 class HoverableObstacle : public QGraphicsRectItem {
 
 public:
-    HoverableObstacle(QGraphicsItem *parent = nullptr);
+    HoverableObstacle(QWidget* mainWindow, QGraphicsItem *parent = nullptr);
     void hoverEnterEvent(QGraphicsSceneHoverEvent* event);
     void hoverLeaveEvent(QGraphicsSceneHoverEvent* event);
-    void mousePressEvent(QGraphicsSceneMouseEvent* event);
-
+    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event);
+    ObstacleWidget* getSettings();
 private:
-    QWidget* widgetToDisplay;
+    QWidget* viewport;
+    ObstacleWidget* settings = nullptr;
+    bool isMoving;
+public slots:
+    void setRotation(int angle);
 };
 
 #endif // HOVERABLEOBSTACLE_H

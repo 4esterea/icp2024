@@ -10,6 +10,7 @@ DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0 #0x060000    # disables all the APIs d
 
 SOURCES += \
     src/ui/HoverableObstacle.cpp \
+    src/ui/ObstacleWidget.cpp \
     src/ui/clickableLabel.cpp\
     src/main.cpp \
     src/mainwindow.cpp\
@@ -23,6 +24,7 @@ SOURCES += \
 HEADERS += \
     src/mainwindow.h\
     src/ui/HoverableObstacle.h \
+    src/ui/ObstacleWidget.h \
     src/ui/clickableLabel.h\
     src/ui/Viewport.h\
     src/IAutoRobot.h\

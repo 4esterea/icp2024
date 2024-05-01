@@ -27,10 +27,6 @@ MainWindow::MainWindow(QWidget *parent)
     Map *map = new Map(0, 0);
     map->LoadJSON(json);
 
-
-    // auto item = ui->viewport->scene->addEllipse(200, 200, 100, 100, QPen(Qt::white, 2));
-    // item->setFlag(QGraphicsItem::ItemIsMovable);
-    // qDebug() << "ellipse is added\n";
     ui->viewport->setMap(map);
     ui->viewport->setRenderHint(QPainter::Antialiasing);
     ui->viewport->drawAll();

@@ -13,7 +13,7 @@ public:
     QGraphicsScene* scene;
 private:
     Map* _map;
-
+    QVector<QGraphicsItem*> _objects;
 };
 
 #endif // VIEWPORT_H
