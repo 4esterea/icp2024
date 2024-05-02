@@ -10,8 +10,9 @@ public:
     Viewport(QWidget* parent = nullptr, Map* map = nullptr);
     void setMap(Map* map);
     void drawAll();
-    QGraphicsScene* scene;
     void mousePressEvent(QMouseEvent *event) override;
+    void hideAllSettings();
+	QGraphicsScene* scene;
 private:
     Map* _map;
 };

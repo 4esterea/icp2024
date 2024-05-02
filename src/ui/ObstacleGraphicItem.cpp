@@ -7,6 +7,7 @@
 #include <QGraphicsSceneHoverEvent>
 #include <QPointF>
 #include "ObstacleWidget.h"
+#include "../mainwindow.h"
 
 class Obstacle;
 
@@ -14,7 +15,7 @@ ObstacleGraphicItem::ObstacleGraphicItem(Viewport* viewport, QGraphicsItem* pare
     : QGraphicsRectItem(parent), viewport(viewport), obstacle(obstacle) {
     setAcceptHoverEvents(true);
     setPen(QPen({Qt::white, 2}));
-    setFlag(QGraphicsItem::ItemIsMovable, true);
+    setFlag(QGraphicsItem::ItemIsMovable, false);
     setFlag(QGraphicsItem::ItemSendsScenePositionChanges, true);
     setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);
     auto collider = obstacle->GetCollider();
@@ -26,39 +27,62 @@ ObstacleGraphicItem::ObstacleGraphicItem(Viewport* viewport, QGraphicsItem* pare
 
 
 void ObstacleGraphicItem::hoverEnterEvent(QGraphicsSceneHoverEvent* event) {
-
-    setPen(QPen({Qt::red, 2}));
-    QGraphicsRectItem::hoverEnterEvent(event);
+    MainWindow* mainWindow = dynamic_cast<MainWindow*>(viewport->parentWidget()->parentWidget());
+    if (mainWindow && mainWindow->isEditingEnabled()) {
+		setFlag(QGraphicsItem::ItemIsMovable, true);
+        setPen(QPen({Qt::red, 2}));
+        QGraphicsRectItem::hoverEnterEvent(event);
+    } else {
+        setFlag(QGraphicsItem::ItemIsMovable, false);
+		QGraphicsRectItem::hoverEnterEvent(event);
+    }
 }
 
 void ObstacleGraphicItem::hoverLeaveEvent(QGraphicsSceneHoverEvent* event) {
-
-    setPen(QPen({Qt::white, 2}));
-    QGraphicsRectItem::hoverLeaveEvent(event);
+    MainWindow* mainWindow = dynamic_cast<MainWindow*>(viewport->parentWidget()->parentWidget());
+    if (mainWindow && mainWindow->isEditingEnabled()) {
+		setFlag(QGraphicsItem::ItemIsMovable, true);
+        setPen(QPen({Qt::white, 2}));
+        QGraphicsRectItem::hoverLeaveEvent(event);
+    } else {
+        setFlag(QGraphicsItem::ItemIsMovable, false);
+		QGraphicsRectItem::hoverEnterEvent(event);
+    }
 }
 
 
 void ObstacleGraphicItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event) {
-    QPointF position = this->pos();
-    qreal x = position.x();
-    qreal y = position.y();
-    qDebug() << "Obstacle: The current position is: " << x << " : " << y;
-    if(settings == nullptr){
-        settings = new ObstacleWidget(viewport, this);
+
+	MainWindow* mainWindow = dynamic_cast<MainWindow*>(viewport->parentWidget()->parentWidget());
+    if (mainWindow && mainWindow->isEditingEnabled() && event->button() == Qt::LeftButton){
+        QPointF position = this->pos();
+        qreal x = position.x();
+        qreal y = position.y();
+        qDebug() << "Obstacle: The current position is: " << x << " : " << y;
+        if(settings == nullptr){
+            settings = new ObstacleWidget(viewport, this);
+        }
+
+        int viewportWidth = viewport->width();
+        int viewportHeight = viewport->height();
+
+        bool isCloserToLeft = x < viewportWidth / 2;
+        bool isCloserToTop = y < viewportHeight / 2;
+
+        qreal newX = isCloserToLeft ? x + settings->width()/2 : x - settings->width()/2;
+        qreal newY = isCloserToTop ? y + settings->height()/2 : y - settings->height();
+
+        settings->move(newX, newY);
+        dynamic_cast<Viewport*>(viewport)->hideAllSettings();
+        settings->show();
+
+        QGraphicsRectItem::mousePressEvent(event);
+	} else if(mainWindow && mainWindow->isEditingEnabled()){
+        qDebug() << "Deleting the obstacle on the position : " << this->pos().x() << " : " << this->pos().y();
+        dynamic_cast<Viewport*>(viewport)->scene->removeItem(this);
+        auto reference = this->obstacle;
+        delete reference;
     }
-
-    int viewportWidth = viewport->width();
-    int viewportHeight = viewport->height();
-
-    bool isCloserToLeft = x < viewportWidth / 2;
-    bool isCloserToTop = y < viewportHeight / 2;
-
-    qreal newX = isCloserToLeft ? x + settings->width()/2 : x - settings->width()/2;
-    qreal newY = isCloserToTop ? y + settings->height()/2 : y - settings->height();
-
-    settings->move(newX, newY);
-    settings->show();
-    QGraphicsRectItem::mousePressEvent(event);
 }
 
 ObstacleWidget *ObstacleGraphicItem::getSettings()
@@ -108,4 +132,3 @@ QVariant ObstacleGraphicItem::itemChange(GraphicsItemChange change, const QVaria
     }
     return QGraphicsItem::itemChange(change, value);
 }
-

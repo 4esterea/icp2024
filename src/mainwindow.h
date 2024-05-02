@@ -22,6 +22,8 @@ public:
     bool isObstacleMode();
     bool isAutoRobotMode();
     bool isRCRobotMode();
+    bool isEditingEnabled();
+    void setDefaultEditingState();
 
 private slots:
     void on_pushButtonEdit_clicked(bool checked);

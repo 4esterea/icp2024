@@ -42,17 +42,36 @@ void Viewport::drawAll() {
 }
 
 void Viewport::mousePressEvent(QMouseEvent *event) {
-    QPointF pt = mapToScene(event->pos());
-    MainWindow* mainWindow = qobject_cast<MainWindow*>(this->parentWidget()->parentWidget());
+    if (event->button() == Qt::LeftButton) {
+        QPointF pt = mapToScene(event->pos());
+        MainWindow* mainWindow = qobject_cast<MainWindow*>(this->parentWidget()->parentWidget());
 
-    if (mainWindow && mainWindow->isObstacleMode()) {
-        qDebug() << "Obstacle is being placed at " << pt.x() << " : " << pt.y();
-        Obstacle* object = new Obstacle(pt.x(), pt.y(), 0, 50, 50);
-        ObstacleGraphicItem* projection = new ObstacleGraphicItem(this, nullptr, object);
-        _map->AddGameObject(object);
-        this->scene->addItem(projection);
-        this->update();
+        if (mainWindow && mainWindow->isObstacleMode()) {
+            qDebug() << "Obstacle is being placed at " << pt.x() << " : " << pt.y();
+            Obstacle* object = new Obstacle(pt.x(), pt.y(), 0, 50, 50);
+            ObstacleGraphicItem* projection = new ObstacleGraphicItem(this, nullptr, object);
+            _map->AddGameObject(object);
+            this->scene->addItem(projection);
+            this->update();
 
+        }
+        QGraphicsView::mousePressEvent(event);
+    } else if (event->button() == Qt::RightButton) {
+        MainWindow* mainWindow = qobject_cast<MainWindow*>(this->parentWidget()->parentWidget());
+        if (mainWindow) {
+            mainWindow->setDefaultEditingState();
+        }
     }
-    QGraphicsView::mousePressEvent(event);
+}
+
+void Viewport::hideAllSettings() {
+    qDebug() << "Hiding all settings:" << this->scene->items().count() << " items";
+
+    for (auto& item : this->scene->items()) {
+        auto obstacle = dynamic_cast<ObstacleGraphicItem*>(item);
+        if (obstacle) {
+            auto settings = obstacle->getSettings();
+            if (settings) settings->hide();
+        }
+    }
 }

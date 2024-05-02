@@ -402,6 +402,9 @@
        </item>
        <item alignment="Qt::AlignHCenter">
         <widget class="ClickableLabel" name="obstacleIcon">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
          <property name="cursor">
           <cursorShape>PointingHandCursor</cursorShape>
          </property>

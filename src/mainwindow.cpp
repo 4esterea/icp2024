@@ -38,10 +38,10 @@ void MainWindow::loadLevel()
 
 void MainWindow::setUiDefaultState()
 {
+    this->setWindowTitle("2d robot simulator");
     ui->viewport->setRenderHint(QPainter::Antialiasing);
     this->setFixedSize(this->size());
     setWindowFlags(Qt::Dialog | Qt::MSWindowsFixedSizeDialogHint);
-    ui->editMode->hide();
     ui->labelCurrent->setText("Current Layout: <none>");
     ui->pushButtonEdit->setText("EDIT");
     ui->pushButtonLaunch->setText("LAUNCH");
@@ -59,13 +59,13 @@ void MainWindow::setUiDefaultState()
     QPixmap RCRobotPm("media/RCrobot.png");
     ui->autoRobotIcon->setPixmap(robotPm);
     ui->autoRobotIcon->setScaledContents(true);
-    ui->autoRobotIcon->setFixedSize(50, 50);
+    ui->autoRobotIcon->setMaximumSize(50, 50);
     ui->RCRobotIcon->setPixmap(RCRobotPm);
     ui->RCRobotIcon->setScaledContents(true);
-    ui->RCRobotIcon->setFixedSize(50, 50);
+    ui->RCRobotIcon->setMaximumSize(50, 50);
     ui->obstacleIcon->setPixmap(obstaclePm);
     ui->obstacleIcon->setScaledContents(true);
-    ui->obstacleIcon->setFixedSize(50, 50);
+    ui->obstacleIcon->setMaximumSize(50, 50);
     ui->editMode->hide();
     this->_map = new Map(0, 0);
 }
@@ -82,14 +82,17 @@ void MainWindow::on_pushButtonEdit_clicked(bool checked)
     _robotIsChosen = _RCRobotIsChosen = _obstacleIsChosen = false;
     if (_editingEnabled){
         qDebug() << "Editing is Enabled";
+        this->setWindowTitle("2d robot simulator [EDITING]");
         ui->pushButtonEdit->setText("STOP EDITING");
         ui->pushButtonLaunch->setEnabled(0);
         ui->editMode->show();
     } else {
         ui->pushButtonEdit->setText("EDIT");
         qDebug() << "Editing is Disabled";
+        this->setWindowTitle("2d robot simulator");
         ui->pushButtonLaunch->setEnabled(1);
         ui->editMode->hide();
+        ui->viewport->hideAllSettings();
     }
 }
 
@@ -98,6 +101,7 @@ void MainWindow::on_pushButtonLaunch_clicked(bool checked)
     _isLaunched = !_isLaunched;
     if (_isLaunched){
         qDebug() << "Simulation is running";
+        this->setWindowTitle("2d robot simulator [RUNNING]");
         ui->pushButtonLaunch->setText("STOP");
         ui->pushButtonLaunch->setFixedWidth(70);
         ui->pushButtonEdit->setEnabled(0);
@@ -106,6 +110,7 @@ void MainWindow::on_pushButtonLaunch_clicked(bool checked)
         ui->pushButtonPause->show();
     } else {
         qDebug() << "Simulation has been stopped";
+        this->setWindowTitle("2d robot simulator");
         ui->pushButtonLaunch->setText("LAUNCH");
         ui->pushButtonLaunch->setFixedWidth(150);
         ui->pushButtonEdit->setEnabled(1);
@@ -119,9 +124,11 @@ void MainWindow::on_pushButtonPause_clicked(bool checked){
     _isPaused = !_isPaused;
     if (_isPaused){
         qDebug() << "Simulation has been paused";
+        this->setWindowTitle("2d robot simulator [PAUSED]");
         ui->pushButtonPause->setText("PLAY");
     } else {
         qDebug() << "Simulation is running";
+        this->setWindowTitle("2d robot simulator [RUNNING]");
         ui->pushButtonPause->setText("PAUSE");
     }
 }
@@ -170,6 +177,13 @@ void MainWindow::on_pushButtonSave_clicked()
 
 void MainWindow::on_autoRobotIcon_clicked()
 {
+    ui->viewport->setCursor(Qt::CrossCursor);
+    ui->autoRobotIcon->setStyleSheet("border: 2px solid red; padding: 2px; box-shadow: 3px 3px 2px red;");
+    ui->RCRobotIcon->setStyleSheet("");
+    ui->obstacleIcon->setStyleSheet("");
+    ui->obstacleIcon->setFixedSize(50, 50);
+    ui->autoRobotIcon->setFixedSize(75, 75);
+    ui->RCRobotIcon->setFixedSize(50, 50);
     _robotIsChosen = true;
     _obstacleIsChosen = _RCRobotIsChosen = false;
     qDebug() << "Click to add <robot> entity.";
@@ -177,6 +191,13 @@ void MainWindow::on_autoRobotIcon_clicked()
 
 void MainWindow::on_RCRobotIcon_clicked()
 {
+    ui->viewport->setCursor(Qt::CrossCursor);
+    ui->autoRobotIcon->setStyleSheet("");
+    ui->RCRobotIcon->setStyleSheet("border: 2px solid red; padding: 2px; box-shadow: 3px 3px 2px red;");
+    ui->obstacleIcon->setStyleSheet("");
+    ui->obstacleIcon->setFixedSize(50, 50);
+    ui->autoRobotIcon->setFixedSize(50, 50);
+    ui->RCRobotIcon->setFixedSize(75, 75);
     _RCRobotIsChosen = true;
     _robotIsChosen = _obstacleIsChosen = false;
     qDebug() << "Click to add <RCrobot> entity.";
@@ -184,6 +205,13 @@ void MainWindow::on_RCRobotIcon_clicked()
 
 void MainWindow::on_obstacleIcon_clicked()
 {
+    ui->viewport->setCursor(Qt::CrossCursor);
+    ui->autoRobotIcon->setStyleSheet("");
+    ui->RCRobotIcon->setStyleSheet("");
+    ui->obstacleIcon->setStyleSheet("border: 2px solid red; padding: 2px; box-shadow: 3px 3px 2px red;");
+    ui->obstacleIcon->setFixedSize(75, 75);
+    ui->autoRobotIcon->setFixedSize(50, 50);
+    ui->RCRobotIcon->setFixedSize(50, 50);
     _obstacleIsChosen = true;
     _robotIsChosen = _RCRobotIsChosen = false;
     qDebug() << "Click to add <obstacle> entity.";
@@ -202,4 +230,24 @@ bool MainWindow::isAutoRobotMode()
 bool MainWindow::isRCRobotMode()
 {
     return _RCRobotIsChosen;
+}
+
+bool MainWindow::isEditingEnabled()
+{
+    return _editingEnabled;
+}
+
+void MainWindow::setDefaultEditingState()
+{
+    ui->autoRobotIcon->setStyleSheet("");
+    ui->RCRobotIcon->setStyleSheet("");
+    ui->obstacleIcon->setStyleSheet("");
+    ui->obstacleIcon->setFixedSize(50, 50);
+    ui->autoRobotIcon->setFixedSize(50, 50);
+    ui->RCRobotIcon->setFixedSize(50, 50);
+    ui->viewport->setCursor(Qt::ArrowCursor);
+    qDebug() << "Setting default editing state";
+    _obstacleIsChosen = false;
+    _robotIsChosen = false;
+    _RCRobotIsChosen = false;
 }
