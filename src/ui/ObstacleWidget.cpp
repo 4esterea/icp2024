@@ -6,18 +6,20 @@
 #include <QLineEdit>
 #include <QIntValidator>
 
-ObstacleWidget::ObstacleWidget(QWidget *parent, HoverableObstacle* obstacle) : QWidget(parent) {
+
+
+ObstacleWidget::ObstacleWidget(QWidget *parent, ObstacleGraphicItem* obstacle) : QWidget(parent) {
     this->_obstacle = obstacle;
-    this->setStyleSheet("background-color: white;"); // Set the background color to white
+    this->setStyleSheet("background-color: white;");
     this->setFixedWidth(200);
     QLabel *obstacleLabel = new QLabel("Obstacle", this);
-    obstacleLabel->setAlignment(Qt::AlignCenter); // Center the label
+    obstacleLabel->setAlignment(Qt::AlignCenter);
     obstacleLabel->setStyleSheet("background-color: gray;");
-    obstacleLabel->setFixedHeight(30); // Set maximum height for the label
+    obstacleLabel->setFixedHeight(30);
 
     QLabel *rotationLabel = new QLabel("Rotation (°)", this);
-    rotationLabel->setAlignment(Qt::AlignCenter); // Center the label
-    rotationLabel->setFixedHeight(30); // Set maximum height for the label
+    rotationLabel->setAlignment(Qt::AlignCenter);
+    rotationLabel->setFixedHeight(30);
 
     QLineEdit *rotationInput = new QLineEdit(this);
     rotationInput->setAlignment(Qt::AlignCenter);
@@ -45,41 +47,34 @@ ObstacleWidget::ObstacleWidget(QWidget *parent, HoverableObstacle* obstacle) : Q
     heightInput->setText(QString::number(this->_obstacle->rect().height()));
     heightInput->setFixedHeight(30);
 
-    QPushButton *okButton = new QPushButton("OK", this); // Initialize QPushButton object
+    QPushButton *okButton = new QPushButton("OK", this);
     okButton->setFixedHeight(30);
 
-    QVBoxLayout *layout = new QVBoxLayout(this); // Create a new vertical box layout
-    layout->setSpacing(0); // Remove spacing between widgets
-    layout->setContentsMargins(0, 0, 0, 0); // Remove margins
-    layout->addWidget(obstacleLabel); // Add the obstacle label to the layout
-    layout->addWidget(rotationLabel); // Add the rotation label to the layout // Add the rotation slider to the layout
-    layout->addWidget(rotationInput); // Add the rotation value to the layout
+    QVBoxLayout *layout = new QVBoxLayout(this);
+    layout->setSpacing(0);
+    layout->setContentsMargins(0, 0, 0, 0);
+    layout->addWidget(obstacleLabel);
+    layout->addWidget(rotationLabel);
+    layout->addWidget(rotationInput);
     layout->addWidget(widthLabel);
     layout->addWidget(widthInput);
     layout->addWidget(heightLabel);
     layout->addWidget(heightInput);
-    layout->addWidget(okButton); // Add the OK button to the layout
+    layout->addWidget(okButton);
 
-    this->setLayout(layout); // Set the layout of the widget
+    this->setLayout(layout);
 
 
     connect(rotationInput, &QLineEdit::textChanged, [this](const QString &value) {
-    int rotationValue = value.toInt();
-    this->_obstacle->setRotation(rotationValue);
+        this->_obstacle->setRotation(value.toInt());
     });
 
     connect(widthInput, &QLineEdit::textChanged, [this](const QString &value) {
-    QRectF rect = this->_obstacle->rect();
-    rect.setWidth(value.toInt());
-    this->_obstacle->setRect(rect);
-    this->_obstacle->setTransformOriginPoint(rect.width() / 2, rect.height() / 2);
+        this->_obstacle->setWidth(value.toInt());
     });
 
     connect(heightInput, &QLineEdit::textChanged, [this](const QString &value) {
-        QRectF rect = this->_obstacle->rect();
-        rect.setHeight(value.toInt());
-        this->_obstacle->setRect(rect);
-        this->_obstacle->setTransformOriginPoint(rect.width() / 2, rect.height() / 2);
+        this->_obstacle->setHeight(value.toInt());
     });
 
 

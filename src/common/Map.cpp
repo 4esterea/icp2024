@@ -26,7 +26,7 @@ int Map::LoadJSON(string json) {
     QJsonObject gameObject;
     QJsonArray gameObjects;
     QString str = QString::fromStdString(json);
-
+    _gameObjects.clear();
     doc = QJsonDocument::fromJson(str.toUtf8());
     if (err.error != QJsonParseError::NoError) {
         return err.error;
@@ -96,6 +96,6 @@ void Map::AddGameObject(IGameObject * gameObject) {
     this->_gameObjects.push_back(gameObject);
 }
 
-const std::vector<IGameObject *> &Map::GetGameObjects() const {
+const std::vector<IGameObject *> &Map::getGameObjects() const {
     return _gameObjects;
 }

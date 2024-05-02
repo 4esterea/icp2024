@@ -29,3 +29,16 @@ double RectangleCollider::GetHeight() {
 IPosition * RectangleCollider::GetPosition() {
     return this->_position;
 }
+
+void RectangleCollider::SetPosition(IPosition* position) {
+    delete this->_position;
+    this->_position = position;
+}
+
+void RectangleCollider::SetWidth(double width) {
+    this->_width = width;
+}
+
+void RectangleCollider::SetHeight(double height) {
+    this->_height = height;
+}

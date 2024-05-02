@@ -18,6 +18,9 @@ class IRectangleCollider : public ICollider {
         virtual double GetHeight() = 0;
         virtual IPosition * GetPosition() = 0;
         virtual ~IRectangleCollider() {};
+        virtual void SetPosition(IPosition* position) = 0;
+        virtual void SetWidth(double width) = 0;
+        virtual void SetHeight(double height) = 0;
 
     protected:
         double _width;

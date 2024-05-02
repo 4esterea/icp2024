@@ -11,9 +11,9 @@ public:
     void setMap(Map* map);
     void drawAll();
     QGraphicsScene* scene;
+    void mousePressEvent(QMouseEvent *event) override;
 private:
     Map* _map;
-    QVector<QGraphicsItem*> _objects;
 };
 
 #endif // VIEWPORT_H

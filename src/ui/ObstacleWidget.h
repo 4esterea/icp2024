@@ -4,17 +4,17 @@
 #include <QWidget>
 #include <QLabel>
 #include <QSlider>
-#include "HoverableObstacle.h"
+#include "ObstacleGraphicItem.h"
 
-class HoverableObstacle;
+class ObstacleGraphicItem;
 
 class ObstacleWidget : public QWidget {
     Q_OBJECT
 
 public:
-    explicit ObstacleWidget(QWidget *parent, HoverableObstacle* obstacle);
+    explicit ObstacleWidget(QWidget *parent, ObstacleGraphicItem* obstacle);
 private:
-    HoverableObstacle* _obstacle = nullptr;
+    ObstacleGraphicItem* _obstacle = nullptr;
 };
 
 

@@ -1,1 +1,1 @@
-{"gameObjects":[{"Position":{"angle":45,"x":3,"y":3},"RectangleCollider":{"Position":{"angle":45,"x":3,"y":3},"height":100,"width":200},"objectType":1}],"height":1000,"width":1000}
+{"gameObjects":[{"Position":{"angle":45,"x":100,"y":100},"RectangleCollider":{"Position":{"angle":45,"x":100,"y":100},"height":100,"width":200},"objectType":1}],"height":1000,"width":1000}

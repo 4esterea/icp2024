@@ -19,6 +19,9 @@ class RectangleCollider : public IRectangleCollider {
         double GetWidth();
         double GetHeight();
         IPosition * GetPosition();
+        void SetPosition(IPosition* position);
+        void SetWidth(double width);
+        void SetHeight(double height);
 };
 
 #endif

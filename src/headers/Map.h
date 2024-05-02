@@ -24,7 +24,7 @@ class Map: public IMap {
         void Update();
         int LoadJSON(string json);
         string SaveJSON();
-        const std::vector<IGameObject*>& GetGameObjects() const override;
+        const std::vector<IGameObject*>& getGameObjects() const override;
         Map(double width, double height);
 };
 

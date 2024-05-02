@@ -9,7 +9,7 @@ CONFIG += c++17
 DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0 #0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    src/ui/HoverableObstacle.cpp \
+    src/ui/ObstacleGraphicItem.cpp \
     src/ui/ObstacleWidget.cpp \
     src/ui/clickableLabel.cpp\
     src/main.cpp \
@@ -23,7 +23,7 @@ SOURCES += \
 
 HEADERS += \
     src/mainwindow.h\
-    src/ui/HoverableObstacle.h \
+    src/ui/ObstacleGraphicItem.h \
     src/ui/ObstacleWidget.h \
     src/ui/clickableLabel.h\
     src/ui/Viewport.h\

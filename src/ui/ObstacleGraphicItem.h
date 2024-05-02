@@ -1,27 +1,32 @@
-#ifndef HOVERABLEOBSTACLE_H
-#define HOVERABLEOBSTACLE_H
+#ifndef OBSTACLEGRAPHICITEM_H
+#define OBSTACLEGRAPHICITEM_H
 
 #include <QGraphicsSceneHoverEvent>
 #include <QGraphicsRectItem>
 #include <QBrush>
 #include "ObstacleWidget.h"
+#include "src/headers/Obstacle.h"
+#include "Viewport.h"
 
 class ObstacleWidget;
 
-class HoverableObstacle : public QGraphicsRectItem {
+class ObstacleGraphicItem : public QGraphicsRectItem {
 
 public:
-    HoverableObstacle(QWidget* mainWindow, QGraphicsItem *parent = nullptr);
+    ObstacleGraphicItem(Viewport* viewport = nullptr, QGraphicsItem *parent = nullptr, Obstacle* obstacle = nullptr);
     void hoverEnterEvent(QGraphicsSceneHoverEvent* event);
     void hoverLeaveEvent(QGraphicsSceneHoverEvent* event);
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event);
     ObstacleWidget* getSettings();
 private:
+    QVariant itemChange(GraphicsItemChange change, const QVariant &value);
     QWidget* viewport;
     ObstacleWidget* settings = nullptr;
-    bool isMoving;
+    Obstacle* obstacle;
 public slots:
     void setRotation(int angle);
+    void setWidth(int width);
+    void setHeight(int height);
 };
 
-#endif // HOVERABLEOBSTACLE_H
+#endif // OBSTACLEGRAPHICITEM_H

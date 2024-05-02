@@ -19,9 +19,11 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    bool isObstacleMode();
+    bool isAutoRobotMode();
+    bool isRCRobotMode();
 
 private slots:
-    void on_comboBox_activated(int index);
     void on_pushButtonEdit_clicked(bool checked);
     void on_pushButtonLaunch_clicked(bool checked);
     void on_pushButtonPause_clicked(bool checked);
@@ -30,14 +32,12 @@ private slots:
     void on_autoRobotIcon_clicked();
     void on_RCRobotIcon_clicked();
     void on_obstacleIcon_clicked();
-    void updateRobotMoveSpeed(double value);
-    void updateRobotAngularSpeed(double value);
-    void updateCollisionDetectionDistance(double value);
 
 private:
     Ui::MainWindow *ui;
     void setUiDefaultState();
-    QString _fileToOpen;
+    void loadLevel();
+    QString _fileToOpen = "lvl/lvl1.json";
     QString _fileToSave;
     bool _editingEnabled;
     bool _isLaunched;
@@ -46,9 +46,7 @@ private:
     bool _robotIsChosen;
     bool _RCRobotIsChosen;
     bool _obstacleIsChosen;
-    double _robotMoveSpeed;
-    double _robotAngularSpeed;
-    double _collisionDetectionDistance;
+    Map* _map;
 };
 
 #endif // MAINWINDOW_H

@@ -9,6 +9,7 @@
 #include <QPixmap>
 #include "ui/Viewport.h"
 #include "ui_mainwindow.h"
+#include <QMessageBox>
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -18,26 +19,30 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     setUiDefaultState();
 
-    QFile file("lvl/lvl1.json");
+    loadLevel();
+}
+
+
+void MainWindow::loadLevel()
+{
+    QFile file(_fileToOpen);
     if (!file.open(QIODevice::ReadOnly)) {
         qDebug() << "Failed to open the file\n";
         return;
     }
     std::string json = file.readAll().toStdString();
-    Map *map = new Map(0, 0);
-    map->LoadJSON(json);
-
-    ui->viewport->setMap(map);
-    ui->viewport->setRenderHint(QPainter::Antialiasing);
+    _map->LoadJSON(json);
+    ui->viewport->setMap(_map);
     ui->viewport->drawAll();
 }
 
 void MainWindow::setUiDefaultState()
 {
+    ui->viewport->setRenderHint(QPainter::Antialiasing);
+    this->setFixedSize(this->size());
+    setWindowFlags(Qt::Dialog | Qt::MSWindowsFixedSizeDialogHint);
+    ui->editMode->hide();
     ui->labelCurrent->setText("Current Layout: <none>");
-    ui->comboBox->clear();
-    ui->comboBox->addItem("Turn Left");
-    ui->comboBox->addItem("Turn Right");
     ui->pushButtonEdit->setText("EDIT");
     ui->pushButtonLaunch->setText("LAUNCH");
     ui->pushButtonPause->setText("PAUSE");
@@ -49,20 +54,20 @@ void MainWindow::setUiDefaultState()
     _isPaused = false;
     _turnRight = false;
     _robotIsChosen = _RCRobotIsChosen = _obstacleIsChosen = false;
-    QPixmap pm("C:/Users/USer/Downloads/circlePlaceholder.png");
-    ui->autoRobotIcon->setPixmap(pm);
+    QPixmap robotPm("media/robot.png");
+    QPixmap obstaclePm("media/obstacle.png");
+    QPixmap RCRobotPm("media/RCrobot.png");
+    ui->autoRobotIcon->setPixmap(robotPm);
     ui->autoRobotIcon->setScaledContents(true);
-    ui->autoRobotIcon->setFixedSize(140, 140);
-    ui->RCRobotIcon->setPixmap(pm);
+    ui->autoRobotIcon->setFixedSize(50, 50);
+    ui->RCRobotIcon->setPixmap(RCRobotPm);
     ui->RCRobotIcon->setScaledContents(true);
-    ui->RCRobotIcon->setFixedSize(140, 140);
-    ui->obstacleIcon->setPixmap(pm);
+    ui->RCRobotIcon->setFixedSize(50, 50);
+    ui->obstacleIcon->setPixmap(obstaclePm);
     ui->obstacleIcon->setScaledContents(true);
-    ui->obstacleIcon->setFixedSize(140, 140);
+    ui->obstacleIcon->setFixedSize(50, 50);
     ui->editMode->hide();
-    connect(ui->doubleSpinBoxRMS, SIGNAL(valueChanged(double)), this, SLOT(updateRobotMoveSpeed(double)));
-    connect(ui->doubleSpinBoxRAS, SIGNAL(valueChanged(double)), this, SLOT(updateRobotAngularSpeed(double)));
-    connect(ui->doubleSpinBoxCDD, SIGNAL(valueChanged(double)), this, SLOT(updateCollisionDetectionDistance(double)));
+    this->_map = new Map(0, 0);
 }
 
 MainWindow::~MainWindow()
@@ -70,19 +75,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_comboBox_activated(int index)
-{
-    switch (index) {
-    case 0:
-        qDebug() << "Turn Left option has been chosen";
-        _turnRight = false;
-        break;
-    case 1:
-        qDebug() << "Turn Right option has been chosen";
-        _turnRight = true;
-        break;
-    }
-}
 
 void MainWindow::on_pushButtonEdit_clicked(bool checked)
 {
@@ -92,13 +84,11 @@ void MainWindow::on_pushButtonEdit_clicked(bool checked)
         qDebug() << "Editing is Enabled";
         ui->pushButtonEdit->setText("STOP EDITING");
         ui->pushButtonLaunch->setEnabled(0);
-        ui->widgetSettings->hide();
         ui->editMode->show();
     } else {
         ui->pushButtonEdit->setText("EDIT");
         qDebug() << "Editing is Disabled";
         ui->pushButtonLaunch->setEnabled(1);
-        ui->widgetSettings->show();
         ui->editMode->hide();
     }
 }
@@ -113,10 +103,6 @@ void MainWindow::on_pushButtonLaunch_clicked(bool checked)
         ui->pushButtonEdit->setEnabled(0);
         ui->pushButtonLoad->setEnabled(0);
         ui->pushButtonSave->setEnabled(0);
-        ui->doubleSpinBoxRMS->setEnabled(0);
-        ui->doubleSpinBoxRAS->setEnabled(0);
-        ui->doubleSpinBoxCDD->setEnabled(0);
-        ui->comboBox->setEnabled(0);
         ui->pushButtonPause->show();
     } else {
         qDebug() << "Simulation has been stopped";
@@ -125,10 +111,6 @@ void MainWindow::on_pushButtonLaunch_clicked(bool checked)
         ui->pushButtonEdit->setEnabled(1);
         ui->pushButtonLoad->setEnabled(1);
         ui->pushButtonSave->setEnabled(1);
-        ui->doubleSpinBoxRMS->setEnabled(1);
-        ui->doubleSpinBoxRAS->setEnabled(1);
-        ui->doubleSpinBoxCDD->setEnabled(1);
-        ui->comboBox->setEnabled(1);
         ui->pushButtonPause->hide();
     }
 }
@@ -146,26 +128,43 @@ void MainWindow::on_pushButtonPause_clicked(bool checked){
 
 void MainWindow::on_pushButtonLoad_clicked()
 {
-    _fileToOpen = QFileDialog::getOpenFileName(this, tr("Open JSON File"), QDir::homePath(), tr("JSON Files (*.json)"));
+    _fileToOpen = QFileDialog::getOpenFileName(this, tr("Open JSON File"), QDir::currentPath(), tr("JSON Files (*.json)"));
     QString fileName = QFileInfo(_fileToOpen).fileName();
     if (fileName == ""){
-        ui->labelCurrent->setText("Current Layout: <none>");
         qDebug() << "There was no file provided for loading";
+        QMessageBox::warning(this, "Warning", "There was no file provided for loading");
+        return;
     } else{
         ui->labelCurrent->setText("Current Layout: " + fileName);
         qDebug() << "Opening file " << _fileToOpen;
+        loadLevel();
     }
 }
 
 void MainWindow::on_pushButtonSave_clicked()
 {
-    _fileToSave = QFileDialog::getSaveFileName(this, tr("Save JSON File"), QDir::homePath(), tr("JSON Files (*.json)"));
+    _fileToSave = QFileDialog::getSaveFileName(this, tr("Save JSON File"), QDir::currentPath(), tr("JSON Files (*.json)"));
+    if (!_fileToSave.endsWith(".json") && _fileToSave != "") {
+        _fileToSave += ".json";
+    }
     QString fileName = QFileInfo(_fileToSave).fileName();
     if (fileName == ""){
         qDebug() << "There was no file provided for saving";
+        QMessageBox::warning(this, "Warning", "There was no file provided for saving");
+        return;
     } else {
         qDebug() << "Saving file " << _fileToSave;
+        string json = this->_map->SaveJSON();
+        QFile file(_fileToSave);
+        if (!file.open(QIODevice::WriteOnly)) {
+            qDebug() << "Failed to open the file\n";
+            return;
+        }
+        file.write(json.c_str());
+        file.close();
+        ui->labelCurrent->setText("Current Layout: " + fileName);
     }
+
 
 }
 
@@ -190,17 +189,17 @@ void MainWindow::on_obstacleIcon_clicked()
     qDebug() << "Click to add <obstacle> entity.";
 }
 
-void MainWindow::updateRobotMoveSpeed(double value) {
-    qDebug() << "RMS is " << value;
-    _robotMoveSpeed = value;
+bool MainWindow::isObstacleMode()
+{
+    return _obstacleIsChosen;
 }
 
-void MainWindow::updateRobotAngularSpeed(double value) {
-    qDebug() << "RAS is " << value;
-    _robotAngularSpeed = value;
+bool MainWindow::isAutoRobotMode()
+{
+    return _robotIsChosen;
 }
 
-void MainWindow::updateCollisionDetectionDistance(double value) {
-    qDebug() << "CDD is " << value;
-    _collisionDetectionDistance = value;
+bool MainWindow::isRCRobotMode()
+{
+    return _RCRobotIsChosen;
 }

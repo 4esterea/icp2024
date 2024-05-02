@@ -22,6 +22,7 @@ class IGameObject {
         virtual ObjectType GetObjectType() = 0;
         virtual void Update() = 0;
         virtual ~IGameObject() {};
+        virtual void UpdateCoords(int x, int y) = 0;
 
     protected:
         IPosition * _position;

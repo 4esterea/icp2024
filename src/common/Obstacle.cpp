@@ -29,3 +29,11 @@ void Obstacle::Update() {
 ObjectType Obstacle::GetObjectType() {
     return this->_objectType;
 }
+
+void Obstacle::UpdateCoords(int x, int y) {
+    float angle = this->_position->angle;
+    delete this->_position;
+    this->_position = new Position(x, y, angle);
+}
+
+

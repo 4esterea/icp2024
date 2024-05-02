@@ -21,6 +21,8 @@ class Obstacle: public IObstacle {
         IPosition * GetPosition();
         void Update();
         ObjectType GetObjectType();
+        void UpdateCoords(int x, int y);
+
     protected:
         IRectangleCollider * _collider;
 };
