@@ -22,7 +22,7 @@ class IControlledRobot : public IRobot {
         virtual void Update() = 0;
         virtual ~IControlledRobot() {};
 
-    private:
+    protected:
         SpeedDirection _speedDirection;
         RotationDirection _rotationDirection;
         ICollider * _collisionBox; // Body collider

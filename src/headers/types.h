@@ -17,7 +17,8 @@
 enum ObjectType {
     eot_null = 0,
     eot_obstacle = 1,
-    eot_autorobot = 2
+    eot_auto_robot = 2,
+    eot_controlled_robot = 3
 };
 
 /**
