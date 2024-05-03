@@ -17,7 +17,7 @@ using namespace std;
 
 class IMap {
     public:
-    virtual void AddGameObject(IGameObject * gameObject) {};
+        virtual void AddGameObject(IGameObject * gameObject) {};
         virtual void Update() {};
         virtual int LoadJSON(string json) {};
         virtual string SaveJSON() = 0;

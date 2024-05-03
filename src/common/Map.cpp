@@ -26,6 +26,10 @@ int Map::LoadJSON(string json) {
     QJsonObject gameObject;
     QJsonArray gameObjects;
     QString str = QString::fromStdString(json);
+    double width;
+    double height;
+    double radius;
+
     _gameObjects.clear();
     doc = QJsonDocument::fromJson(str.toUtf8());
     if (err.error != QJsonParseError::NoError) {
@@ -41,15 +45,23 @@ int Map::LoadJSON(string json) {
         double pos_y = gameObject["Position"].toObject()["y"].toDouble();
         double pos_angle = gameObject["Position"].toObject()["angle"].toDouble();
         switch(gameObject["objectType"].toInt()) {
-            case eot_null: continue;
-            case eot_obstacle:
-                double width = gameObject["RectangleCollider"].toObject()["width"].toDouble();
-                double height = gameObject["RectangleCollider"].toObject()["height"].toDouble();
-                this->AddGameObject(new Obstacle(pos_x, pos_y, pos_angle, width, height));
-                break;
+        case eot_gameobject: continue;
+        case eot_obstacle:
+            width = gameObject["RectangleCollider"].toObject()["width"].toDouble();
+            height = gameObject["RectangleCollider"].toObject()["height"].toDouble();
+            this->AddGameObject(new Obstacle(pos_x, pos_y, pos_angle, width, height));
+            break;
+        case eot_auto_robot:
+            radius = gameObject["CircleCollider"].toObject()["radius"].toDouble();
+            this->AddGameObject(new AutoRobot(pos_x, pos_y, pos_angle, radius));
+            // TODO add colliders
+            break;
+        case eot_controlled_robot:
+            radius = gameObject["CircleCollider"].toObject()["radius"].toDouble();
+            this->AddGameObject(new ControlledRobot(pos_x, pos_y, pos_angle, radius));
+            break;
         }
     }
-
 
     return 0;
 }
@@ -59,7 +71,10 @@ string Map::SaveJSON() {
     QJsonObject gameObject;
     QJsonObject position;
     QJsonObject rectangleCollider;
+    QJsonObject circleCollider;
     QJsonObject json;
+    IRectangleCollider * rc;
+    ICircleCollider * cc;
 
     json.insert("width", this->_width);
     json.insert("height", this->_height);
@@ -71,17 +86,36 @@ string Map::SaveJSON() {
         gameObject.insert("Position", position);
         gameObject.insert("objectType", this->_gameObjects[i]->GetObjectType());
         switch (this->_gameObjects[i]->GetObjectType()) {
-            case eot_null: continue;
-            case eot_obstacle:
-                IRectangleCollider * rc = dynamic_cast<IRectangleCollider *>(this->_gameObjects[i]->GetCollider());
-                rectangleCollider.insert("width", rc->GetWidth());
-                rectangleCollider.insert("height", rc->GetHeight());
-                position.insert("x", rc->GetPosition()->x);
-                position.insert("y", rc->GetPosition()->y);
-                position.insert("angle", rc->GetPosition()->angle);
-                rectangleCollider.insert("Position", position);
-                gameObject.insert("RectangleCollider", rectangleCollider);
-                break;
+        case eot_gameobject: continue;
+        case eot_obstacle:
+            rc = dynamic_cast<IRectangleCollider *>(this->_gameObjects[i]->GetCollider());
+            rectangleCollider.insert("width", rc->GetWidth());
+            rectangleCollider.insert("height", rc->GetHeight());
+            position.insert("x", rc->GetPosition()->x);
+            position.insert("y", rc->GetPosition()->y);
+            position.insert("angle", rc->GetPosition()->angle);
+            rectangleCollider.insert("Position", position);
+            gameObject.insert("RectangleCollider", rectangleCollider);
+            break;
+        case eot_auto_robot:
+            cc = dynamic_cast<ICircleCollider *>(this->_gameObjects[i]->GetCollider());
+            circleCollider.insert("radius", cc->GetRadius());
+            position.insert("x", cc->GetPosition()->x);
+            position.insert("y", cc->GetPosition()->y);
+            position.insert("angle", cc->GetPosition()->angle);
+            circleCollider.insert("Position", position);
+            gameObject.insert("CircleCollider", circleCollider);
+            // TODO add colliders
+            break;
+        case eot_controlled_robot:
+            cc = dynamic_cast<ICircleCollider *>(this->_gameObjects[i]->GetCollider());
+            circleCollider.insert("radius", cc->GetRadius());
+            position.insert("x", cc->GetPosition()->x);
+            position.insert("y", cc->GetPosition()->y);
+            position.insert("angle", cc->GetPosition()->angle);
+            circleCollider.insert("Position", position);
+            gameObject.insert("CircleCollider", circleCollider);
+            break;
         }
         gameObjects.push_back(gameObject);
     }
@@ -89,7 +123,6 @@ string Map::SaveJSON() {
 
     return QJsonDocument(json).toJson(QJsonDocument::Compact).toStdString();
 }
-
 
 
 void Map::AddGameObject(IGameObject * gameObject) {

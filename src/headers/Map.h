@@ -16,7 +16,11 @@
 #include <QString>
 #include "../interfaces/IMap.h"
 #include "../interfaces/IRectangleCollider.h"
+#include "../interfaces/ICircleCollider.h"
+#include "../interfaces/ISquareCollider.h"
 #include "../headers/Obstacle.h"
+#include "../headers/AutoRobot.h"
+#include "../headers/ControlledRobot.h"
 
 class Map: public IMap {
     public:
