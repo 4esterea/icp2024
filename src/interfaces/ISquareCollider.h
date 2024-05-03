@@ -16,7 +16,7 @@ class ISquareCollider : public ICollider {
         virtual bool CheckCollision(ICollider * collider) = 0;
         virtual ~ISquareCollider() {};
 
-    private:
+    protected:
         double _sideLength;
 };
 

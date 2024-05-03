@@ -18,7 +18,7 @@ class ICircleCollider : public ICollider {
         virtual bool CheckCollision(ICollider * collider) = 0;
         virtual ~ICircleCollider() {};
 
-    private:
+    protected:
         double _radius;
 };
 

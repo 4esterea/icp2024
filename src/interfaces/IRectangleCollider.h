@@ -13,14 +13,11 @@
 
 class IRectangleCollider : public ICollider {
     public:
-        virtual bool CheckCollision(ICollider * collider) = 0;
         virtual double GetWidth() = 0;
-        virtual double GetHeight() = 0;
-        virtual IPosition * GetPosition() = 0;
-        virtual ~IRectangleCollider() {};
-        virtual void SetPosition(IPosition* position) = 0;
         virtual void SetWidth(double width) = 0;
+        virtual double GetHeight() = 0;
         virtual void SetHeight(double height) = 0;
+        virtual ~IRectangleCollider() {};
 
     protected:
         double _width;
