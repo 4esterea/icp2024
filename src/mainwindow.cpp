@@ -53,9 +53,9 @@ void MainWindow::setUiDefaultState()
     _isPaused = false;
     _turnRight = false;
     _robotIsChosen = _RCRobotIsChosen = _obstacleIsChosen = false;
-    QPixmap robotPm("media/robot.png");
-    QPixmap obstaclePm("media/obstacle.png");
-    QPixmap RCRobotPm("media/RCrobot.png");
+    QPixmap robotPm(":/media/robot.png");
+    QPixmap obstaclePm(":/media/obstacle.png");
+    QPixmap RCRobotPm(":/media/RCrobot.png");
     ui->autoRobotIcon->setPixmap(robotPm);
     ui->autoRobotIcon->setScaledContents(true);
     ui->autoRobotIcon->setMaximumSize(50, 50);

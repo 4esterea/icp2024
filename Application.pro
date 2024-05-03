@@ -48,6 +48,11 @@ HEADERS += \
 FORMS += \
     src/mainwindow.ui
 
+
+RESOURCES += \
+    src/resources.qrc
+
+
 OBJECTS_DIR=objs/
 MOC_DIR=moc/
 
