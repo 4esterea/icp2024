@@ -32,7 +32,6 @@ void MainWindow::loadLevel()
     }
     std::string json = file.readAll().toStdString();
     _map->LoadJSON(json);
-    ui->viewport->setMap(_map);
     ui->viewport->drawAll();
 }
 
@@ -178,7 +177,7 @@ void MainWindow::on_pushButtonSave_clicked()
 void MainWindow::on_autoRobotIcon_clicked()
 {
     ui->viewport->setCursor(Qt::CrossCursor);
-    ui->autoRobotIcon->setStyleSheet("border: 2px solid red; padding: 2px; box-shadow: 3px 3px 2px red;");
+    ui->autoRobotIcon->setStyleSheet("border: 2px solid red; padding: 2px;");
     ui->RCRobotIcon->setStyleSheet("");
     ui->obstacleIcon->setStyleSheet("");
     ui->obstacleIcon->setFixedSize(50, 50);
@@ -193,7 +192,7 @@ void MainWindow::on_RCRobotIcon_clicked()
 {
     ui->viewport->setCursor(Qt::CrossCursor);
     ui->autoRobotIcon->setStyleSheet("");
-    ui->RCRobotIcon->setStyleSheet("border: 2px solid red; padding: 2px; box-shadow: 3px 3px 2px red;");
+    ui->RCRobotIcon->setStyleSheet("border: 2px solid red; padding: 2px;");
     ui->obstacleIcon->setStyleSheet("");
     ui->obstacleIcon->setFixedSize(50, 50);
     ui->autoRobotIcon->setFixedSize(50, 50);
@@ -208,7 +207,7 @@ void MainWindow::on_obstacleIcon_clicked()
     ui->viewport->setCursor(Qt::CrossCursor);
     ui->autoRobotIcon->setStyleSheet("");
     ui->RCRobotIcon->setStyleSheet("");
-    ui->obstacleIcon->setStyleSheet("border: 2px solid red; padding: 2px; box-shadow: 3px 3px 2px red;");
+    ui->obstacleIcon->setStyleSheet("border: 2px solid red; padding: 2px;");
     ui->obstacleIcon->setFixedSize(75, 75);
     ui->autoRobotIcon->setFixedSize(50, 50);
     ui->RCRobotIcon->setFixedSize(50, 50);
@@ -250,4 +249,9 @@ void MainWindow::setDefaultEditingState()
     _obstacleIsChosen = false;
     _robotIsChosen = false;
     _RCRobotIsChosen = false;
+}
+
+Map* MainWindow::getMap()
+{
+    return _map;
 }

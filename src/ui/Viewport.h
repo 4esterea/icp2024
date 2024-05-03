@@ -8,7 +8,6 @@
 class Viewport : public QGraphicsView {
 public:
     Viewport(QWidget* parent = nullptr, Map* map = nullptr);
-    void setMap(Map* map);
     void drawAll();
     void mousePressEvent(QMouseEvent *event) override;
     void hideAllSettings();

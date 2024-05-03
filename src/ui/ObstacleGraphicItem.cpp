@@ -81,6 +81,7 @@ void ObstacleGraphicItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event)
         qDebug() << "Deleting the obstacle on the position : " << this->pos().x() << " : " << this->pos().y();
         dynamic_cast<Viewport*>(viewport)->scene->removeItem(this);
         auto reference = this->obstacle;
+        mainWindow->getMap()->RemoveGameObject(reference);
         delete reference;
     }
 }

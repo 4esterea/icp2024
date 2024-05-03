@@ -65,6 +65,7 @@ string Map::SaveJSON() {
     json.insert("height", this->_height);
 
     for (uint64_t i = 0; i < this->_gameObjects.size(); i++) {
+        qDebug() << "Saving object: " << this->_gameObjects[i];
         position.insert("x", this->_gameObjects[i]->GetPosition()->x);
         position.insert("y", this->_gameObjects[i]->GetPosition()->y);
         position.insert("angle", this->_gameObjects[i]->GetPosition()->angle);
@@ -94,6 +95,15 @@ string Map::SaveJSON() {
 
 void Map::AddGameObject(IGameObject * gameObject) {
     this->_gameObjects.push_back(gameObject);
+}
+
+void Map::RemoveGameObject(IGameObject * gameObject) {
+    for (uint64_t i = 0; i < this->_gameObjects.size(); i++) {
+        if (this->_gameObjects[i] == gameObject) {
+            this->_gameObjects.erase(this->_gameObjects.begin() + i);
+            return;
+        }
+    }
 }
 
 const std::vector<IGameObject *> &Map::getGameObjects() const {

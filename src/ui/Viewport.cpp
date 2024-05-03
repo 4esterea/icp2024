@@ -19,16 +19,13 @@ Viewport::Viewport(QWidget* parent, Map* map) : QGraphicsView(parent), _map(map)
 }
 
 
-void Viewport::setMap(Map *map)
-{
-    this->_map = map;
-}
-
 void Viewport::drawAll() {
     qDebug() << "Drawing...";
     this->scene->clear();
-    if (this->_map != nullptr) {
-        for (auto& gameObject : this->_map->getGameObjects()) {
+    MainWindow* mainWindow = qobject_cast<MainWindow*>(this->parentWidget()->parentWidget());
+    auto map = mainWindow->getMap();
+    if (map != nullptr) {
+        for (auto& gameObject : map->getGameObjects()) {
             auto obstacle = dynamic_cast<Obstacle*>(gameObject);
             if (obstacle) {
                 auto obstacleRect = new ObstacleGraphicItem(this, nullptr, obstacle);
@@ -50,7 +47,7 @@ void Viewport::mousePressEvent(QMouseEvent *event) {
             qDebug() << "Obstacle is being placed at " << pt.x() << " : " << pt.y();
             Obstacle* object = new Obstacle(pt.x(), pt.y(), 0, 50, 50);
             ObstacleGraphicItem* projection = new ObstacleGraphicItem(this, nullptr, object);
-            _map->AddGameObject(object);
+            mainWindow->getMap()->AddGameObject(object);
             this->scene->addItem(projection);
             this->update();
 
