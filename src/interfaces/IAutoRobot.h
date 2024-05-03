@@ -21,7 +21,7 @@ class IAutoRobot : public IRobot {
         virtual ~IAutoRobot() {};
 
     private:
-        pair<ICollider, ICollider> _collisionBox; // <Body collider, Sight collider>
+        pair<ICollider, ICollider> * _collisionBox; // <Right sigth collider, Left sight collider>
 };
 
 #endif

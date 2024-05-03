@@ -9,6 +9,7 @@ CONFIG += c++17
 DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0 #0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    src/common/AutoRobot.cpp \
     src/ui/ObstacleGraphicItem.cpp \
     src/ui/ObstacleWidget.cpp \
     src/ui/clickableLabel.cpp\
@@ -22,6 +23,19 @@ SOURCES += \
 
 
 HEADERS += \
+    src/headers/AutoRobot.h \
+    src/interfaces/IAutoRobot.h \
+    src/interfaces/ICircleCollider.h \
+    src/interfaces/ICollider.h \
+    src/interfaces/IControlledRobot.h \
+    src/interfaces/IGameObject.h \
+    src/interfaces/IMap.h \
+    src/interfaces/IObstacle.h \
+    src/interfaces/IPosition.h \
+    src/interfaces/IRectangleCollider.h \
+    src/interfaces/IRobot.h \
+    src/interfaces/ISquareCollider.h \
+    src/main.h \
     src/mainwindow.h\
     src/ui/ObstacleGraphicItem.h \
     src/ui/ObstacleWidget.h \
