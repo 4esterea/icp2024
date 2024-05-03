@@ -12,13 +12,23 @@
 #define MAX_MAP_GAMEOBJECTS 100
 
 /**
- * @brief Type of object 
+ * @brief Type of object
  */
 enum ObjectType {
-    eot_null = 0,
+    eot_gameobject = 0,
     eot_obstacle = 1,
     eot_auto_robot = 2,
     eot_controlled_robot = 3
+};
+
+/**
+ * @brief Type of collider
+ */
+enum ColliderType {
+    ect_collider = 0,
+    ect_circle_collider = 1,
+    ect_rectangle_collider = 2,
+    ect_square_collider = 3
 };
 
 /**
