@@ -10,7 +10,9 @@ DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0 #0x060000    # disables all the APIs d
 
 SOURCES += \
     src/common/AutoRobot.cpp \
+    src/common/CircleCollider.cpp \
     src/common/ControlledRobot.cpp \
+    src/common/SquareCollider.cpp \
     src/ui/ObstacleGraphicItem.cpp \
     src/ui/ObstacleWidget.cpp \
     src/ui/clickableLabel.cpp\
@@ -25,7 +27,9 @@ SOURCES += \
 
 HEADERS += \
     src/headers/AutoRobot.h \
+    src/headers/CircleCollider.h \
     src/headers/ControlledRobot.h \
+    src/headers/SquareCollider.h \
     src/interfaces/IAutoRobot.h \
     src/interfaces/ICircleCollider.h \
     src/interfaces/ICollider.h \
@@ -43,14 +47,6 @@ HEADERS += \
     src/ui/ObstacleWidget.h \
     src/ui/clickableLabel.h\
     src/ui/Viewport.h\
-    src/IAutoRobot.h\
-    src/ICircleCollider.h\
-    src/ICollider.h\
-    src/IControlledRobot.h\
-    src/IGameObject.h\
-    src/IPosition.h\
-    src/IRobot.h\
-    src/ISquareCollider.h\
     src/headers/Map.h\
     src/headers/RectangleCollider.h\
     src/headers/Position.h\
