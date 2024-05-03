@@ -10,17 +10,19 @@
 #define __ICOLLIDER_H__
 
 #include "IPosition.h"
+#include "../headers/types.h"
 
 using namespace std;
 
 class ICollider {
     public:
+        IPosition * GetPosition() { return this->_position; };
         virtual bool CheckCollision(ICollider * collider) = 0;
-        virtual IPosition * GetPosition() = 0;
         virtual ~ICollider() {};
 
     protected:
         IPosition * _position;
+        ColliderType _colliderType;
 };
 
 #endif
