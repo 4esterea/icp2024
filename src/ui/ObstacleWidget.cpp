@@ -1,17 +1,16 @@
 #include "ObstacleWidget.h"
 #include <QVBoxLayout>
 #include <QLabel>
-#include <QSlider>
 #include <QPushButton>
 #include <QLineEdit>
 #include <QIntValidator>
+#include <QComboBox>
 
 
-
-ObstacleWidget::ObstacleWidget(QWidget *parent, ObstacleGraphicItem* obstacle) : QWidget(parent) {
-    this->_obstacle = obstacle;
+ObstacleWidget::ObstacleWidget(QWidget *parent, ObstacleGraphicItem* obstacle) : QWidget(parent), _obstacle(obstacle) {
     this->setStyleSheet("background-color: white;");
     this->setFixedWidth(200);
+
     QLabel *obstacleLabel = new QLabel("Obstacle", this);
     obstacleLabel->setAlignment(Qt::AlignCenter);
     obstacleLabel->setStyleSheet("background-color: gray;");
@@ -76,7 +75,6 @@ ObstacleWidget::ObstacleWidget(QWidget *parent, ObstacleGraphicItem* obstacle) :
     connect(heightInput, &QLineEdit::textChanged, [this](const QString &value) {
         this->_obstacle->setHeight(value.toInt());
     });
-
 
 
     connect(okButton, &QPushButton::clicked, this, &ObstacleWidget::hide);

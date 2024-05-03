@@ -3,7 +3,6 @@
 
 #include <QWidget>
 #include <QLabel>
-#include <QSlider>
 #include "ObstacleGraphicItem.h"
 
 class ObstacleGraphicItem;
@@ -13,9 +12,9 @@ class ObstacleWidget : public QWidget {
 
 public:
     explicit ObstacleWidget(QWidget *parent, ObstacleGraphicItem* obstacle);
+
 private:
     ObstacleGraphicItem* _obstacle = nullptr;
 };
-
 
 #endif // OBSTACLEWIDGET_H

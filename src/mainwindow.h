@@ -23,6 +23,7 @@ public:
     bool isAutoRobotMode();
     bool isRCRobotMode();
     bool isEditingEnabled();
+    bool isDefault();
     void setDefaultEditingState();
     Map* getMap();
 

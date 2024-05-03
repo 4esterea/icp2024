@@ -236,6 +236,11 @@ bool MainWindow::isEditingEnabled()
     return _editingEnabled;
 }
 
+bool MainWindow::isDefault()
+{
+    return !_RCRobotIsChosen && !_robotIsChosen && !_obstacleIsChosen;
+}
+
 void MainWindow::setDefaultEditingState()
 {
     ui->autoRobotIcon->setStyleSheet("");

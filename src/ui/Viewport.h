@@ -4,6 +4,7 @@
 #include <QGraphicsView>
 #include <QPainter>
 #include "src/headers/Map.h"
+#include <QMessageBox>
 
 class Viewport : public QGraphicsView {
 public:
@@ -14,6 +15,7 @@ public:
 	QGraphicsScene* scene;
 private:
     Map* _map;
+    bool _isRCRobotPlaced = false;
 };
 
 #endif // VIEWPORT_H

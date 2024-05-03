@@ -4,6 +4,7 @@
 #include <QGraphicsRectItem>
 #include <QDebug>
 #include "src/ui/ObstacleGraphicItem.h"
+#include "src/ui/RobotGraphicItem.h"
 #include <QMouseEvent>
 #include "../mainwindow.h"
 
@@ -50,10 +51,37 @@ void Viewport::mousePressEvent(QMouseEvent *event) {
             mainWindow->getMap()->AddGameObject(object);
             this->scene->addItem(projection);
             this->update();
-
+            QGraphicsView::mousePressEvent(event);
+        } else if (mainWindow && mainWindow->isAutoRobotMode()) {
+            qDebug() << "AutoRobot is being placed at " << pt.x() << " : " << pt.y();
+            //AutoRobot* object = new AutoRobot(pt.x(), pt.y(), 0, 50, 50);
+            RobotGraphicItem* projection = new RobotGraphicItem(this, nullptr
+            //, object
+            , false);
+            projection->setPos(pt);
+            //mainWindow->getMap()->AddGameObject(object);
+            this->scene->addItem(projection);
+            this->update();
+            QGraphicsView::mousePressEvent(event);
+        } else if (mainWindow && mainWindow->isRCRobotMode() && !_isRCRobotPlaced) {
+            _isRCRobotPlaced = true;
+            qDebug() << "RCRobot is being placed at " << pt.x() << " : " << pt.y();
+            //AutoRobot* object = new RCRobot(pt.x(), pt.y(), 0, 50, 50);
+            RobotGraphicItem* projection = new RobotGraphicItem(this, nullptr
+            //, object
+            , true);
+            projection->setPos(pt);
+            //mainWindow->getMap()->AddGameObject(object);
+            this->scene->addItem(projection);
+            this->update();
+            QGraphicsView::mousePressEvent(event);
+        } else if (mainWindow && mainWindow->isRCRobotMode() && _isRCRobotPlaced) {
+           qDebug() << "You can't place more than one RCRobot";
+            QMessageBox::warning(this, "Warning", "You can't place more than one RCRobot");
+           return;
         }
-        QGraphicsView::mousePressEvent(event);
     } else if (event->button() == Qt::RightButton) {
+        hideAllSettings();
         MainWindow* mainWindow = qobject_cast<MainWindow*>(this->parentWidget()->parentWidget());
         if (mainWindow) {
             mainWindow->setDefaultEditingState();
@@ -62,12 +90,17 @@ void Viewport::mousePressEvent(QMouseEvent *event) {
 }
 
 void Viewport::hideAllSettings() {
-    qDebug() << "Hiding all settings:" << this->scene->items().count() << " items";
 
     for (auto& item : this->scene->items()) {
         auto obstacle = dynamic_cast<ObstacleGraphicItem*>(item);
         if (obstacle) {
             auto settings = obstacle->getSettings();
+            if (settings) settings->hide();
+        }
+
+        auto robot = dynamic_cast<RobotGraphicItem*>(item);
+        if (robot) {
+            auto settings = robot->getSettings();
             if (settings) settings->hide();
         }
     }
