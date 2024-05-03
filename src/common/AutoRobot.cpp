@@ -8,12 +8,14 @@
 
 #include "../headers/AutoRobot.h"
 
-AutoRobot::AutoRobot(double x, double y, double angle, double width, double height) {
-    this->_collider = new RectangleCollider(x, y, angle, width, height);
+AutoRobot::AutoRobot(double x, double y, double angle, double radius) {
+    this->_collider = new CircleCollider(x, y, angle, radius);
     this->_position = new Position(x, y, angle);
     this->_objectType = eot_auto_robot;
+    // TODO Add collision boxes
 }
 
 void AutoRobot::Update() {
     // TODO
 }
+

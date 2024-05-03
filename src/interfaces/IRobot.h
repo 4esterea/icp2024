@@ -16,7 +16,7 @@ class IRobot : public IGameObject {
         virtual void Update() = 0;
         virtual ~IRobot() {};
 
-    private:
+    protected:
         double _speed; // Constant through run
         double _rotationAngle; // Constant through run
 };

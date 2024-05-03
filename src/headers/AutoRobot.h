@@ -11,12 +11,13 @@
 
 #include "../interfaces/IAutoRobot.h"
 #include "../headers/RectangleCollider.h"
+#include "../headers/CircleCollider.h"
 #include "../headers/Position.h"
 #include "types.h"
 
 class AutoRobot: public IAutoRobot {
     public:
-        AutoRobot(double x, double y, double angle, double width, double height);
+        AutoRobot(double x, double y, double angle, double radius);
         void Update();
 };
 
