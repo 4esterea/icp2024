@@ -15,6 +15,8 @@ SOURCES += \
     src/common/SquareCollider.cpp \
     src/ui/ObstacleGraphicItem.cpp \
     src/ui/ObstacleWidget.cpp \
+    src/ui/RobotGraphicItem.cpp \
+    src/ui/RobotWidget.cpp \
     src/ui/clickableLabel.cpp\
     src/main.cpp \
     src/mainwindow.cpp\
@@ -45,6 +47,8 @@ HEADERS += \
     src/mainwindow.h\
     src/ui/ObstacleGraphicItem.h \
     src/ui/ObstacleWidget.h \
+    src/ui/RobotGraphicItem.h \
+    src/ui/RobotWidget.h \
     src/ui/clickableLabel.h\
     src/ui/Viewport.h\
     src/headers/Map.h\
@@ -55,6 +59,11 @@ HEADERS += \
 
 FORMS += \
     src/mainwindow.ui
+
+
+RESOURCES += \
+    src/resources.qrc
+
 
 OBJECTS_DIR=objs/
 MOC_DIR=moc/

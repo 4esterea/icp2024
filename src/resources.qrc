@@ -1,0 +1,8 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource>
+        <file>../media/robot.png</file>
+        <file>../media/obstacle.png</file>
+        <file>../media/RCrobot.png</file>
+    </qresource>
+</RCC>

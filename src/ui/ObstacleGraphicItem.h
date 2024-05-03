@@ -7,6 +7,12 @@
 #include "ObstacleWidget.h"
 #include "src/headers/Obstacle.h"
 #include "Viewport.h"
+#include <QGraphicsRectItem>
+#include <QPen>
+#include <QDebug>
+#include <QWidget>
+#include <QPointF>
+#include "../mainwindow.h"
 
 class ObstacleWidget;
 
@@ -20,9 +26,9 @@ public:
     ObstacleWidget* getSettings();
 private:
     QVariant itemChange(GraphicsItemChange change, const QVariant &value);
-    QWidget* viewport;
-    ObstacleWidget* settings = nullptr;
-    Obstacle* obstacle;
+    QWidget* _viewport;
+    ObstacleWidget* _settings = nullptr;
+    Obstacle* _obstacle;
 public slots:
     void setRotation(int angle);
     void setWidth(int width);

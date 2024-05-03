@@ -10,3 +10,4 @@ Application.pro.user
 ui_mainwindow.h
 Application
 xsnieh00-xlogin00.zip
+qrc_resources.cpp

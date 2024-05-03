@@ -1,25 +1,20 @@
 #include "ObstacleGraphicItem.h"
-#include "Viewport.h"
-#include <QGraphicsRectItem>
-#include <QPen>
-#include <QDebug>
-#include <QWidget>
-#include <QGraphicsSceneHoverEvent>
-#include <QPointF>
-#include "ObstacleWidget.h"
-#include "../mainwindow.h"
+
 
 class Obstacle;
 
 ObstacleGraphicItem::ObstacleGraphicItem(Viewport* viewport, QGraphicsItem* parent, Obstacle* obstacle)
-    : QGraphicsRectItem(parent), viewport(viewport), obstacle(obstacle) {
+    : QGraphicsRectItem(parent), _viewport(viewport), _obstacle(obstacle) {
     setAcceptHoverEvents(true);
+    setZValue(10);
     setPen(QPen({Qt::white, 2}));
-    setFlag(QGraphicsItem::ItemIsMovable, false);
+    setBrush(QBrush(Qt::black));
+    setFlag(QGraphicsItem::ItemIsMovable, true);
     setFlag(QGraphicsItem::ItemSendsScenePositionChanges, true);
     setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);
-    auto collider = obstacle->GetCollider();
-    this->setPos(obstacle->GetCollider()->GetPosition()->x, obstacle->GetCollider()->GetPosition()->y);
+    setFlag(QGraphicsItem::ItemIsFocusable, true);
+    auto collider = _obstacle->GetCollider();
+    this->setPos(_obstacle->GetCollider()->GetPosition()->x, _obstacle->GetCollider()->GetPosition()->y);
     this->setRect(0, 0, collider->GetWidth(), collider->GetHeight());
     this->setRotation(collider->GetPosition()->angle);
 
@@ -27,83 +22,83 @@ ObstacleGraphicItem::ObstacleGraphicItem(Viewport* viewport, QGraphicsItem* pare
 
 
 void ObstacleGraphicItem::hoverEnterEvent(QGraphicsSceneHoverEvent* event) {
-    MainWindow* mainWindow = dynamic_cast<MainWindow*>(viewport->parentWidget()->parentWidget());
-    if (mainWindow && mainWindow->isEditingEnabled()) {
+    MainWindow* mainWindow = dynamic_cast<MainWindow*>(_viewport->parentWidget()->parentWidget());
+    if (mainWindow && mainWindow->isEditingEnabled() && mainWindow->isDefault()) {
 		setFlag(QGraphicsItem::ItemIsMovable, true);
         setPen(QPen({Qt::red, 2}));
-        QGraphicsRectItem::hoverEnterEvent(event);
-    } else {
-        setFlag(QGraphicsItem::ItemIsMovable, false);
-		QGraphicsRectItem::hoverEnterEvent(event);
     }
+    QGraphicsRectItem::hoverEnterEvent(event);
 }
 
 void ObstacleGraphicItem::hoverLeaveEvent(QGraphicsSceneHoverEvent* event) {
-    MainWindow* mainWindow = dynamic_cast<MainWindow*>(viewport->parentWidget()->parentWidget());
-    if (mainWindow && mainWindow->isEditingEnabled()) {
-		setFlag(QGraphicsItem::ItemIsMovable, true);
-        setPen(QPen({Qt::white, 2}));
-        QGraphicsRectItem::hoverLeaveEvent(event);
-    } else {
+    MainWindow* mainWindow = dynamic_cast<MainWindow*>(_viewport->parentWidget()->parentWidget());
+    if (mainWindow && mainWindow->isEditingEnabled() && mainWindow->isDefault()) {
         setFlag(QGraphicsItem::ItemIsMovable, false);
-		QGraphicsRectItem::hoverEnterEvent(event);
+        setPen(QPen({Qt::white, 2}));
     }
+    QGraphicsRectItem::hoverLeaveEvent(event);
 }
 
 
 void ObstacleGraphicItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event) {
 
-	MainWindow* mainWindow = dynamic_cast<MainWindow*>(viewport->parentWidget()->parentWidget());
+	MainWindow* mainWindow = dynamic_cast<MainWindow*>(_viewport->parentWidget()->parentWidget());
     if (mainWindow && mainWindow->isEditingEnabled() && event->button() == Qt::LeftButton){
         QPointF position = this->pos();
         qreal x = position.x();
         qreal y = position.y();
+
+        QPointF clickPosition = event->scenePos();
+        qreal clickX = clickPosition.x();
+        qreal clickY = clickPosition.y();
         qDebug() << "Obstacle: The current position is: " << x << " : " << y;
-        if(settings == nullptr){
-            settings = new ObstacleWidget(viewport, this);
+        if(_settings == nullptr){
+            _settings = new ObstacleWidget(_viewport, this);
         }
 
-        int viewportWidth = viewport->width();
-        int viewportHeight = viewport->height();
+        int viewportWidth = _viewport->width();
+        int viewportHeight = _viewport->height();
 
-        bool isCloserToLeft = x < viewportWidth / 2;
-        bool isCloserToTop = y < viewportHeight / 2;
+        bool isCloserToLeft = clickX < viewportWidth / 2;
+        bool isCloserToTop = clickY < viewportHeight / 2;
 
-        qreal newX = isCloserToLeft ? x + settings->width()/2 : x - settings->width()/2;
-        qreal newY = isCloserToTop ? y + settings->height()/2 : y - settings->height();
+        int newX = isCloserToLeft ? clickX : clickX - _settings->width();
+        int newY = isCloserToTop ? clickY : clickY - _settings->height();
 
-        settings->move(newX, newY);
-        dynamic_cast<Viewport*>(viewport)->hideAllSettings();
-        settings->show();
+        _settings->move(newX, newY);
+        dynamic_cast<Viewport*>(_viewport)->hideAllSettings();
+        _settings->show();
 
-        QGraphicsRectItem::mousePressEvent(event);
 	} else if(mainWindow && mainWindow->isEditingEnabled()){
         qDebug() << "Deleting the obstacle on the position : " << this->pos().x() << " : " << this->pos().y();
-        dynamic_cast<Viewport*>(viewport)->scene->removeItem(this);
-        auto reference = this->obstacle;
+        dynamic_cast<Viewport*>(_viewport)->scene->removeItem(this);
+        auto reference = this->_obstacle;
+        mainWindow->getMap()->RemoveGameObject(reference);
         delete reference;
+        // delete this;
     }
+    QGraphicsRectItem::mousePressEvent(event);
 }
 
 ObstacleWidget *ObstacleGraphicItem::getSettings()
 {
-    return this->settings;
+    return _settings;
 }
 
 void ObstacleGraphicItem::setWidth(int width) {
     qreal centerX = this->boundingRect().width() / 2.0;
     qreal centerY = this->boundingRect().height() / 2.0;
     this->setTransformOriginPoint(centerX, centerY);
-    this->obstacle->GetCollider()->SetWidth(width);
-    this->setRect(0, 0, width, this->obstacle->GetCollider()->GetHeight());
+    this->_obstacle->GetCollider()->SetWidth(width);
+    this->setRect(0, 0, width, this->_obstacle->GetCollider()->GetHeight());
 }
 
 void ObstacleGraphicItem::setHeight(int height) {
     qreal centerX = this->boundingRect().width() / 2.0;
     qreal centerY = this->boundingRect().height() / 2.0;
     this->setTransformOriginPoint(centerX, centerY);
-    this->obstacle->GetCollider()->SetHeight(height);
-    this->setRect(0, 0, this->obstacle->GetCollider()->GetWidth(), height);
+    this->_obstacle->GetCollider()->SetHeight(height);
+    this->setRect(0, 0, this->_obstacle->GetCollider()->GetWidth(), height);
 }
 
 
@@ -112,22 +107,23 @@ void ObstacleGraphicItem::setRotation(int angle) {
     qreal centerY = this->boundingRect().height() / 2.0;
     this->setTransformOriginPoint(centerX, centerY);
     QGraphicsRectItem::setRotation(angle);
-    this->obstacle->GetCollider()->SetPosition(new Position(this->obstacle->GetPosition()->x, this->obstacle->GetPosition()->y, angle));
+    this->_obstacle->GetCollider()->SetPosition(new Position(this->_obstacle->GetPosition()->x, this->_obstacle->GetPosition()->y, angle));
 }
 
 QVariant ObstacleGraphicItem::itemChange(GraphicsItemChange change, const QVariant &value) {
     if (scene()) {
         if (change == ItemPositionHasChanged) {
+            dynamic_cast<Viewport*>(_viewport)->hideAllSettings();
             QPointF newPos = value.toPointF();
-            this->obstacle->GetCollider()->SetPosition(new Position(newPos.x(), newPos.y(), this->obstacle->GetPosition()->angle));
-            this->obstacle->UpdateCoords(newPos.x(), newPos.y());
+            this->_obstacle->GetCollider()->SetPosition(new Position(newPos.x(), newPos.y(), this->_obstacle->GetPosition()->angle));
+            this->_obstacle->UpdateCoords(newPos.x(), newPos.y());
         } else if (change == ItemRotationChange) {
             qreal newAngle = value.toReal();
-            this->obstacle->GetCollider()->SetPosition(new Position(this->obstacle->GetPosition()->x, this->obstacle->GetPosition()->y, newAngle));
+            this->_obstacle->GetCollider()->SetPosition(new Position(this->_obstacle->GetPosition()->x, this->_obstacle->GetPosition()->y, newAngle));
         } else if (change == ItemScaleChange) {
             qreal newSize = value.toReal();
-            this->obstacle->GetCollider()->SetWidth(newSize);
-            this->obstacle->GetCollider()->SetHeight(newSize);
+            this->_obstacle->GetCollider()->SetWidth(newSize);
+            this->_obstacle->GetCollider()->SetHeight(newSize);
         }
     }
     return QGraphicsItem::itemChange(change, value);

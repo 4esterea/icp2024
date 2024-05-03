@@ -23,7 +23,9 @@ public:
     bool isAutoRobotMode();
     bool isRCRobotMode();
     bool isEditingEnabled();
+    bool isDefault();
     void setDefaultEditingState();
+    Map* getMap();
 
 private slots:
     void on_pushButtonEdit_clicked(bool checked);

@@ -14,6 +14,7 @@
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QString>
+#include <QDebug>
 #include "../interfaces/IMap.h"
 #include "../interfaces/IRectangleCollider.h"
 #include "../interfaces/ICircleCollider.h"
@@ -25,6 +26,7 @@
 class Map: public IMap {
     public:
         void AddGameObject(IGameObject * gameObject);
+        void RemoveGameObject(IGameObject * gameObject);
         void Update();
         int LoadJSON(string json);
         string SaveJSON();
