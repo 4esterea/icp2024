@@ -18,10 +18,7 @@ class Obstacle: public IObstacle {
     public:
         Obstacle(double x, double y, double angle, double width, double height);
         IRectangleCollider * GetCollider();
-        IPosition * GetPosition();
         void Update();
-        ObjectType GetObjectType();
-        void UpdateCoords(int x, int y);
 
     protected:
         IRectangleCollider * _collider;
