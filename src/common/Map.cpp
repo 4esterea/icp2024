@@ -45,24 +45,33 @@ int Map::LoadJSON(string json) {
         double pos_y = gameObject["Position"].toObject()["y"].toDouble();
         double pos_angle = gameObject["Position"].toObject()["angle"].toDouble();
         switch(gameObject["objectType"].toInt()) {
-        case eot_gameobject: continue;
-        case eot_obstacle:
-            width = gameObject["RectangleCollider"].toObject()["width"].toDouble();
-            height = gameObject["RectangleCollider"].toObject()["height"].toDouble();
-            this->AddGameObject(new Obstacle(pos_x, pos_y, pos_angle, width, height));
-            break;
-        case eot_auto_robot:
-            radius = gameObject["CircleCollider"].toObject()["radius"].toDouble();
-            this->AddGameObject(new AutoRobot(pos_x, pos_y, pos_angle, radius));
-            // TODO add colliders
-            break;
-        case eot_controlled_robot:
-            radius = gameObject["CircleCollider"].toObject()["radius"].toDouble();
-            this->AddGameObject(new ControlledRobot(pos_x, pos_y, pos_angle, radius));
-            break;
+            case eot_gameobject: continue;
+            case eot_obstacle: {
+                width = gameObject["RectangleCollider"].toObject()["width"].toDouble();
+                height = gameObject["RectangleCollider"].toObject()["height"].toDouble();
+                this->AddGameObject(new Obstacle(pos_x, pos_y, pos_angle, width, height));
+                break;
+            }
+            case eot_auto_robot: {
+                IAutoRobot * ar = new AutoRobot(pos_x, pos_y, pos_angle, gameObject["CircleCollider"].toObject()["radius"].toDouble());
+                ar->SetSpeed(gameObject["Robot"].toObject()["speed"].toDouble());
+                ar->SetRotationAngle(gameObject["Robot"].toObject()["rotationAngle"].toDouble());
+                this->AddGameObject(ar);
+                // TODO add colliders
+                break;
+            }
+            case eot_controlled_robot: {
+                IControlledRobot * cr = new ControlledRobot(pos_x, pos_y, pos_angle, gameObject["CircleCollider"].toObject()["radius"].toDouble());
+                cr->SetSpeed(gameObject["Robot"].toObject()["speed"].toDouble());
+                cr->SetRotationAngle(gameObject["Robot"].toObject()["rotationAngle"].toDouble());
+                cr->SetSpeedDirection(MapIntToSpeedDirection(gameObject["ControlledRobot"].toObject()["speedDirection"].toInt()));
+                cr->SetRotationDirection(MapIntToRotationDirection(gameObject["ControlledRobot"].toObject()["rotationDirection"].toInt()));
+                radius = gameObject["CircleCollider"].toObject()["radius"].toDouble();
+                this->AddGameObject(cr);
+                break;
+            }
         }
     }
-
     return 0;
 }
 
@@ -72,9 +81,14 @@ string Map::SaveJSON() {
     QJsonObject position;
     QJsonObject rectangleCollider;
     QJsonObject circleCollider;
+    QJsonObject robot;
+    QJsonObject autoRobot;
+    QJsonObject controlledRobot;
     QJsonObject json;
     IRectangleCollider * rc;
     ICircleCollider * cc;
+    IAutoRobot * ar;
+    IControlledRobot * cr;
 
     json.insert("width", this->_width);
     json.insert("height", this->_height);
@@ -99,23 +113,34 @@ string Map::SaveJSON() {
             gameObject.insert("RectangleCollider", rectangleCollider);
             break;
         case eot_auto_robot:
-            cc = dynamic_cast<ICircleCollider *>(this->_gameObjects[i]->GetCollider());
+            ar = dynamic_cast<IAutoRobot *>(this->_gameObjects[i]);
+            cc = dynamic_cast<ICircleCollider *>(ar->GetCollider());
             circleCollider.insert("radius", cc->GetRadius());
             position.insert("x", cc->GetPosition()->x);
             position.insert("y", cc->GetPosition()->y);
             position.insert("angle", cc->GetPosition()->angle);
             circleCollider.insert("Position", position);
             gameObject.insert("CircleCollider", circleCollider);
+            robot.insert("speed", ar->GetSpeed());
+            robot.insert("rotationAngle", ar->GetRotationAngle());
+            gameObject.insert("Robot", robot);
             // TODO add colliders
             break;
         case eot_controlled_robot:
-            cc = dynamic_cast<ICircleCollider *>(this->_gameObjects[i]->GetCollider());
+            cr = dynamic_cast<IControlledRobot *>(this->_gameObjects[i]);
+            cc = dynamic_cast<ICircleCollider *>(cr->GetCollider());
             circleCollider.insert("radius", cc->GetRadius());
             position.insert("x", cc->GetPosition()->x);
             position.insert("y", cc->GetPosition()->y);
             position.insert("angle", cc->GetPosition()->angle);
             circleCollider.insert("Position", position);
             gameObject.insert("CircleCollider", circleCollider);
+            robot.insert("speed", cr->GetSpeed());
+            robot.insert("rotationAngle", cr->GetRotationAngle());
+            gameObject.insert("Robot", robot);
+            controlledRobot.insert("speedDirection", cr->GetSpeedDirection());
+            controlledRobot.insert("rotationDirection", cr->GetRotationDirection());
+            gameObject.insert("ControlledRobot", controlledRobot);
             break;
         }
         gameObjects.push_back(gameObject);
@@ -127,6 +152,8 @@ string Map::SaveJSON() {
 
 
 void Map::AddGameObject(IGameObject * gameObject) {
+    gameObject->SetId(this->_gameObjects.size());
+    gameObject->SetMap(this);
     this->_gameObjects.push_back(gameObject);
 }
 
@@ -140,5 +167,20 @@ void Map::RemoveGameObject(IGameObject * gameObject) {
 }
 
 const std::vector<IGameObject *> &Map::getGameObjects() const {
-    return _gameObjects;
+    return this->_gameObjects;
+}
+
+SpeedDirection MapIntToSpeedDirection(int i) {
+    switch (i) {
+        case 0: return esd_none;
+        case 1: return esd_forward;
+    }
+}
+
+RotationDirection MapIntToRotationDirection(int i) {
+    switch (i) {
+        case -1: return erd_right;
+        case 0: return erd_none;
+        case 1: return erd_left;
+    }
 }

@@ -34,4 +34,9 @@ class Map: public IMap {
         Map(double width, double height);
 };
 
+
+SpeedDirection MapIntToSpeedDirection(int i);
+
+RotationDirection MapIntToRotationDirection(int i);
+
 #endif
