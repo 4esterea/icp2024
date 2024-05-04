@@ -24,12 +24,13 @@ public:
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event);
     void Update();
     QWidget* getSettings();
+    IRobot* getGameObject();
 
 private:
     QVariant itemChange(GraphicsItemChange change, const QVariant &value);
     QWidget* _viewport;
     QWidget* _settings = nullptr;
-    IRobot * _robot;
+    IRobot* _robot;
     QGraphicsRectItem* _vision = nullptr;
     bool _isRemote = false;
     QGraphicsLineItem* _direction = nullptr;

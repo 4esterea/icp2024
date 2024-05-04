@@ -9,18 +9,18 @@
 #include "src/ui/RobotGraphicItem.h"
 #include <QMouseEvent>
 #include "../mainwindow.h"
+#include <QPainter>
 
 Viewport::Viewport(QWidget* parent, Map* map) : QGraphicsView(parent), _map(map) {
+
     this->resize(1000, 700);
     this->scene = new QGraphicsScene(this);
     this->scene->setSceneRect(0, 0, this->width(), this->height());
     this->scene->setBackgroundBrush(QBrush(Qt::black));
     this->setScene(this->scene);
-    this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-
+    this->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    this->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
 }
-
 
 void Viewport::drawAll() {
     qDebug() << "Drawing...";
@@ -28,6 +28,12 @@ void Viewport::drawAll() {
     MainWindow* mainWindow = qobject_cast<MainWindow*>(this->parentWidget()->parentWidget());
     auto map = mainWindow->getMap();
     if (map != nullptr) {
+        auto mapSize = map->getSize();
+        this->scene->setSceneRect(0, 0, mapSize.first, mapSize.second);
+        this->fitInView(this->scene->sceneRect(), Qt::KeepAspectRatio);
+        QGraphicsRectItem* bounds = new QGraphicsRectItem(this->scene->sceneRect());
+        bounds->setPen(QPen({Qt::white, 2}));
+        this->scene->addItem(bounds);
         for (auto& gameObject : map->getGameObjects()) {
             switch (gameObject->GetObjectType()) {
                 case eot_gameobject: continue;
@@ -36,7 +42,6 @@ void Viewport::drawAll() {
                     if (obstacle) {
                         auto obstacleRect = new ObstacleGraphicItem(this, nullptr, obstacle);
                         this->scene->addItem(obstacleRect);
-                        qDebug() << "The scene contains " << this->scene->items().count() << " obstacles";
                     }
                     break;
                 }
@@ -45,7 +50,6 @@ void Viewport::drawAll() {
                     if (autoRobot) {
                         auto autoRobotItem = new RobotGraphicItem(this, nullptr, autoRobot);
                         this->scene->addItem(autoRobotItem);
-                        qDebug() << "The scene contains " << this->scene->items().count() << " item(s)";
                     }
                     break;
                 }
@@ -54,7 +58,6 @@ void Viewport::drawAll() {
                     if (controlledRobot) {
                         auto controlledRobotItem = new RobotGraphicItem(this, nullptr, controlledRobot);
                         this->scene->addItem(controlledRobotItem);
-                        qDebug() << "The scene contains " << this->scene->items().count() << " item(s)";
                     }
                     break;
                 }
@@ -134,4 +137,14 @@ void Viewport::Update() {
         }
     }
     this->update();
+}
+
+
+void Viewport::wheelEvent(QWheelEvent *event) {
+    if (event->delta() > 0) {
+        scale(1.15, 1.15);
+    } else {
+        scale(0.85, 0.85);
+    }
+    QGraphicsView::wheelEvent(event);
 }

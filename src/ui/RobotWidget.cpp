@@ -7,13 +7,13 @@
 #include <QComboBox>
 
 
-RobotWidget::RobotWidget(QWidget *parent, RobotGraphicItem* autoRobot, bool isRemote) : QWidget(parent), _autoRobot(autoRobot) {
-    this->setStyleSheet("background-color: white;");
+RobotWidget::RobotWidget(QWidget *parent, RobotGraphicItem* robot, bool isRemote) : QWidget(parent), _robot(robot) {
+    this->setStyleSheet("background-color: white; color: black;");
     this->setFixedWidth(200);
 
     QLabel *robotLabel = new QLabel((isRemote ? "RC Robot" : "Auto Robot"), this);
     robotLabel->setAlignment(Qt::AlignCenter);
-    robotLabel->setStyleSheet("background-color: gray;");
+    robotLabel->setStyleSheet("background-color: gray; color: white;");
     robotLabel->setFixedHeight(25);
 
     QLabel *angleLabel = new QLabel("Angle", this);
@@ -21,9 +21,10 @@ RobotWidget::RobotWidget(QWidget *parent, RobotGraphicItem* autoRobot, bool isRe
     angleLabel->setFixedHeight(25);
 
     QLineEdit *angleInput = new QLineEdit(this);
+    angleInput->setStyleSheet("QLineEdit { background-color: white; } QLineEdit:hover { background-color: yellow; } QLineEdit:focus { background-color: white; }");
     angleInput->setAlignment(Qt::AlignCenter);
     angleInput->setValidator(new QIntValidator(0, 360, this));
-    //angleInput->setText(QString::number(_autoRobot->getRotation()));
+    angleInput->setText(QString::number(_robot->getGameObject()->GetPosition()->angle));
     angleInput->setFixedHeight(25);
 
     QLabel *angularSpeedLabel = new QLabel("Angular Speed", this);
@@ -33,7 +34,7 @@ RobotWidget::RobotWidget(QWidget *parent, RobotGraphicItem* autoRobot, bool isRe
     QLineEdit *angularSpeedInput = new QLineEdit(this);
     angularSpeedInput->setAlignment(Qt::AlignCenter);
     angularSpeedInput->setValidator(new QIntValidator(0, 360, this));
-    //angularSpeedInput->setText(QString::number(_autoRobot->getAngularSpeed()));
+    //angularSpeedInput->setText(QString::number(_robot->getAngularSpeed()));
     angularSpeedInput->setFixedHeight(25);
 
     QLabel *moveSpeedLabel = new QLabel("Move Speed", this);
@@ -43,7 +44,7 @@ RobotWidget::RobotWidget(QWidget *parent, RobotGraphicItem* autoRobot, bool isRe
     QLineEdit *moveSpeedInput = new QLineEdit(this);
     moveSpeedInput->setAlignment(Qt::AlignCenter);
     moveSpeedInput->setValidator(new QIntValidator(0, 1000, this));
-    //moveSpeedInput->setText(QString::number(_autoRobot->getMoveSpeed()));
+    //moveSpeedInput->setText(QString::number(_robot->getMoveSpeed()));
     moveSpeedInput->setFixedHeight(25);
 
     QLabel *collisionDistanceLabel = new QLabel("Collision Detection Distance", this);
@@ -53,7 +54,7 @@ RobotWidget::RobotWidget(QWidget *parent, RobotGraphicItem* autoRobot, bool isRe
     QLineEdit *collisionDistanceInput = new QLineEdit(this);
     collisionDistanceInput->setAlignment(Qt::AlignCenter);
     collisionDistanceInput->setValidator(new QIntValidator(0, 1000, this));
-    //collisionDistanceInput->setText(QString::number(_autoRobot->getCollisionDistance()));
+    //collisionDistanceInput->setText(QString::number(_robot->getCollisionDistance()));
     collisionDistanceInput->setFixedHeight(25);
 
 
@@ -80,7 +81,7 @@ RobotWidget::RobotWidget(QWidget *parent, RobotGraphicItem* autoRobot, bool isRe
         QComboBox *evadingBehaviourInput = new QComboBox(this);
         evadingBehaviourInput->addItem("Move Left");
         evadingBehaviourInput->addItem("Move Right");
-        //evadingBehaviourInput->setCurrentText(_autoRobot->getEvadingBehaviour());
+        //evadingBehaviourInput->setCurrentText(_robot->getEvadingBehaviour());
         evadingBehaviourInput->setFixedHeight(25);
 
         layout->addWidget(evadingBehaviourLabel);
@@ -96,7 +97,7 @@ RobotWidget::RobotWidget(QWidget *parent, RobotGraphicItem* autoRobot, bool isRe
     this->setLayout(layout);
 
     connect(angleInput, &QLineEdit::textChanged, [this](const QString &value) {
-        this->_autoRobot->setRotation(value.toInt());
+        _robot->setRotation(value.toInt());
     });
 
     connect(angularSpeedInput, &QLineEdit::textChanged, [this](const QString &value) {

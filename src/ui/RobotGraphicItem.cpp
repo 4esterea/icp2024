@@ -77,10 +77,10 @@ void RobotGraphicItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event) {
     } else if (mainWindow && mainWindow->isEditingEnabled() && event->button() == Qt::RightButton){
         qDebug() << "Deleting the robot on the position : " << this->pos().x() << " : " << this->pos().y();
         dynamic_cast<Viewport*>(_viewport)->scene->removeItem(this);
-        // auto reference = this->_robot;
-        // mainWindow->getMap()->RemoveGameObject(reference);
-        // delete reference;
-        // delete this;
+        auto reference = this->_robot;
+        mainWindow->getMap()->RemoveGameObject(reference);
+        delete reference;
+        delete this;
     }
     QGraphicsEllipseItem::mouseDoubleClickEvent(event);
 }
@@ -96,6 +96,8 @@ QVariant RobotGraphicItem::itemChange(GraphicsItemChange change, const QVariant 
             viewport->hideAllSettings();
         }
         QPointF newPos = value.toPointF();
+		_robot->GetPosition()->x = newPos.x();
+        _robot->GetPosition()->y = newPos.y();
     }
     return QGraphicsItem::itemChange(change, value);
 }
@@ -110,4 +112,8 @@ void RobotGraphicItem::Update() {
     auto position = dynamic_cast<Position *>(_robot->GetPosition());
 	setPos(position->x, position->y);
     setRotation(position->angle);
+}
+
+IRobot* RobotGraphicItem::getGameObject() {
+    return _robot;
 }

@@ -10,6 +10,7 @@
 #include "ui/Viewport.h"
 #include "ui_mainwindow.h"
 #include <QMessageBox>
+#include <QFont>
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -39,6 +40,8 @@ void MainWindow::loadLevel()
 
 void MainWindow::setUiDefaultState()
 {
+	QFont font("Ubuntu");
+    this->setFont(font);
     this->setWindowTitle("2d robot simulator");
     ui->viewport->setRenderHint(QPainter::Antialiasing);
     this->setFixedSize(this->size());

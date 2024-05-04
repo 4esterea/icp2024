@@ -14,6 +14,8 @@ public:
     void mousePressEvent(QMouseEvent *event) override;
     void hideAllSettings();
 	QGraphicsScene* scene;
+protected:
+    void wheelEvent(QWheelEvent *event) override;
 private:
     Map* _map;
     bool _isRCRobotPlaced = false;

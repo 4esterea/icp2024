@@ -128,3 +128,4 @@ QVariant ObstacleGraphicItem::itemChange(GraphicsItemChange change, const QVaria
     }
     return QGraphicsItem::itemChange(change, value);
 }
+

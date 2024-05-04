@@ -27,6 +27,7 @@ class Map: public IMap {
     public:
         void AddGameObject(IGameObject * gameObject);
         void RemoveGameObject(IGameObject * gameObject);
+        std::pair<int, int> getSize();
         void Update();
         int LoadJSON(string json);
         string SaveJSON();

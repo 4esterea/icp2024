@@ -10,10 +10,10 @@ class RobotWidget : public QWidget {
     Q_OBJECT
 
 public:
-    explicit RobotWidget(QWidget *parent, RobotGraphicItem* autoRobot, bool isRemote);
+    explicit RobotWidget(QWidget *parent, RobotGraphicItem* robot, bool isRemote);
 
 private:
-    RobotGraphicItem* _autoRobot = nullptr;
+    RobotGraphicItem* _robot = nullptr;
 };
 
 #endif // ROBOTWIDGET_H
