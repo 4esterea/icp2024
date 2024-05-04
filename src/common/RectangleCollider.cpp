@@ -15,7 +15,7 @@ RectangleCollider::RectangleCollider(double x, double y, double angle, double wi
     this->_height = height;
 }
 
-bool RectangleCollider::ICollider::CheckCollision(ICollider * collider) {
+bool RectangleCollider::CheckCollision(ICollider * collider) {
     return false; // TODO
 }
 

@@ -14,7 +14,7 @@ SquareCollider::SquareCollider(double x, double y, double angle, double sideLeng
     this->_sideLength = sideLength;
 }
 
-bool SquareCollider::ICollider::CheckCollision(ICollider * collider) {
+bool SquareCollider::CheckCollision(ICollider * collider) {
     return false; // TODO
 }
 
