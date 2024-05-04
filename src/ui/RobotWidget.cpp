@@ -34,7 +34,7 @@ RobotWidget::RobotWidget(QWidget *parent, RobotGraphicItem* robot, bool isRemote
     QLineEdit *angularSpeedInput = new QLineEdit(this);
     angularSpeedInput->setAlignment(Qt::AlignCenter);
     angularSpeedInput->setValidator(new QIntValidator(0, 360, this));
-    //angularSpeedInput->setText(QString::number(_robot->getAngularSpeed()));
+    angularSpeedInput->setText(QString::number(_robot->getGameObject()->GetRotationAngle()));
     angularSpeedInput->setFixedHeight(25);
 
     QLabel *moveSpeedLabel = new QLabel("Move Speed", this);
@@ -44,7 +44,7 @@ RobotWidget::RobotWidget(QWidget *parent, RobotGraphicItem* robot, bool isRemote
     QLineEdit *moveSpeedInput = new QLineEdit(this);
     moveSpeedInput->setAlignment(Qt::AlignCenter);
     moveSpeedInput->setValidator(new QIntValidator(0, 1000, this));
-    //moveSpeedInput->setText(QString::number(_robot->getMoveSpeed()));
+    moveSpeedInput->setText(QString::number(_robot->getGameObject()->GetSpeed()));
     moveSpeedInput->setFixedHeight(25);
 
     QLabel *collisionDistanceLabel = new QLabel("Collision Detection Distance", this);
@@ -101,11 +101,11 @@ RobotWidget::RobotWidget(QWidget *parent, RobotGraphicItem* robot, bool isRemote
     });
 
     connect(angularSpeedInput, &QLineEdit::textChanged, [this](const QString &value) {
-        // TODO
+        _robot->getGameObject()->SetRotationAngle(value.toInt());
     });
 
     connect(moveSpeedInput, &QLineEdit::textChanged, [this](const QString &value) {
-        // TODO
+        _robot->getGameObject()->SetSpeed(value.toInt());
     });
 
     connect(collisionDistanceInput, &QLineEdit::textChanged, [this](const QString &value) {

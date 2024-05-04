@@ -8,7 +8,7 @@ ObstacleGraphicItem::ObstacleGraphicItem(Viewport* viewport, QGraphicsItem* pare
     setAcceptHoverEvents(true);
     setZValue(10);
     setPen(QPen({Qt::white, 2}));
-    setBrush(QBrush(Qt::black));
+    setBrush(QColor(255, 255, 255, 32));
     setFlag(QGraphicsItem::ItemIsMovable, true);
     setFlag(QGraphicsItem::ItemSendsScenePositionChanges, true);
     setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);
@@ -48,9 +48,14 @@ void ObstacleGraphicItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event)
         qreal x = position.x();
         qreal y = position.y();
 
-        QPointF clickPosition = event->scenePos();
-        qreal clickX = clickPosition.x();
-        qreal clickY = clickPosition.y();
+        QPointF sceneClickPosition = event->scenePos();
+        QGraphicsView* graphicsView = qobject_cast<QGraphicsView*>(_viewport);
+        QPoint viewportClickPosition;
+        if (graphicsView) {
+            viewportClickPosition = graphicsView->mapFromScene(sceneClickPosition);
+        }
+        qreal clickX = viewportClickPosition.x();
+        qreal clickY = viewportClickPosition.y();
         qDebug() << "Obstacle: The current position is: " << x << " : " << y;
         if(_settings == nullptr){
             _settings = new ObstacleWidget(_viewport, this);
@@ -75,7 +80,6 @@ void ObstacleGraphicItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event)
         auto reference = this->_obstacle;
         mainWindow->getMap()->RemoveGameObject(reference);
         delete reference;
-        // delete this;
     }
     QGraphicsRectItem::mousePressEvent(event);
 }
