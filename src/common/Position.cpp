@@ -14,18 +14,18 @@ Position::Position(double x, double y, double angle) {
     this->angle = angle;
 }
 
-void Position::IPosition::SetPosition(double x, double y, double angle) {
+void Position::SetPosition(double x, double y, double angle) {
     this->x = x;
     this->y = y;
     this->angle = angle;
 }
 
-void Position::IPosition::SetPosition(double x, double y) {
+void Position::SetPosition(double x, double y) {
     this->x = x;
     this->y = y;
 }
 
-void Position::IPosition::SetPosition(IPosition * position) {
+void Position::SetPosition(IPosition * position) {
     this->x = position->x;
     this->y = position->y;
     this->angle = position->angle;

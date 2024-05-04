@@ -17,12 +17,6 @@ class Position: public IPosition {
         void SetPosition(IPosition * position);
         void SetPosition(double x, double y, double angle);
         void SetPosition(double x, double y);
-        double GetX();
-        void SetX(double x);
-        double GetY();
-        void SetY(double y);
-        double GetAngle();
-        void SetAngle(double angle);
 };
 
 #endif
