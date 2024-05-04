@@ -17,11 +17,7 @@
 class Obstacle: public IObstacle {
     public:
         Obstacle(double x, double y, double angle, double width, double height);
-        IRectangleCollider * GetCollider();
         void Update();
-
-    protected:
-        IRectangleCollider * _collider;
 };
 
 #endif
