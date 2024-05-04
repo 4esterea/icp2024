@@ -25,15 +25,24 @@ Viewport::Viewport(QWidget* parent, Map* map) : QGraphicsView(parent), _map(map)
 void Viewport::drawAll() {
     qDebug() << "Drawing...";
     this->scene->clear();
+    _isRCRobotPlaced = false;
     MainWindow* mainWindow = qobject_cast<MainWindow*>(this->parentWidget()->parentWidget());
     auto map = mainWindow->getMap();
     if (map != nullptr) {
         auto mapSize = map->getSize();
         this->scene->setSceneRect(0, 0, mapSize.first, mapSize.second);
         this->fitInView(this->scene->sceneRect(), Qt::KeepAspectRatio);
-        QGraphicsRectItem* bounds = new QGraphicsRectItem(this->scene->sceneRect());
-        bounds->setPen(QPen({Qt::white, 2}));
-        this->scene->addItem(bounds);
+
+        Obstacle* leftBoundary = new Obstacle(0, 0, 0, 1, mapSize.second);
+        Obstacle* rightBoundary = new Obstacle(mapSize.first, 0, 0, 1, mapSize.second);
+        Obstacle* topBoundary = new Obstacle(0, 0, 0, mapSize.first, 1);
+        Obstacle* bottomBoundary = new Obstacle(0, mapSize.second, 0, mapSize.first, 1);
+
+        map->AddGameObject(leftBoundary);
+        map->AddGameObject(rightBoundary);
+        map->AddGameObject(topBoundary);
+        map->AddGameObject(bottomBoundary);
+
         for (auto& gameObject : map->getGameObjects()) {
             switch (gameObject->GetObjectType()) {
                 case eot_gameobject: continue;
@@ -58,6 +67,7 @@ void Viewport::drawAll() {
                     if (controlledRobot) {
                         auto controlledRobotItem = new RobotGraphicItem(this, nullptr, controlledRobot);
                         this->scene->addItem(controlledRobotItem);
+                        _isRCRobotPlaced = true;
                     }
                     break;
                 }
@@ -69,6 +79,26 @@ void Viewport::drawAll() {
 void Viewport::mousePressEvent(QMouseEvent *event) {
     if (event->button() == Qt::LeftButton) {
         QPointF pt = mapToScene(event->pos());
+        QRectF adjustedSceneRect = scene->sceneRect().adjusted(0, 0, -50, -50);
+        if (!adjustedSceneRect.contains(pt)) {
+            qDebug() << "Out of bounds";
+            return;
+        }
+        QRectF rect(pt.x() - 25, pt.y() - 25, 50, 50);
+        QList<QGraphicsItem*> itemsInRange = scene->items(rect);
+
+        for (int i = 0; i < itemsInRange.size(); ++i) {
+            QGraphicsItem* item = itemsInRange[i];
+            if (dynamic_cast<QGraphicsRectItem*>(item) && !dynamic_cast<ObstacleGraphicItem*>(item)) {
+                itemsInRange.removeAt(i);
+                --i;
+            }
+        }
+
+        if (!itemsInRange.isEmpty()) {
+            return;
+        }
+
         MainWindow* mainWindow = qobject_cast<MainWindow*>(this->parentWidget()->parentWidget());
 
         if (mainWindow && mainWindow->isObstacleMode()) {
@@ -81,9 +111,9 @@ void Viewport::mousePressEvent(QMouseEvent *event) {
             QGraphicsView::mousePressEvent(event);
         } else if (mainWindow && mainWindow->isAutoRobotMode()) {
             qDebug() << "AutoRobot is being placed at " << pt.x() << " : " << pt.y();
-            AutoRobot* object = new AutoRobot(pt.x(), pt.y(), 0, 50);
+            AutoRobot* object = new AutoRobot(pt.x()-25, pt.y()-25, 0, 50);
             RobotGraphicItem* projection = new RobotGraphicItem(this, nullptr, object);
-            projection->setPos(pt);
+            projection->setPos(pt.x()-25, pt.y()-25);
             mainWindow->getMap()->AddGameObject(object);
             this->scene->addItem(projection);
             this->update();
@@ -91,9 +121,9 @@ void Viewport::mousePressEvent(QMouseEvent *event) {
         } else if (mainWindow && mainWindow->isRCRobotMode() && !_isRCRobotPlaced) {
             _isRCRobotPlaced = true;
             qDebug() << "RCRobot is being placed at " << pt.x() << " : " << pt.y();
-            ControlledRobot* object = new ControlledRobot(pt.x(), pt.y(), 0, 50);
+            ControlledRobot* object = new ControlledRobot(pt.x()-25, pt.y()-25, 0, 50);
             RobotGraphicItem* projection = new RobotGraphicItem(this, nullptr, object);
-            projection->setPos(pt);
+            projection->setPos(pt.x()-25, pt.y()-25);
             mainWindow->getMap()->AddGameObject(object);
             this->scene->addItem(projection);
             this->update();
