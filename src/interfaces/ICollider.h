@@ -17,6 +17,7 @@ using namespace std;
 class ICollider {
     public:
         IPosition * GetPosition() { return this->_position; };
+        ColliderType GetColliderType() { return this->_colliderType; };
         virtual bool CheckCollision(ICollider * collider) = 0;
         virtual ~ICollider() {};
 

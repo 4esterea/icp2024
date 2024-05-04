@@ -9,6 +9,7 @@
 #ifndef __CIRCLECOLLIDER_H__
 #define __CIRCLECOLLIDER_H__
 
+#include <cmath>
 #include "../interfaces/ICircleCollider.h"
 #include "Position.h"
 

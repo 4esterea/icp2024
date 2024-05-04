@@ -14,8 +14,6 @@ AutoRobot::AutoRobot(double x, double y, double angle, double radius) {
     this->_collider = new CircleCollider(x, y, angle, radius);
     this->_position = new Position(x, y, angle);
     this->_objectType = eot_auto_robot;
-    this->_speed = 6;
-    this->_rotationAngle = 3;
     // TODO Add collision boxes
 }
 
@@ -42,10 +40,8 @@ void AutoRobot::Update() {
 
     // Object movement
     this->GetPosition()->angle = std::fmod((this->GetPosition()->angle + this->_rotationAngle), 360);
-    qDebug() << "double: " << this->GetPosition()->x + this->GetSpeed() * cos(this->GetPosition()->angle * PI / 180);
-    qDebug() << "double: " << trunc( this->GetPosition()->x + this->GetSpeed() * cos(this->GetPosition()->angle * PI / 180) );
-    this->GetPosition()->x = trunc( this->GetPosition()->x + this->GetSpeed() * cos(this->GetPosition()->angle * PI / 180) );
-    this->GetPosition()->y = trunc( this->GetPosition()->y + this->GetSpeed() * sin(this->GetPosition()->angle * PI / 180) );
+    this->GetPosition()->x = this->GetPosition()->x + this->GetSpeed() * cos(this->GetPosition()->angle * PI / 180);
+    this->GetPosition()->y = this->GetPosition()->y + this->GetSpeed() * sin(this->GetPosition()->angle * PI / 180);
     // Collision checks
     for (int64_t i = 0; i < this->_map->getGameObjects().size(); i++) {
         IGameObject * go = this->_map->getGameObjects()[i];
@@ -55,7 +51,7 @@ void AutoRobot::Update() {
         }
         if (go->GetCollider()->CheckCollision(this->GetCollider())) {
             // Collision detected -> move object back
-            this->GetPosition()->SetPosition(pos.x, pos.y, pos.angle);
+            this->GetPosition()->SetPosition(pos.x, pos.y);
             break;
         }
     }
