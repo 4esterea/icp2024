@@ -3,7 +3,7 @@
  * @author Sniehovskyi Nikita (xsnieh00)
  * @author TODO
  * @date 08.04.2024
- * @brief Definition of Game Object interface
+ * @brief Definition of Game Object doubleerface
  */
 
 #ifndef __IGAMEOBJECT_H__
@@ -23,8 +23,8 @@ public:
     IPosition * GetPosition() { return this->_position; };
     ObjectType GetObjectType() { return this->_objectType; };
     void SetMap(IMap * map) { this->_map = map; }
-    int GetId() { return this->_id; }
-    void SetId(int id) { this->_id = id; }
+    double GetId() { return this->_id; }
+    void SetId(double id) { this->_id = id; }
     virtual void Update() = 0;
     virtual ~IGameObject() {};
 
@@ -33,7 +33,7 @@ protected:
     ICollider * _collider;
     ObjectType _objectType;
     IMap * _map; // Map to which GameObject belongs
-    int _id; // Id of object whithin the map
+    double _id; // Id of object whithin the map
 };
 
 #endif

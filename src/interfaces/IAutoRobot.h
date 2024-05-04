@@ -3,7 +3,7 @@
  * @author Sniehovskyi Nikita (xsnieh00)
  * @author TODO
  * @date 08.04.2024
- * @brief Definition of Auto Robot interface
+ * @brief Definition of Auto Robot doubleerface
  */
 
 #ifndef __IAUTOROBOT_H__

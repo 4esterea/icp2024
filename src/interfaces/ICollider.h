@@ -3,7 +3,7 @@
  * @author Sniehovskyi Nikita (xsnieh00)
  * @author TODO
  * @date 08.04.2024
- * @brief Definition of Collider interface
+ * @brief Definition of Collider doubleerface
  */
 
 #ifndef __ICOLLIDER_H__

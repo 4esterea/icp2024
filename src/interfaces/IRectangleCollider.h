@@ -3,7 +3,7 @@
  * @author Sniehovskyi Nikita (xsnieh00)
  * @author TODO
  * @date 08.04.2024
- * @brief Definition of Rectangle Collider interface
+ * @brief Definition of Rectangle Collider doubleerface
  */
 
 #ifndef __IRECTANGLECOLLIDER_H__
@@ -13,15 +13,15 @@
 
 class IRectangleCollider : public ICollider {
     public:
-        virtual int GetWidth() = 0;
-        virtual void SetWidth(int width) = 0;
-        virtual int GetHeight() = 0;
-        virtual void SetHeight(int height) = 0;
+        virtual double GetWidth() = 0;
+        virtual void SetWidth(double width) = 0;
+        virtual double GetHeight() = 0;
+        virtual void SetHeight(double height) = 0;
         virtual ~IRectangleCollider() {};
 
     protected:
-        int _width;
-        int _height;
+        double _width;
+        double _height;
 };
 
 #endif

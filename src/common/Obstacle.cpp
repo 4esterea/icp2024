@@ -8,7 +8,7 @@
 
 #include "../headers/Obstacle.h"
 
-Obstacle::Obstacle(int x, int y, int angle, int width, int height) {
+Obstacle::Obstacle(double x, double y, double angle, double width, double height) {
     this->_collider = new RectangleCollider(x, y, angle, width, height);
     this->_position = new Position(x, y, angle);
     this->_objectType = eot_obstacle;

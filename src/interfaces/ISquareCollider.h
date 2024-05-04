@@ -3,7 +3,7 @@
  * @author Sniehovskyi Nikita (xsnieh00)
  * @author TODO
  * @date 08.04.2024
- * @brief Definition of Square Collider interface
+ * @brief Definition of Square Collider doubleerface
  */
 
 #ifndef __SQUAREICOLLIDER_H__
@@ -17,7 +17,7 @@ class ISquareCollider : public ICollider {
         virtual ~ISquareCollider() {};
 
     protected:
-        int _sideLength;
+        double _sideLength;
 };
 
 #endif

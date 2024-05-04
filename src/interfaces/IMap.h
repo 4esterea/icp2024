@@ -3,7 +3,7 @@
  * @author Sniehovskyi Nikita (xsnieh00)
  * @author TODO
  * @date 08.04.2024
- * @brief Definition of Map interface
+ * @brief Definition of Map doubleerface
  */
 
 #ifndef __IMAP_H__
@@ -19,14 +19,14 @@ class IMap {
     public:
         virtual void AddGameObject(IGameObject * gameObject) = 0;
         virtual void Update() = 0;
-        virtual int LoadJSON(string json) = 0;
+        virtual double LoadJSON(string json) = 0;
         virtual string SaveJSON() = 0;
         virtual const std::vector<IGameObject*>& getGameObjects() const = 0;
         virtual ~IMap() {};
 
     protected:
-        int _width;
-        int _height;
+        double _width;
+        double _height;
         std::vector<IGameObject *> _gameObjects;
 };
 

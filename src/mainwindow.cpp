@@ -112,7 +112,7 @@ void MainWindow::on_pushButtonLaunch_clicked(bool checked)
         ui->pushButtonLoad->setEnabled(0);
         ui->pushButtonSave->setEnabled(0);
         ui->pushButtonPause->show();
-        this->_timer->start(50);
+        this->_timer->start(FRAME_TIMEGAP_MS);
     } else {
         qDebug() << "Simulation has been stopped";
         this->setWindowTitle("2d robot simulator");
@@ -137,7 +137,7 @@ void MainWindow::on_pushButtonPause_clicked(bool checked){
         qDebug() << "Simulation is running";
         this->setWindowTitle("2d robot simulator [RUNNING]");
         ui->pushButtonPause->setText("PAUSE");
-        this->_timer->start(50);
+        this->_timer->start(FRAME_TIMEGAP_MS);
     }
 }
 

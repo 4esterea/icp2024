@@ -14,9 +14,9 @@
 
 class CircleCollider : public ICircleCollider {
     public:
-        CircleCollider(int x, int y, int angle, int radius);
-        int GetRadius();
-        void SetRadius(int radius);
+        CircleCollider(double x, double y, double angle, double radius);
+        double GetRadius();
+        void SetRadius(double radius);
         bool CheckCollision(ICollider * collider);
 };
 

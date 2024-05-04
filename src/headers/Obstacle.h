@@ -16,7 +16,7 @@
 
 class Obstacle: public IObstacle {
     public:
-        Obstacle(int x, int y, int angle, int width, int height);
+        Obstacle(double x, double y, double angle, double width, double height);
         void Update();
 };
 

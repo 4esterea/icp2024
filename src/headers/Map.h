@@ -29,7 +29,7 @@ class Map: public IMap {
         void RemoveGameObject(IGameObject * gameObject);
         std::pair<int, int> getSize();
         void Update();
-        int LoadJSON(string json);
+        double LoadJSON(string json);
         string SaveJSON();
         const std::vector<IGameObject*>& getGameObjects() const override;
         Map(int width, int height);

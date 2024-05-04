@@ -16,11 +16,11 @@
 
 class ControlledRobot: public IControlledRobot {
     public:
-        ControlledRobot(int x, int y, int angle, int radius);
-        int GetSpeed();
-        void SetSpeed(int speed);
-        int GetRotationAngle();
-        void SetRotationAngle(int rotationAngle);
+        ControlledRobot(double x, double y, double angle, double radius);
+        double GetSpeed();
+        void SetSpeed(double speed);
+        double GetRotationAngle();
+        void SetRotationAngle(double rotationAngle);
         SpeedDirection GetSpeedDirection();
         void SetSpeedDirection(SpeedDirection speedDirection);
         RotationDirection GetRotationDirection();

@@ -11,6 +11,7 @@
 
 #define PI 3.14159265
 #define MAX_MAP_GAMEOBJECTS 100
+#define FRAME_TIMEGAP_MS 30
 
 /**
  * @brief Type of object

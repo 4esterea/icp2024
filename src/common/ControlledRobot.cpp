@@ -8,7 +8,7 @@
 
 #include "../headers/ControlledRobot.h"
 
-ControlledRobot::ControlledRobot(int x, int y, int angle, int radius) {
+ControlledRobot::ControlledRobot(double x, double y, double angle, double radius) {
     this->_collider = new CircleCollider(x, y, angle, radius);
     this->_position = new Position(x, y, angle);
     this->_objectType = eot_controlled_robot;
@@ -16,19 +16,19 @@ ControlledRobot::ControlledRobot(int x, int y, int angle, int radius) {
     this->_rotationDirection = erd_none;
 }
 
-int ControlledRobot::GetSpeed() {
+double ControlledRobot::GetSpeed() {
     return this->_speed;
 }
 
-void ControlledRobot::SetSpeed(int speed) {
+void ControlledRobot::SetSpeed(double speed) {
     this->_speed = speed;
 }
 
-int ControlledRobot::GetRotationAngle() {
+double ControlledRobot::GetRotationAngle() {
     return this->_rotationAngle;
 }
 
-void ControlledRobot::SetRotationAngle(int rotationAngle) {
+void ControlledRobot::SetRotationAngle(double rotationAngle) {
     this->_rotationAngle = rotationAngle;
 }
 
