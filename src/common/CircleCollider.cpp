@@ -14,11 +14,13 @@ CircleCollider::CircleCollider(double x, double y, double angle, double radius) 
     this->_radius = radius;
 }
 
+#include <QDebug>
 bool CircleCollider::CheckCollision(ICollider * collider) {
     switch (collider->GetColliderType()) {
         case ect_collider: return false;
         case ect_circle_collider: {
             CircleCollider * cr = dynamic_cast<CircleCollider *>(collider);
+            qDebug() << "Collision! tx: " << this->GetPosition()->x << " ty: " << this->GetPosition()->y << " cx: " << cr->GetPosition()->x << " cy: " << cr->GetPosition()->y;
             return sqrt(pow(abs(this->GetPosition()->x - cr->GetPosition()->x), 2) + pow(abs(this->GetPosition()->y - cr->GetPosition()->y), 2)) < (this->GetRadius() + cr->GetRadius());
         }
         case ect_rectangle_collider: return false; // TODO

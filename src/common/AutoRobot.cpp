@@ -49,11 +49,14 @@ void AutoRobot::Update() {
             // Skip if the same object
             continue;
         }
+        qDebug() << "R" << this->GetId() << ": Check.";
         if (go->GetCollider()->CheckCollision(this->GetCollider())) {
             // Collision detected -> move object back
             this->GetPosition()->SetPosition(pos.x, pos.y);
             break;
         }
     }
+    // Move colliders respectively
+    this->GetCollider()->GetPosition()->SetPosition(this->GetPosition()->x, this->GetPosition()->y, this->GetPosition()->angle);
 }
 
