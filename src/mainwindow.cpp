@@ -132,10 +132,12 @@ void MainWindow::on_pushButtonPause_clicked(bool checked){
         qDebug() << "Simulation has been paused";
         this->setWindowTitle("2d robot simulator [PAUSED]");
         ui->pushButtonPause->setText("PLAY");
+        this->_timer->stop();
     } else {
         qDebug() << "Simulation is running";
         this->setWindowTitle("2d robot simulator [RUNNING]");
         ui->pushButtonPause->setText("PAUSE");
+        this->_timer->start(50);
     }
 }
 
