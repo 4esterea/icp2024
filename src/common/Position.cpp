@@ -8,19 +8,19 @@
 
 #include "../headers/Position.h"
 
-Position::Position(double x, double y, double angle) {
+Position::Position(int x, int y, int angle) {
     this->x = x;
     this->y = y;
     this->angle = angle;
 }
 
-void Position::SetPosition(double x, double y, double angle) {
+void Position::SetPosition(int x, int y, int angle) {
     this->x = x;
     this->y = y;
     this->angle = angle;
 }
 
-void Position::SetPosition(double x, double y) {
+void Position::SetPosition(int x, int y) {
     this->x = x;
     this->y = y;
 }

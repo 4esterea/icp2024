@@ -16,12 +16,12 @@ using namespace std;
 class ICircleCollider : public ICollider {
     public:
         virtual bool CheckCollision(ICollider * collider) = 0;
-        virtual double GetRadius() = 0;
-        virtual void SetRadius(double radius) = 0;
+        virtual int GetRadius() = 0;
+        virtual void SetRadius(int radius) = 0;
         virtual ~ICircleCollider() {};
 
     protected:
-        double _radius;
+        int _radius;
 };
 
 #endif

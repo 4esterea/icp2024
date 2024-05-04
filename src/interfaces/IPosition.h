@@ -11,13 +11,13 @@
 
 class IPosition {
     public:
-        double x;
-        double y;
-        double angle;
+        int x;
+        int y;
+        int angle;
 
         virtual void SetPosition(IPosition * position) = 0;
-        virtual void SetPosition(double x, double y, double angle) = 0;
-        virtual void SetPosition(double x, double y) = 0;
+        virtual void SetPosition(int x, int y, int angle) = 0;
+        virtual void SetPosition(int x, int y) = 0;
         virtual ~IPosition() {};
 };
 

@@ -14,11 +14,11 @@
 
 class RectangleCollider : public IRectangleCollider {
     public:
-        RectangleCollider(double x, double y, double angle, double width, double height);
-        double GetWidth();
-        void SetWidth(double width);
-        double GetHeight();
-        void SetHeight(double height);
+        RectangleCollider(int x, int y, int angle, int width, int height);
+        int GetWidth();
+        void SetWidth(int width);
+        int GetHeight();
+        void SetHeight(int height);
         bool CheckCollision(ICollider * collider);
 };
 

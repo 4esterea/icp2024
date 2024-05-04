@@ -25,8 +25,8 @@ class IMap {
         virtual ~IMap() {};
 
     protected:
-        double _width;
-        double _height;
+        int _width;
+        int _height;
         std::vector<IGameObject *> _gameObjects;
 };
 

@@ -18,11 +18,11 @@
 
 class AutoRobot: public IAutoRobot {
     public:
-        AutoRobot(double x, double y, double angle, double radius);
-        double GetSpeed();
-        void SetSpeed(double speed);
-        double GetRotationAngle();
-        void SetRotationAngle(double rotationAngle);
+        AutoRobot(int x, int y, int angle, int radius);
+        int GetSpeed();
+        void SetSpeed(int speed);
+        int GetRotationAngle();
+        void SetRotationAngle(int rotationAngle);
         void Update();
 };
 

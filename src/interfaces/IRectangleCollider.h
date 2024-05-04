@@ -13,15 +13,15 @@
 
 class IRectangleCollider : public ICollider {
     public:
-        virtual double GetWidth() = 0;
-        virtual void SetWidth(double width) = 0;
-        virtual double GetHeight() = 0;
-        virtual void SetHeight(double height) = 0;
+        virtual int GetWidth() = 0;
+        virtual void SetWidth(int width) = 0;
+        virtual int GetHeight() = 0;
+        virtual void SetHeight(int height) = 0;
         virtual ~IRectangleCollider() {};
 
     protected:
-        double _width;
-        double _height;
+        int _width;
+        int _height;
 };
 
 #endif

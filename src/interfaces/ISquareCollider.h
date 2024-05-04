@@ -17,7 +17,7 @@ class ISquareCollider : public ICollider {
         virtual ~ISquareCollider() {};
 
     protected:
-        double _sideLength;
+        int _sideLength;
 };
 
 #endif

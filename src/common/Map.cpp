@@ -8,7 +8,7 @@
 
 #include "../headers/Map.h"
 
-Map::Map(double width, double height) {
+Map::Map(int width, int height) {
     this->_width = width;
     this->_height = height;
 }
@@ -26,9 +26,9 @@ int Map::LoadJSON(string json) {
     QJsonObject gameObject;
     QJsonArray gameObjects;
     QString str = QString::fromStdString(json);
-    double width;
-    double height;
-    double radius;
+    int width;
+    int height;
+    int radius;
 
     _gameObjects.clear();
     doc = QJsonDocument::fromJson(str.toUtf8());
@@ -36,37 +36,37 @@ int Map::LoadJSON(string json) {
         return err.error;
     }
     root = doc.object();
-    this->_width = root["width"].toDouble();
-    this->_height = root.value("height").toDouble();
+    this->_width = root["width"].toInt();
+    this->_height = root.value("height").toInt();
     gameObjects = root["gameObjects"].toArray();
     for (int64_t i = 0; i < gameObjects.size(); i++) {
         gameObject = gameObjects[i].toObject();
-        double pos_x = gameObject["Position"].toObject()["x"].toDouble();
-        double pos_y = gameObject["Position"].toObject()["y"].toDouble();
-        double pos_angle = gameObject["Position"].toObject()["angle"].toDouble();
+        int pos_x = gameObject["Position"].toObject()["x"].toInt();
+        int pos_y = gameObject["Position"].toObject()["y"].toInt();
+        int pos_angle = gameObject["Position"].toObject()["angle"].toInt();
         switch(gameObject["objectType"].toInt()) {
             case eot_gameobject: continue;
             case eot_obstacle: {
-                width = gameObject["RectangleCollider"].toObject()["width"].toDouble();
-                height = gameObject["RectangleCollider"].toObject()["height"].toDouble();
+                width = gameObject["RectangleCollider"].toObject()["width"].toInt();
+                height = gameObject["RectangleCollider"].toObject()["height"].toInt();
                 this->AddGameObject(new Obstacle(pos_x, pos_y, pos_angle, width, height));
                 break;
             }
             case eot_auto_robot: {
-                IAutoRobot * ar = new AutoRobot(pos_x, pos_y, pos_angle, gameObject["CircleCollider"].toObject()["radius"].toDouble());
-                ar->SetSpeed(gameObject["Robot"].toObject()["speed"].toDouble());
-                ar->SetRotationAngle(gameObject["Robot"].toObject()["rotationAngle"].toDouble());
+                IAutoRobot * ar = new AutoRobot(pos_x, pos_y, pos_angle, gameObject["CircleCollider"].toObject()["radius"].toInt());
+                ar->SetSpeed(gameObject["Robot"].toObject()["speed"].toInt());
+                ar->SetRotationAngle(gameObject["Robot"].toObject()["rotationAngle"].toInt());
                 this->AddGameObject(ar);
                 // TODO add colliders
                 break;
             }
             case eot_controlled_robot: {
-                IControlledRobot * cr = new ControlledRobot(pos_x, pos_y, pos_angle, gameObject["CircleCollider"].toObject()["radius"].toDouble());
-                cr->SetSpeed(gameObject["Robot"].toObject()["speed"].toDouble());
-                cr->SetRotationAngle(gameObject["Robot"].toObject()["rotationAngle"].toDouble());
+                IControlledRobot * cr = new ControlledRobot(pos_x, pos_y, pos_angle, gameObject["CircleCollider"].toObject()["radius"].toInt());
+                cr->SetSpeed(gameObject["Robot"].toObject()["speed"].toInt());
+                cr->SetRotationAngle(gameObject["Robot"].toObject()["rotationAngle"].toInt());
                 cr->SetSpeedDirection(MapIntToSpeedDirection(gameObject["ControlledRobot"].toObject()["speedDirection"].toInt()));
                 cr->SetRotationDirection(MapIntToRotationDirection(gameObject["ControlledRobot"].toObject()["rotationDirection"].toInt()));
-                radius = gameObject["CircleCollider"].toObject()["radius"].toDouble();
+                radius = gameObject["CircleCollider"].toObject()["radius"].toInt();
                 this->AddGameObject(cr);
                 break;
             }
