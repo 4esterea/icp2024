@@ -125,3 +125,13 @@ void Viewport::hideAllSettings() {
         }
     }
 }
+
+void Viewport::Update() {
+    for (auto& item : this->scene->items()) {
+        auto robotGraphic = dynamic_cast<RobotGraphicItem*>(item);
+        if (robotGraphic) {
+            robotGraphic->Update();
+        }
+    }
+    this->update();
+}

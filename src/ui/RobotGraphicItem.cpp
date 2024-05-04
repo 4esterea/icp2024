@@ -4,9 +4,9 @@ RobotGraphicItem::RobotGraphicItem(Viewport* viewport, QGraphicsItem* parent, IR
     : QGraphicsEllipseItem(parent), _viewport(viewport), _robot(robot), _isRemote(robot->GetObjectType() == eot_controlled_robot) {
     setAcceptHoverEvents(true);
     _direction = new QGraphicsLineItem(this);
-    _direction->setLine(25, 25, 25, 0);
+    _direction->setLine(25, 25, 50, 25);
     _vision = new QGraphicsRectItem(this);
-    _vision->setRect(0, -75, 50, 100);
+    _vision->setRect(25, 0, 100, 50);
     _vision->setPen(QPen(QColor(255, 0, 0, 128), 2));
     _vision->setFlag(QGraphicsItem::ItemStacksBehindParent, true);
     if (_isRemote) {
@@ -103,6 +103,11 @@ QVariant RobotGraphicItem::itemChange(GraphicsItemChange change, const QVariant 
 void RobotGraphicItem::setRotation(int angle) {
     setTransformOriginPoint(25, 25);
     QGraphicsEllipseItem::setRotation(angle);
-    // _direction->setRotation(angle);
-    // _autoRobot->GetCollider()->set...; TODO
+    _robot->GetPosition()->angle = angle;
+}
+
+void RobotGraphicItem::Update() {
+    auto position = dynamic_cast<Position *>(_robot->GetPosition());
+	setPos(position->x, position->y);
+    setRotation(position->angle);
 }

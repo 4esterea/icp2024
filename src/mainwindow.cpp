@@ -268,5 +268,5 @@ Map* MainWindow::getMap()
 void MainWindow::RunSimulation() {
     qDebug() << "Simulating";
     this->_map->Update();
-    ui->viewport->drawAll();
+    ui->viewport->Update();
 }

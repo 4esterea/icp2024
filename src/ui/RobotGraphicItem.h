@@ -22,6 +22,7 @@ public:
     void hoverEnterEvent(QGraphicsSceneHoverEvent* event);
     void hoverLeaveEvent(QGraphicsSceneHoverEvent* event);
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event);
+    void Update();
     QWidget* getSettings();
 
 private:
