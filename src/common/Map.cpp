@@ -188,3 +188,5 @@ RotationDirection MapIntToRotationDirection(int i) {
 std::pair<int, int> Map::getSize() {
     return make_pair(this->_width, this->_height);
 }
+
+
