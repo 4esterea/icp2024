@@ -13,6 +13,7 @@
 #include <QFont>
 
 
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -106,8 +107,18 @@ void MainWindow::on_pushButtonEdit_clicked(bool checked)
 
 void MainWindow::on_pushButtonLaunch_clicked(bool checked)
 {
+    _fileToSave = "./temp.json";
+    QFile file(_fileToSave);
     _isLaunched = !_isLaunched;
     if (_isLaunched){
+       string json = _map->SaveJSON();
+        if (!file.open(QIODevice::WriteOnly)) {
+            qDebug() << "Failed to open the file\n";
+            return;
+        }
+        file.write(json.c_str());
+        file.close();
+
         qDebug() << "Simulation is running";
         this->setWindowTitle("2d robot simulator [RUNNING]");
         ui->pushButtonLaunch->setText("STOP");
@@ -115,9 +126,21 @@ void MainWindow::on_pushButtonLaunch_clicked(bool checked)
         ui->pushButtonEdit->setEnabled(0);
         ui->pushButtonLoad->setEnabled(0);
         ui->pushButtonSave->setEnabled(0);
+        ui->pushButtonNew->setEnabled(0);
         ui->pushButtonPause->show();
         this->_timer->start(FRAME_TIMEGAP_MS);
     } else {
+
+        if (!file.open(QIODevice::ReadOnly)) {
+            qDebug() << "Failed to open the file: " << file.errorString();
+            return;
+        }
+        std::string tempSave = file.readAll().toStdString();
+        _map->LoadJSON(tempSave);
+        ui->viewport->drawAll();
+        file.close();
+        QFile::remove(_fileToSave);
+
         qDebug() << "Simulation has been stopped";
         this->setWindowTitle("2d robot simulator");
         ui->pushButtonLaunch->setText("LAUNCH");
@@ -125,6 +148,7 @@ void MainWindow::on_pushButtonLaunch_clicked(bool checked)
         ui->pushButtonEdit->setEnabled(1);
         ui->pushButtonLoad->setEnabled(1);
         ui->pushButtonSave->setEnabled(1);
+        ui->pushButtonNew->setEnabled(1);
         ui->pushButtonPause->hide();
         this->_timer->stop();
     }
@@ -173,7 +197,7 @@ void MainWindow::on_pushButtonSave_clicked()
         return;
     } else {
         qDebug() << "Saving file " << _fileToSave;
-        string json = this->_map->SaveJSON();
+        string json = _map->SaveJSON();
         QFile file(_fileToSave);
         if (!file.open(QIODevice::WriteOnly)) {
             qDebug() << "Failed to open the file\n";
@@ -297,7 +321,6 @@ Map* MainWindow::getMap()
 }
 
 void MainWindow::RunSimulation() {
-    qDebug() << "Simulating";
     this->_map->Update();
     ui->viewport->Update();
 }
