@@ -8,6 +8,7 @@
 
 #include "../headers/Map.h"
 
+#include <QDebug>
 Map::Map(int width, int height) {
     this->_width = width;
     this->_height = height;
@@ -16,6 +17,7 @@ Map::Map(int width, int height) {
 void Map::Update() {
     for (uint64_t i = 0; i < this->_gameObjects.size(); i++) {
         this->_gameObjects[i]->Update();
+        qDebug() << "X: " << this->_gameObjects[i]->GetPosition()->x << " Y: " << this->_gameObjects[i]->GetPosition()->y;
     }
 }
 

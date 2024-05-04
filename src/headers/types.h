@@ -9,6 +9,7 @@
 #ifndef __TYPES_H__
 #define __TYPES_H__
 
+#define PI 3.14159265
 #define MAX_MAP_GAMEOBJECTS 100
 
 /**
