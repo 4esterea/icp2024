@@ -17,7 +17,9 @@ using namespace std;
 
 class IControlledRobot : public IRobot {
     public:
+        virtual SpeedDirection GetSpeedDirection() = 0;
         virtual void SetSpeedDirection(SpeedDirection speedDirection) = 0;
+        virtual RotationDirection GetRotationDirection() = 0;
         virtual void SetRotationDirection(RotationDirection rotationDirection) = 0;
         virtual void Update() = 0;
         virtual ~IControlledRobot() {};
@@ -25,7 +27,7 @@ class IControlledRobot : public IRobot {
     protected:
         SpeedDirection _speedDirection;
         RotationDirection _rotationDirection;
-        ICollider * _collisionBox; // Body collider
+        ICollider * _collisionBox; // Body collider ??? TODO
 };
 
 #endif

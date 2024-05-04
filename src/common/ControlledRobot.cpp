@@ -16,6 +16,22 @@ ControlledRobot::ControlledRobot(double x, double y, double angle, double radius
     this->_rotationDirection = erd_none;
 }
 
+double ControlledRobot::GetSpeed() {
+    return this->_speed;
+}
+
+void ControlledRobot::SetSpeed(double speed) {
+    this->_speed = speed;
+}
+
+double ControlledRobot::GetRotationAngle() {
+    return this->_rotationAngle;
+}
+
+void ControlledRobot::SetRotationAngle(double rotationAngle) {
+    this->_rotationAngle = rotationAngle;
+}
+
 SpeedDirection ControlledRobot::GetSpeedDirection() {
     return this->_speedDirection;
 }

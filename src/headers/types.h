@@ -34,7 +34,7 @@ enum ColliderType {
 /**
  * @brief Direction of speed 
  */
-enum SpeedDirection {
+enum SpeedDirection: int {
     esd_none = 0,
     esd_forward = 1
 };

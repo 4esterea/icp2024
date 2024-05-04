@@ -14,6 +14,10 @@
 class IRobot : public IGameObject {
     public:
         virtual void Update() = 0;
+        virtual double GetSpeed() = 0;
+        virtual void SetSpeed(double speed) = 0;
+        virtual double GetRotationAngle() = 0;
+        virtual void SetRotationAngle(double rotationAngle) = 0;
         virtual ~IRobot() {};
 
     protected:
