@@ -209,7 +209,7 @@
        <x>10</x>
        <y>10</y>
        <width>231</width>
-       <height>142</height>
+       <height>131</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="titleLayout">
@@ -309,7 +309,7 @@
       <rect>
        <x>10</x>
        <y>170</y>
-       <width>229</width>
+       <width>231</width>
        <height>71</height>
       </rect>
      </property>
@@ -317,6 +317,16 @@
       <property name="spacing">
        <number>10</number>
       </property>
+      <item>
+       <widget class="QPushButton" name="pushButtonNew">
+        <property name="styleSheet">
+         <string notr="true">color: rgb(230, 241, 243);</string>
+        </property>
+        <property name="text">
+         <string>New</string>
+        </property>
+       </widget>
+      </item>
       <item>
        <widget class="QPushButton" name="pushButtonLoad">
         <property name="styleSheet">
@@ -343,9 +353,9 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>240</y>
+       <y>250</y>
        <width>231</width>
-       <height>331</height>
+       <height>321</height>
       </rect>
      </property>
      <widget class="QWidget" name="verticalLayoutWidget_4">
@@ -420,16 +430,6 @@
      </widget>
     </widget>
    </widget>
-   <widget class="QWidget" name="widgetSettings" native="true">
-    <property name="geometry">
-     <rect>
-      <x>1140</x>
-      <y>580</y>
-      <width>21</width>
-      <height>21</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="Viewport" name="viewport">
     <property name="geometry">
      <rect>
@@ -439,6 +439,170 @@
       <height>701</height>
      </rect>
     </property>
+   </widget>
+   <widget class="QWidget" name="newMapWidget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>250</y>
+      <width>401</width>
+      <height>181</height>
+     </rect>
+    </property>
+    <property name="autoFillBackground">
+     <bool>true</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgb(47, 61, 62); border-radius: 5px; </string>
+    </property>
+    <widget class="QWidget" name="verticalLayoutWidget_2">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>381</width>
+       <height>161</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <property name="sizeConstraint">
+       <enum>QLayout::SetDefaultConstraint</enum>
+      </property>
+      <item>
+       <widget class="QLabel" name="widthLabel">
+        <property name="styleSheet">
+         <string notr="true">color: rgb(230, 241, 243); height: 30px;</string>
+        </property>
+        <property name="text">
+         <string>Map Width:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <widget class="QLineEdit" name="widthInput">
+          <property name="maximumSize">
+           <size>
+            <width>150</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="layoutDirection">
+           <enum>Qt::LeftToRight</enum>
+          </property>
+          <property name="autoFillBackground">
+           <bool>false</bool>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(230, 241, 243); background-color: rgb(135, 165, 165); height: 20px;  border: 1px solid rgb(36, 42, 44);</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <property name="placeholderText">
+           <string>1000</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QLabel" name="heightLabel">
+        <property name="styleSheet">
+         <string notr="true">color: rgb(230, 241, 243); height: 30px;</string>
+        </property>
+        <property name="text">
+         <string>Map Height:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QLineEdit" name="heightInput">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>150</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(230, 241, 243); background-color: rgb(135, 165, 165); height: 20px;  border: 1px solid rgb(36, 42, 44);</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <property name="placeholderText">
+           <string>1000</string>
+          </property>
+          <property name="cursorMoveStyle">
+           <enum>Qt::VisualMoveStyle</enum>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QPushButton" name="pushButtonCancel">
+          <property name="autoFillBackground">
+           <bool>false</bool>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(230, 241, 243); background-color: rgb(73, 89, 89); height: 30px;  border: 1px solid rgb(36, 42, 44);</string>
+          </property>
+          <property name="text">
+           <string>Cancel</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButtonConfirm">
+          <property name="autoFillBackground">
+           <bool>false</bool>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(230, 241, 243); background-color: rgb(73, 89, 89); height: 30px; border: 1px solid rgb(36, 42, 44);</string>
+          </property>
+          <property name="text">
+           <string>Confirm</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
    </widget>
   </widget>
  </widget>

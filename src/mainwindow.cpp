@@ -53,6 +53,10 @@ void MainWindow::setUiDefaultState()
     ui->pushButtonLaunch->setFixedWidth(150);
     ui->pushButtonPause->setFixedWidth(70);
     ui->pushButtonPause->hide();
+    ui->newMapWidget->hide();
+    ui->newMapWidget->setWindowFlags(Qt::Dialog | Qt::MSWindowsFixedSizeDialogHint);
+    ui->newMapWidget->setFixedSize(ui->newMapWidget->size());
+    ui->newMapWidget->setWindowTitle("Create New Map");
     _editingEnabled = false;
     _isLaunched = false;
     _isPaused = false;
@@ -223,6 +227,28 @@ void MainWindow::on_obstacleIcon_clicked()
     _obstacleIsChosen = true;
     _robotIsChosen = _RCRobotIsChosen = false;
     qDebug() << "Click to add <obstacle> entity.";
+}
+
+void MainWindow::on_pushButtonNew_clicked(){
+    ui->newMapWidget->show();
+}
+
+void MainWindow::on_pushButtonCancel_clicked(){
+    ui->newMapWidget->hide();
+}
+
+void MainWindow::on_pushButtonConfirm_clicked(){
+    ui->newMapWidget->hide();
+    int width = ui->widthInput->text().toInt();
+    int height = ui->heightInput->text().toInt();
+    if (width <= 0 || height <= 0 || width > 10000 || height > 10000){
+        qDebug() << "Invalid map size";
+        QMessageBox::warning(this, "Warning", "Invalid map size");
+        return;
+    }
+    delete _map;
+    _map = new Map(ui->widthInput->text().toInt(), ui->heightInput->text().toInt());
+    ui->viewport->drawAll();
 }
 
 bool MainWindow::isObstacleMode()
