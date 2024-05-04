@@ -14,6 +14,8 @@ ControlledRobot::ControlledRobot(double x, double y, double angle, double radius
     this->_objectType = eot_controlled_robot;
     this->_speedDirection = esd_none;
     this->_rotationDirection = erd_none;
+    this->_speed = 0;
+    this->_rotationAngle = 0;
 }
 
 double ControlledRobot::GetSpeed() {
