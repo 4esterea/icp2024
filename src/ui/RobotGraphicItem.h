@@ -18,9 +18,7 @@ class AutoRobot;
 class RobotGraphicItem : public QGraphicsEllipseItem
 {
 public:
-    RobotGraphicItem(Viewport* viewport = nullptr, QGraphicsItem *parent = nullptr
-    //, Robot* robot = nullptr
-    , bool isRemote = false);
+    RobotGraphicItem(Viewport* viewport = nullptr, QGraphicsItem *parent = nullptr, IRobot * robot = nullptr);
     void hoverEnterEvent(QGraphicsSceneHoverEvent* event);
     void hoverLeaveEvent(QGraphicsSceneHoverEvent* event);
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event);
@@ -30,7 +28,7 @@ private:
     QVariant itemChange(GraphicsItemChange change, const QVariant &value);
     QWidget* _viewport;
     QWidget* _settings = nullptr;
-    //Robot* _robot;
+    IRobot * _robot;
     QGraphicsRectItem* _vision = nullptr;
     bool _isRemote = false;
     QGraphicsLineItem* _direction = nullptr;

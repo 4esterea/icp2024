@@ -18,6 +18,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     setUiDefaultState();
+    this->_timer = new QTimer(this);
+    connect(this->_timer, &QTimer::timeout, this, QOverload<>::of(&MainWindow::RunSimulation));
 
     loadLevel();
 }
@@ -107,6 +109,7 @@ void MainWindow::on_pushButtonLaunch_clicked(bool checked)
         ui->pushButtonLoad->setEnabled(0);
         ui->pushButtonSave->setEnabled(0);
         ui->pushButtonPause->show();
+        this->_timer->start(50);
     } else {
         qDebug() << "Simulation has been stopped";
         this->setWindowTitle("2d robot simulator");
@@ -116,6 +119,7 @@ void MainWindow::on_pushButtonLaunch_clicked(bool checked)
         ui->pushButtonLoad->setEnabled(1);
         ui->pushButtonSave->setEnabled(1);
         ui->pushButtonPause->hide();
+        this->_timer->stop();
     }
 }
 
@@ -259,4 +263,10 @@ void MainWindow::setDefaultEditingState()
 Map* MainWindow::getMap()
 {
     return _map;
+}
+
+void MainWindow::RunSimulation() {
+    qDebug() << "Simulating";
+    this->_map->Update();
+    ui->viewport->drawAll();
 }

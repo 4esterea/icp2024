@@ -107,7 +107,7 @@ void ObstacleGraphicItem::setRotation(int angle) {
     qreal centerY = this->boundingRect().height() / 2.0;
     this->setTransformOriginPoint(centerX, centerY);
     QGraphicsRectItem::setRotation(angle);
-    this->_obstacle->GetCollider()->SetPosition(new Position(this->_obstacle->GetPosition()->x, this->_obstacle->GetPosition()->y, angle));
+    this->_obstacle->GetCollider()->GetPosition()->SetPosition(new Position(this->_obstacle->GetPosition()->x, this->_obstacle->GetPosition()->y, angle));
 }
 
 QVariant ObstacleGraphicItem::itemChange(GraphicsItemChange change, const QVariant &value) {
@@ -115,11 +115,11 @@ QVariant ObstacleGraphicItem::itemChange(GraphicsItemChange change, const QVaria
         if (change == ItemPositionHasChanged) {
             dynamic_cast<Viewport*>(_viewport)->hideAllSettings();
             QPointF newPos = value.toPointF();
-            this->_obstacle->GetCollider()->SetPosition(new Position(newPos.x(), newPos.y(), this->_obstacle->GetPosition()->angle));
-            this->_obstacle->UpdateCoords(newPos.x(), newPos.y());
+            this->_obstacle->GetCollider()->GetPosition()->SetPosition(new Position(newPos.x(), newPos.y(), this->_obstacle->GetPosition()->angle));
+            this->_obstacle->GetPosition()->SetPosition(newPos.x(), newPos.y());
         } else if (change == ItemRotationChange) {
             qreal newAngle = value.toReal();
-            this->_obstacle->GetCollider()->SetPosition(new Position(this->_obstacle->GetPosition()->x, this->_obstacle->GetPosition()->y, newAngle));
+            this->_obstacle->GetCollider()->GetPosition()->SetPosition(new Position(this->_obstacle->GetPosition()->x, this->_obstacle->GetPosition()->y, newAngle));
         } else if (change == ItemScaleChange) {
             qreal newSize = value.toReal();
             this->_obstacle->GetCollider()->SetWidth(newSize);

@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QDebug>
+#include <QTimer>
 #include <QFileDialog>
 #include <QFileInfo>
 #include "src/ui/clickableLabel.h"
@@ -25,6 +26,7 @@ public:
     bool isEditingEnabled();
     bool isDefault();
     void setDefaultEditingState();
+    void RunSimulation();
     Map* getMap();
 
 private slots:
@@ -50,6 +52,7 @@ private:
     bool _robotIsChosen;
     bool _RCRobotIsChosen;
     bool _obstacleIsChosen;
+    QTimer * _timer;
     Map* _map;
 };
 

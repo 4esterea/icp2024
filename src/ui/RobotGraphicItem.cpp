@@ -1,10 +1,7 @@
 #include "RobotGraphicItem.h"
 
-RobotGraphicItem::RobotGraphicItem(Viewport* viewport, QGraphicsItem* parent
-//, Robot* robot
-, bool isRemote) : QGraphicsEllipseItem(parent), _viewport(viewport), _isRemote(isRemote)
-     //,_autoRobot(autoRobot)
-     {
+RobotGraphicItem::RobotGraphicItem(Viewport* viewport, QGraphicsItem* parent, IRobot* robot)
+    : QGraphicsEllipseItem(parent), _viewport(viewport), _robot(robot), _isRemote(robot->GetObjectType() == eot_controlled_robot) {
     setAcceptHoverEvents(true);
     _direction = new QGraphicsLineItem(this);
     _direction->setLine(25, 25, 25, 0);
@@ -25,10 +22,10 @@ RobotGraphicItem::RobotGraphicItem(Viewport* viewport, QGraphicsItem* parent
     setFlag(QGraphicsItem::ItemSendsScenePositionChanges, true);
     setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);
     setFlag(QGraphicsItem::ItemIsFocusable, true);
-    // auto collider = _autoRobot->GetCollider();
-    // this->setPos(obstacle->GetCollider()->GetPosition()->x, obstacle->GetCollider()->GetPosition()->y);
-    // this->setRect(0, 0, collider->GetWidth(), collider->GetHeight());
-    // this->setRotation(collider->GetPosition()->angle);
+    auto collider = dynamic_cast<CircleCollider *>(_robot->GetCollider());
+    this->setPos(robot->GetCollider()->GetPosition()->x, _robot->GetCollider()->GetPosition()->y);
+    this->setRect(0, 0, collider->GetRadius(), collider->GetRadius()); // TODO change to circle idk
+    this->setRotation(collider->GetPosition()->angle);
 }
 
 void RobotGraphicItem::hoverEnterEvent(QGraphicsSceneHoverEvent* event) {

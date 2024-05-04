@@ -1,6 +1,8 @@
 #include "Viewport.h"
 #include "src/headers/Map.h"
 #include "src/headers/Obstacle.h"
+#include "src/headers/AutoRobot.h"
+#include "src/headers/ControlledRobot.h"
 #include <QGraphicsRectItem>
 #include <QDebug>
 #include "src/ui/ObstacleGraphicItem.h"
@@ -27,14 +29,36 @@ void Viewport::drawAll() {
     auto map = mainWindow->getMap();
     if (map != nullptr) {
         for (auto& gameObject : map->getGameObjects()) {
-            auto obstacle = dynamic_cast<Obstacle*>(gameObject);
-            if (obstacle) {
-                auto obstacleRect = new ObstacleGraphicItem(this, nullptr, obstacle);
-                this->scene->addItem(obstacleRect);
-                qDebug() << "The scene contains " << this->scene->items().count() << " obstacles";
+            switch (gameObject->GetObjectType()) {
+                case eot_gameobject: continue;
+                case eot_obstacle: {
+                    auto obstacle = dynamic_cast<Obstacle*>(gameObject);
+                    if (obstacle) {
+                        auto obstacleRect = new ObstacleGraphicItem(this, nullptr, obstacle);
+                        this->scene->addItem(obstacleRect);
+                        qDebug() << "The scene contains " << this->scene->items().count() << " obstacles";
+                    }
+                    break;
+                }
+                case eot_auto_robot: {
+                    auto autoRobot = dynamic_cast<AutoRobot *>(gameObject);
+                    if (autoRobot) {
+                        auto autoRobotItem = new RobotGraphicItem(this, nullptr, autoRobot);
+                        this->scene->addItem(autoRobotItem);
+                        qDebug() << "The scene contains " << this->scene->items().count() << " item(s)";
+                    }
+                    break;
+                }
+                case eot_controlled_robot: {
+                    auto controlledRobot = dynamic_cast<ControlledRobot *>(gameObject);
+                    if (controlledRobot) {
+                        auto controlledRobotItem = new RobotGraphicItem(this, nullptr, controlledRobot);
+                        this->scene->addItem(controlledRobotItem);
+                        qDebug() << "The scene contains " << this->scene->items().count() << " item(s)";
+                    }
+                    break;
+                }
             }
-            // TODO
-
         }
     }
 }
@@ -54,24 +78,20 @@ void Viewport::mousePressEvent(QMouseEvent *event) {
             QGraphicsView::mousePressEvent(event);
         } else if (mainWindow && mainWindow->isAutoRobotMode()) {
             qDebug() << "AutoRobot is being placed at " << pt.x() << " : " << pt.y();
-            //AutoRobot* object = new AutoRobot(pt.x(), pt.y(), 0, 50, 50);
-            RobotGraphicItem* projection = new RobotGraphicItem(this, nullptr
-            //, object
-            , false);
+            AutoRobot* object = new AutoRobot(pt.x(), pt.y(), 0, 50);
+            RobotGraphicItem* projection = new RobotGraphicItem(this, nullptr, object);
             projection->setPos(pt);
-            //mainWindow->getMap()->AddGameObject(object);
+            mainWindow->getMap()->AddGameObject(object);
             this->scene->addItem(projection);
             this->update();
             QGraphicsView::mousePressEvent(event);
         } else if (mainWindow && mainWindow->isRCRobotMode() && !_isRCRobotPlaced) {
             _isRCRobotPlaced = true;
             qDebug() << "RCRobot is being placed at " << pt.x() << " : " << pt.y();
-            //AutoRobot* object = new RCRobot(pt.x(), pt.y(), 0, 50, 50);
-            RobotGraphicItem* projection = new RobotGraphicItem(this, nullptr
-            //, object
-            , true);
+            ControlledRobot* object = new ControlledRobot(pt.x(), pt.y(), 0, 50);
+            RobotGraphicItem* projection = new RobotGraphicItem(this, nullptr, object);
             projection->setPos(pt);
-            //mainWindow->getMap()->AddGameObject(object);
+            mainWindow->getMap()->AddGameObject(object);
             this->scene->addItem(projection);
             this->update();
             QGraphicsView::mousePressEvent(event);
