@@ -34,6 +34,7 @@ public:
     void Update();
     QWidget* getSettings();
     IRobot* getGameObject();
+    QGraphicsRectItem* getVision();
 
 private:
     QVariant itemChange(GraphicsItemChange change, const QVariant &value);

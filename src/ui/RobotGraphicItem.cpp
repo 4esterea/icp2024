@@ -16,7 +16,8 @@ RobotGraphicItem::RobotGraphicItem(Viewport* viewport, QGraphicsItem* parent, IR
     _direction = new QGraphicsLineItem(this);
     _direction->setLine(25, 25, 50, 25);
     _vision = new QGraphicsRectItem(this);
-    _vision->setRect(25, 0, 100, 50);
+    //_vision->setRect(25, 0, _robot->GetVision().rect().width(), 50);
+    _vision->setRect(25, 0, 100, 50); // TODO: ^use the upper line after the robot is implemented
     _vision->setPen(QPen(QColor(255, 0, 0, 128), 2));
     _vision->setFlag(QGraphicsItem::ItemStacksBehindParent, true);
     if (_isRemote) {
@@ -131,4 +132,8 @@ void RobotGraphicItem::Update() {
 
 IRobot* RobotGraphicItem::getGameObject() {
     return _robot;
+}
+
+QGraphicsRectItem* RobotGraphicItem::getVision() {
+    return _vision;
 }
