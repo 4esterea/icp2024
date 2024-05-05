@@ -18,12 +18,7 @@ using namespace std;
 
 class IAutoRobot : public IRobot {
     public:
-        IRectangleCollider * GetVision() { return this->_vision; }
-        void SetVision(IRectangleCollider * vision) { this->_vision = vision; }
         virtual ~IAutoRobot() {};
-
-    protected:
-        IRectangleCollider * _vision; // <Right sigth collider, Left sight collider>
 };
 
 #endif
