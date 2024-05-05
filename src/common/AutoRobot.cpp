@@ -59,7 +59,9 @@ void AutoRobot::Update() {
             // Skip if the same object
             continue;
         }
-        qDebug() << "Obstacle: x " << go->GetCollider()->GetPosition()->x << " l " << dynamic_cast<IRectangleCollider *>(go->GetCollider())->GetWidth();
+        qDebug() << "Obstacle: x " << go->GetCollider()->GetPosition()->x << " y " << go->GetCollider()->GetPosition()->y;
+        qDebug() << "vision: x " << this->_vision->GetPosition()->x << " y " << this->_vision->GetPosition()->y;
+        qDebug() << "angle: x " << this->_position->x << " y " << this->_position->y;
         if (this->_vision->CheckCollision(go->GetCollider())) {
             // Collision detected -> turn
             isSight = true;
@@ -70,6 +72,9 @@ void AutoRobot::Update() {
         }
         if (this->GetCollider()->CheckCollision(go->GetCollider())) {
             // Collision detected -> move object back
+            if (SIMRULE_ROTATE_IF_STUCK) {
+                this->GetPosition()->angle = std::fmod((this->GetPosition()->angle + this->_rotationAngle / 4), 360); // /4 so robot will rotate slower when hit
+            }
             this->GetPosition()->SetPosition(pos.x, pos.y);
             // Move colliders respectively
             this->GetCollider()->GetPosition()->SetPosition(pos.x, pos.y, this->GetPosition()->angle);

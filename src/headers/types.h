@@ -13,6 +13,8 @@
 #define MAX_MAP_GAMEOBJECTS 100
 #define FRAME_TIMEGAP_MS 30
 
+#define SIMRULE_ROTATE_IF_STUCK true
+
 /**
  * @brief Type of object
  */
