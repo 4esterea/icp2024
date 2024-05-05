@@ -44,6 +44,8 @@ void AutoRobot::Update() {
     this->GetPosition()->angle = std::fmod((this->GetPosition()->angle + this->_rotationAngle), 360);
     this->GetPosition()->x = this->GetPosition()->x + this->GetSpeed() * cos(this->GetPosition()->angle * PI / 180);
     this->GetPosition()->y = this->GetPosition()->y + this->GetSpeed() * sin(this->GetPosition()->angle * PI / 180);
+    // Move colliders respectively
+    this->GetCollider()->GetPosition()->SetPosition(this->GetPosition()->x, this->GetPosition()->y, this->GetPosition()->angle);
     // Collision checks
     for (int64_t i = 0; i < this->_map->getGameObjects().size(); i++) {
         IGameObject * go = this->_map->getGameObjects()[i];
@@ -51,14 +53,15 @@ void AutoRobot::Update() {
             // Skip if the same object
             continue;
         }
-        qDebug() << "R" << this->GetId() << ": Check.";
-        if (go->GetCollider()->CheckCollision(this->GetCollider())) {
+        qDebug() << "R" << this->GetId() << ": Check " << go->GetObjectType();
+        if (this->GetCollider()->CheckCollision(go->GetCollider())) {
             // Collision detected -> move object back
+            qDebug() << "x1 " << this->GetPosition()->x << "x2 " << pos.x;
             this->GetPosition()->SetPosition(pos.x, pos.y);
+            // Move colliders respectively
+            this->GetCollider()->GetPosition()->SetPosition(pos.x, pos.y, this->GetPosition()->angle);
             break;
         }
     }
-    // Move colliders respectively
-    this->GetCollider()->GetPosition()->SetPosition(this->GetPosition()->x, this->GetPosition()->y, this->GetPosition()->angle);
 }
 

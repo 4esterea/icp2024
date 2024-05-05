@@ -12,6 +12,7 @@
 #include <cmath>
 #include "../interfaces/ICircleCollider.h"
 #include "Position.h"
+#include "CollisionChecker.h"
 
 class CircleCollider : public ICircleCollider {
     public:
