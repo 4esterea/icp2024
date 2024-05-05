@@ -137,3 +137,25 @@ IRobot* RobotGraphicItem::getGameObject() {
 QGraphicsRectItem* RobotGraphicItem::getVision() {
     return _vision;
 }
+
+void RobotGraphicItem::keyPressEvent(QKeyEvent *event) {
+    if (_isRemote) {
+            switch (event->key()){
+               case Qt::Key_W:
+                   qDebug() << "W pressed";
+                   break;
+               case Qt::Key_S:
+                   qDebug() << "S pressed";
+                   break;
+               case Qt::Key_A:
+                   qDebug() << "A pressed";
+                   break;
+               case Qt::Key_D:
+                   qDebug() << "D pressed";
+                   break;
+               default:
+                   QGraphicsEllipseItem::keyPressEvent(event);
+            }
+        }
+    }
+}

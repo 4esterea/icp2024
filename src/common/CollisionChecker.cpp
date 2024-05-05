@@ -49,7 +49,7 @@ bool CollisionChecker::CheckCollisionRectangleRectangle(IRectangleCollider * cr1
     double h1 = cr1->GetHeight();
     double h2 = cr2->GetHeight();
     if ((p1->x < p2->x + w2) && (p1->x + w1 > p2->x) && (p1->y < p2->y + h2) && (p1->y + h1 > p2->y)) {
-        qDebug() << "TRUE";
+        //qDebug() << "TRUE";
         return true;
     }
     return false;

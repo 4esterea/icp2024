@@ -17,6 +17,7 @@
 #include <QPen>
 #include <QDebug>
 #include <QWidget>
+#include <QKeyEvent>
 #include <QGraphicsSceneHoverEvent>
 #include <QPointF>
 #include "RobotWidget.h"
@@ -57,6 +58,16 @@ public:
      */
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event);
 
+    /**
+    * @brief Overridden keyPressEvent function to handle key press events.
+    *
+    * This function is called when a key is pressed. If the robot is remote-controlled (_isRemote is true),
+    * it handles the W, A, S, D keys to control the robot's movements. If the robot is not remote-controlled,
+    * it does not handle the key presses.
+    *
+    * @param event The QKeyEvent object representing the key press event.
+    */
+    void keyPressEvent(QKeyEvent *event);
     /**
      * @brief Updates the RobotGraphicItem.
      */

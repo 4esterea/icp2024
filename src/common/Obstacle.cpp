@@ -27,10 +27,10 @@ void Obstacle::Update() {
             // Skip if the same object
             continue;
         }
-        qDebug() << "R" << this->GetId() << ": Check " << go->GetObjectType();
+        //qDebug() << "R" << this->GetId() << ": Check " << go->GetObjectType();
         if (this->GetCollider()->CheckCollision(go->GetCollider())) {
             // Collision detected -> move object back
-            qDebug() << "TRUE";
+            //qDebug() << "TRUE";
             // qDebug() << "x1 " << this->GetPosition()->x;
             break;
         }
