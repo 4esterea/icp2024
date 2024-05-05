@@ -17,7 +17,17 @@ class ClickableLabel : public QLabel {
     Q_OBJECT
 
 public:
+        /**
+     * @brief Constructor for ClickableLabel class.
+     *
+     * @param parent The parent QWidget object.
+     * @param f Window flags for the QLabel.
+     */
     explicit ClickableLabel(QWidget* parent = Q_NULLPTR, Qt::WindowFlags f = Qt::WindowFlags());
+
+    /**
+     * @brief Destructor for ClickableLabel class.
+     */
     ~ClickableLabel();
 
 signals:
