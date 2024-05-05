@@ -9,6 +9,7 @@
 #ifndef __AUTOROBOT_H__
 #define __AUTOROBOT_H__
 
+#include <cmath>
 #include <string>
 #include "../interfaces/IAutoRobot.h"
 #include "../headers/RectangleCollider.h"
@@ -18,11 +19,12 @@
 
 class AutoRobot: public IAutoRobot {
     public:
-        AutoRobot(int x, int y, int angle, int radius);
-        int GetSpeed();
-        void SetSpeed(int speed);
-        int GetRotationAngle();
-        void SetRotationAngle(int rotationAngle);
+        AutoRobot(double x, double y, double angle, double radius);
+        double GetSpeed();
+        void SetSpeed(double speed);
+        double GetRotationAngle();
+        void SetRotationAngle(double rotationAngle);
+        void RecalcColliderPosition();
         void Update();
 };
 

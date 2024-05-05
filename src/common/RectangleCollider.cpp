@@ -8,7 +8,7 @@
 
 #include "../headers/RectangleCollider.h"
 
-RectangleCollider::RectangleCollider(int x, int y, int angle, int width, int height) {
+RectangleCollider::RectangleCollider(double x, double y, double angle, double width, double height) {
     this->_position = new Position(x, y, angle);
     this->_colliderType = ect_rectangle_collider;
     this->_width = width;
@@ -16,21 +16,21 @@ RectangleCollider::RectangleCollider(int x, int y, int angle, int width, int hei
 }
 
 bool RectangleCollider::CheckCollision(ICollider * collider) {
-    return false; // TODO
+    return CollisionChecker::CheckCollision(this, collider);
 }
 
-int RectangleCollider::GetWidth() {
+double RectangleCollider::GetWidth() {
     return this->_width;
 }
 
-void RectangleCollider::SetWidth(int width) {
+void RectangleCollider::SetWidth(double width) {
     this->_width = width;
 }
 
-int RectangleCollider::GetHeight() {
+double RectangleCollider::GetHeight() {
     return this->_height;
 }
 
-void RectangleCollider::SetHeight(int height) {
+void RectangleCollider::SetHeight(double height) {
     this->_height = height;
 }

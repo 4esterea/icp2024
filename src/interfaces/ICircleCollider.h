@@ -3,7 +3,7 @@
  * @author Sniehovskyi Nikita (xsnieh00)
  * @author Zhdanovich Iaroslav (xzhdan00)
  * @date 08.04.2024
- * @brief Definition of Circle Collider interface
+ * @brief Definition of Circle Collider doubleerface
  */
 
 #ifndef __ICIRCLECOLLIDER_H__
@@ -16,12 +16,12 @@ using namespace std;
 class ICircleCollider : public ICollider {
     public:
         virtual bool CheckCollision(ICollider * collider) = 0;
-        virtual int GetRadius() = 0;
-        virtual void SetRadius(int radius) = 0;
+        virtual double GetRadius() = 0;
+        virtual void SetRadius(double radius) = 0;
         virtual ~ICircleCollider() {};
 
     protected:
-        int _radius;
+        double _radius;
 };
 
 #endif

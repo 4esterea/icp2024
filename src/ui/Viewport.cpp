@@ -121,7 +121,7 @@ void Viewport::mousePressEvent(QMouseEvent *event) {
             QGraphicsView::mousePressEvent(event);
         } else if (mainWindow && mainWindow->isAutoRobotMode()) {
             qDebug() << "AutoRobot is being placed at " << pt.x() << " : " << pt.y();
-            AutoRobot* object = new AutoRobot(pt.x()-25, pt.y()-25, 0, 50);
+            AutoRobot* object = new AutoRobot(pt.x()-25, pt.y()-25, 0, 25);
             RobotGraphicItem* projection = new RobotGraphicItem(this, nullptr, object);
             projection->setPos(pt.x()-25, pt.y()-25);
             mainWindow->getMap()->AddGameObject(object);
@@ -131,7 +131,7 @@ void Viewport::mousePressEvent(QMouseEvent *event) {
         } else if (mainWindow && mainWindow->isRCRobotMode() && !_isRCRobotPlaced) {
             _isRCRobotPlaced = true;
             qDebug() << "RCRobot is being placed at " << pt.x() << " : " << pt.y();
-            ControlledRobot* object = new ControlledRobot(pt.x()-25, pt.y()-25, 0, 50);
+            ControlledRobot* object = new ControlledRobot(pt.x()-25, pt.y()-25, 0, 25);
             RobotGraphicItem* projection = new RobotGraphicItem(this, nullptr, object);
             projection->setPos(pt.x()-25, pt.y()-25);
             mainWindow->getMap()->AddGameObject(object);

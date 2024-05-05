@@ -13,10 +13,10 @@
 
 class Position: public IPosition {
     public:
-        Position(int x, int y, int angle);
+        Position(double x, double y, double angle);
         void SetPosition(IPosition * position);
-        void SetPosition(int x, int y, int angle);
-        void SetPosition(int x, int y);
+        void SetPosition(double x, double y, double angle);
+        void SetPosition(double x, double y);
 };
 
 #endif

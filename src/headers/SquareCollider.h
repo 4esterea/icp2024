@@ -14,9 +14,9 @@
 
 class SquareCollider : public ISquareCollider {
     public:
-        SquareCollider(int x, int y, int angle, int sideLength);
-        int GetSideLength();
-        void SetSideLength(int sideLength);
+        SquareCollider(double x, double y, double angle, double sideLength);
+        double GetSideLength();
+        void SetSideLength(double sideLength);
         bool CheckCollision(ICollider * collider);
 };
 

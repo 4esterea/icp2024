@@ -3,7 +3,7 @@
  * @author Sniehovskyi Nikita (xsnieh00)
  * @author Zhdanovich Iaroslav (xzhdan00)
  * @date 08.04.2024
- * @brief Definition of Game Object interface
+ * @brief Definition of Game Object doubleerface
  */
 
 #ifndef __IGAMEOBJECT_H__
@@ -25,6 +25,7 @@ public:
     void SetMap(IMap * map) { this->_map = map; }
     int GetId() { return this->_id; }
     void SetId(int id) { this->_id = id; }
+    virtual void RecalcColliderPosition() = 0;
     virtual void Update() = 0;
     virtual ~IGameObject() {};
 

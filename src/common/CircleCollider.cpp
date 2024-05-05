@@ -8,20 +8,21 @@
 
 #include "../headers/CircleCollider.h"
 
-CircleCollider::CircleCollider(int x, int y, int angle, int radius) {
+CircleCollider::CircleCollider(double x, double y, double angle, double radius) {
     this->_position = new Position(x, y, angle);
     this->_colliderType = ect_circle_collider;
     this->_radius = radius;
 }
 
+#include <QDebug>
 bool CircleCollider::CheckCollision(ICollider * collider) {
-    return false; // TODO
+    return CollisionChecker::CheckCollision(this, collider);
 }
 
-int CircleCollider::GetRadius() {
+double CircleCollider::GetRadius() {
     return this->_radius;
 }
 
-void CircleCollider::SetRadius(int radius) {
+void CircleCollider::SetRadius(double radius) {
     this->_radius = radius;
 }

@@ -11,6 +11,7 @@ DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0 #0x060000    # disables all the APIs d
 SOURCES += \
     src/common/AutoRobot.cpp \
     src/common/CircleCollider.cpp \
+    src/common/CollisionChecker.cpp \
     src/common/ControlledRobot.cpp \
     src/common/SquareCollider.cpp \
     src/ui/ObstacleGraphicItem.cpp \
@@ -30,6 +31,7 @@ SOURCES += \
 HEADERS += \
     src/headers/AutoRobot.h \
     src/headers/CircleCollider.h \
+    src/headers/CollisionChecker.h \
     src/headers/ControlledRobot.h \
     src/headers/SquareCollider.h \
     src/interfaces/IAutoRobot.h \

@@ -3,7 +3,7 @@
  * @author Sniehovskyi Nikita (xsnieh00)
  * @author Zhdanovich Iaroslav (xzhdan00)
  * @date 08.04.2024
- * @brief Definition of Obstacle interface
+ * @brief Definition of Obstacle doubleerface
  */
 
 #ifndef __IOBSTACLE_H__

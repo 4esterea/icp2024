@@ -34,7 +34,7 @@ RobotGraphicItem::RobotGraphicItem(Viewport* viewport, QGraphicsItem* parent, IR
     setFlag(QGraphicsItem::ItemIsFocusable, true);
     auto collider = dynamic_cast<CircleCollider *>(_robot->GetCollider());
     this->setPos(_robot->GetCollider()->GetPosition()->x, _robot->GetCollider()->GetPosition()->y);
-    this->setRect(0, 0, collider->GetRadius(), collider->GetRadius()); // TODO change to circle idk
+    this->setRect(0, 0, collider->GetRadius() * 2, collider->GetRadius() * 2);
     this->setRotation(collider->GetPosition()->angle);
 }
 

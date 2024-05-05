@@ -9,6 +9,7 @@
 #ifndef __OBSTACLE_H__
 #define __OBSTACLE_H__
 
+#include <cstdint>
 #include "../interfaces/IObstacle.h"
 #include "../headers/RectangleCollider.h"
 #include "../headers/Position.h"
@@ -16,7 +17,8 @@
 
 class Obstacle: public IObstacle {
     public:
-        Obstacle(int x, int y, int angle, int width, int height);
+        Obstacle(double x, double y, double angle, double width, double height);
+        void RecalcColliderPosition();
         void Update();
 };
 
