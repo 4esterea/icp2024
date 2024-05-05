@@ -158,7 +158,7 @@ void Map::AddGameObject(IGameObject * gameObject) {
 }
 
 void Map::RemoveGameObject(IGameObject * gameObject) {
-    for (int64_t i = 0; i < this->_gameObjects.size(); i++) {
+    for (uint64_t i = 0; i < this->_gameObjects.size(); i++) {
         if (this->_gameObjects[i] == gameObject) {
             this->_gameObjects.erase(this->_gameObjects.begin() + i);
             return;

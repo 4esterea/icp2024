@@ -17,6 +17,7 @@ ObstacleGraphicItem::ObstacleGraphicItem(Viewport* viewport, QGraphicsItem* pare
     this->setPos(_obstacle->GetCollider()->GetPosition()->x, _obstacle->GetCollider()->GetPosition()->y);
     this->setRect(0, 0, collider->GetWidth(), collider->GetHeight());
     this->setRotation(collider->GetPosition()->angle);
+    this->_obstacle->RecalcColliderPosition();
 
 }
 
@@ -113,6 +114,7 @@ void ObstacleGraphicItem::setRotation(int angle) {
     QGraphicsRectItem::setRotation(angle);
     this->_obstacle->GetCollider()->GetPosition()->SetPosition(new Position(this->_obstacle->GetPosition()->x, this->_obstacle->GetPosition()->y, angle));
     this->_obstacle->GetPosition()->SetPosition(this->_obstacle->GetPosition()->x, this->_obstacle->GetPosition()->y, angle);
+    this->_obstacle->RecalcColliderPosition();
 }
 
 QVariant ObstacleGraphicItem::itemChange(GraphicsItemChange change, const QVariant &value) {
@@ -131,6 +133,7 @@ QVariant ObstacleGraphicItem::itemChange(GraphicsItemChange change, const QVaria
             this->_obstacle->GetCollider()->SetWidth(newSize);
             this->_obstacle->GetCollider()->SetHeight(newSize);
         }
+        this->_obstacle->RecalcColliderPosition();
     }
     return QGraphicsItem::itemChange(change, value);
 }

@@ -9,6 +9,7 @@
 #ifndef __ICOLLIDER_H__
 #define __ICOLLIDER_H__
 
+#include <QGraphicsItem>
 #include "IPosition.h"
 #include "../headers/types.h"
 

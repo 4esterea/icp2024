@@ -18,6 +18,7 @@
 class Obstacle: public IObstacle {
     public:
         Obstacle(double x, double y, double angle, double width, double height);
+        void RecalcColliderPosition();
         void Update();
 };
 

@@ -8,7 +8,7 @@
 
 #include "../headers/AutoRobot.h"
 
-#include "../headers/Map.h" // If put in header Qt Creator uses 100% CPU (recursive)
+#include "../headers/Map.h"
 
 AutoRobot::AutoRobot(double x, double y, double angle, double radius) {
     this->_collider = new CircleCollider(x, y, angle, radius);
@@ -17,6 +17,10 @@ AutoRobot::AutoRobot(double x, double y, double angle, double radius) {
     this->_speed = 0;
     this->_rotationAngle = 0;
     // TODO Add collision boxes
+}
+
+void AutoRobot::RecalcColliderPosition() {
+    this->_collider->GetPosition()->SetPosition(this->_position->x, this->_position->y, this->_position->angle);
 }
 
 double AutoRobot::GetSpeed() {
@@ -46,7 +50,7 @@ void AutoRobot::Update() {
     // Move colliders respectively
     this->GetCollider()->GetPosition()->SetPosition(this->GetPosition()->x, this->GetPosition()->y, this->GetPosition()->angle);
     // Collision checks
-    for (int64_t i = 0; i < this->_map->getGameObjects().size(); i++) {
+    for (uint64_t i = 0; i < this->_map->getGameObjects().size(); i++) {
         IGameObject * go = this->_map->getGameObjects()[i];
         if (this->_id == go->GetId()) {
             // Skip if the same object

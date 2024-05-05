@@ -42,59 +42,79 @@ bool CollisionChecker::CheckCollisionCircleCircle(ICircleCollider * cc1, ICircle
 }
 
 bool CollisionChecker::CheckCollisionRectangleRectangle(IRectangleCollider * cr1, IRectangleCollider * cr2) {
-    double r1p[4][2];
-    double r2p[4][2];
     Position * p1 = dynamic_cast<Position *>(cr1->GetPosition());
     Position * p2 = dynamic_cast<Position *>(cr2->GetPosition());
     double w1 = cr1->GetWidth();
     double w2 = cr2->GetWidth();
     double h1 = cr1->GetHeight();
     double h2 = cr2->GetHeight();
-    p1->y *= -1;
-    p2->y *= -1;
-    // Corner points of first rectangle
-    r1p[0][0] = p1->x + w1/2 * cos((360 - p1->angle) * PI / 180) + h1/2 * sin((360 - p1->angle) * PI / 180);
-    r1p[1][0] = p1->x + w1/2 * cos((360 - p1->angle) * PI / 180) - h1/2 * sin((360 - p1->angle) * PI / 180);
-    r1p[2][0] = p1->x - w1/2 * cos((360 - p1->angle) * PI / 180) - h1/2 * sin((360 - p1->angle) * PI / 180);
-    r1p[3][0] = p1->x - w1/2 * cos((360 - p1->angle) * PI / 180) + h1/2 * sin((360 - p1->angle) * PI / 180);
-    r1p[0][1] = p1->y + w1/2 * sin((360 - p1->angle) * PI / 180) + h1/2 * cos((360 - p1->angle) * PI / 180);
-    r1p[1][1] = p1->y + w1/2 * sin((360 - p1->angle) * PI / 180) - h1/2 * cos((360 - p1->angle) * PI / 180);
-    r1p[2][1] = p1->y - w1/2 * sin((360 - p1->angle) * PI / 180) - h1/2 * cos((360 - p1->angle) * PI / 180);
-    r1p[3][1] = p1->y - w1/2 * sin((360 - p1->angle) * PI / 180) + h1/2 * cos((360 - p1->angle) * PI / 180);
-
-    // Corner points of second rectangle
-    r2p[0][0] = p2->x + w2/2 * cos((360 - p2->angle) * PI / 180) + h2/2 * sin((360 - p2->angle) * PI / 180);
-    r2p[1][0] = p2->x + w2/2 * cos((360 - p2->angle) * PI / 180) - h2/2 * sin((360 - p2->angle) * PI / 180);
-    r2p[2][0] = p2->x - w2/2 * cos((360 - p2->angle) * PI / 180) - h2/2 * sin((360 - p2->angle) * PI / 180);
-    r2p[3][0] = p2->x - w2/2 * cos((360 - p2->angle) * PI / 180) + h2/2 * sin((360 - p2->angle) * PI / 180);
-    r2p[0][1] = p2->y + w2/2 * sin((360 - p2->angle) * PI / 180) + h2/2 * cos((360 - p2->angle) * PI / 180);
-    r2p[1][1] = p2->y + w2/2 * sin((360 - p2->angle) * PI / 180) - h2/2 * cos((360 - p2->angle) * PI / 180);
-    r2p[2][1] = p2->y - w2/2 * sin((360 - p2->angle) * PI / 180) - h2/2 * cos((360 - p2->angle) * PI / 180);
-    r2p[3][1] = p2->y - w2/2 * sin((360 - p2->angle) * PI / 180) + h2/2 * cos((360 - p2->angle) * PI / 180);
-
-    for (int i = 0; i < 4; i++) {
-        std::pair<double, double> l1p1;
-        std::pair<double, double> l1p2;
-        l1p1.first = r1p[i][0];
-        l1p1.second = r1p[i][1] * -1;
-        l1p2.first = r1p[(i+1)%4][0];
-        l1p2.second = r1p[(i+1)%4][1] * -1;
-        for (int j = 0; j < 4; j++) {
-            std::pair<double, double> l2p1;
-            std::pair<double, double> l2p2;
-            l2p1.first = r2p[j][0];
-            l2p1.second = r2p[j][1] * -1;
-            l2p2.first = r2p[(j+1)%4][0];
-            l2p2.second = r2p[(j+1)%4][1] * -1;
-            if (CollisionChecker::IsLinesIntersect(l1p1,l1p2,l2p1,l2p2)) {
-                qDebug() << "TRUE";
-                return true;
-            }
-        }
+    if ((p1->x < p2->x + w2) && (p1->x + w1 > p2->x) && (p1->y < p2->y + h2) && (p1->y + h1 > p2->y)) {
+        qDebug() << "TRUE";
+        return true;
     }
-
-    qDebug() << "FALSE";
     return false;
+    // double r1p[4][2];
+    // double r2p[4][2];
+    // Position * p1 = new Position(pp1->x, pp1->y, pp1->angle);
+    // Position * p2 = new Position(pp2->x, pp2->y, pp2->angle);
+    // double w1 = cr1->GetWidth();
+    // double w2 = cr2->GetWidth();
+    // double h1 = cr1->GetHeight();
+    // double h2 = cr2->GetHeight();
+    // p1->y *= -1;
+    // p2->y *= -1;
+    // p1->x = pp1->x + (w1/2) * cos((360 - p1->angle) * PI / 180) - (-h1/2) * sin((360 - p1->angle) * PI / 180);
+    // p1->y = -1*pp1->y + (w1/2) * sin((360 - p1->angle) * PI / 180) + (-h1/2) * cos((360 - p1->angle) * PI / 180);
+    // p2->x = pp2->x + (w2/2) * cos((360 - p2->angle) * PI / 180) - (-h2/2) * sin((360 - p2->angle) * PI / 180);
+    // p2->y = -1*pp2->y + (w2/2) * sin((360 - p2->angle) * PI / 180) + (-h2/2) * cos((360 - p2->angle) * PI / 180);
+
+    // // qDebug() << "RX: " << pp1->x << "RY: " << pp1->y << "RA: " << pp1->angle << "CX: " << p1->x << "CY: " << p1->y << "CA: " << p1->angle;
+
+    // // Corner points of first rectangle
+    // r1p[0][0] = p1->x + (w1/2) * cos((360 - p1->angle) * PI / 180) + (h1/2) * sin((360 - p1->angle) * PI / 180);
+    // r1p[1][0] = p1->x + (w1/2) * cos((360 - p1->angle) * PI / 180) - (h1/2) * sin((360 - p1->angle) * PI / 180);
+    // r1p[2][0] = p1->x - (w1/2) * cos((360 - p1->angle) * PI / 180) - (h1/2) * sin((360 - p1->angle) * PI / 180);
+    // r1p[3][0] = p1->x - (w1/2) * cos((360 - p1->angle) * PI / 180) + (h1/2) * sin((360 - p1->angle) * PI / 180);
+    // r1p[0][1] = p1->y + (w1/2) * sin((360 - p1->angle) * PI / 180) - (h1/2) * cos((360 - p1->angle) * PI / 180);
+    // r1p[1][1] = p1->y + (w1/2) * sin((360 - p1->angle) * PI / 180) + (h1/2) * cos((360 - p1->angle) * PI / 180);
+    // r1p[2][1] = p1->y - (w1/2) * sin((360 - p1->angle) * PI / 180) + (h1/2) * cos((360 - p1->angle) * PI / 180);
+    // r1p[3][1] = p1->y - (w1/2) * sin((360 - p1->angle) * PI / 180) - (h1/2) * cos((360 - p1->angle) * PI / 180);
+
+    // // Corner points of second rectangle
+    // r2p[0][0] = p2->x + (w2/2) * cos((360 - p2->angle) * PI / 180) + (h2/2) * sin((360 - p2->angle) * PI / 180);
+    // r2p[1][0] = p2->x + (w2/2) * cos((360 - p2->angle) * PI / 180) - (h2/2) * sin((360 - p2->angle) * PI / 180);
+    // r2p[2][0] = p2->x - (w2/2) * cos((360 - p2->angle) * PI / 180) - (h2/2) * sin((360 - p2->angle) * PI / 180);
+    // r2p[3][0] = p2->x - (w2/2) * cos((360 - p2->angle) * PI / 180) + (h2/2) * sin((360 - p2->angle) * PI / 180);
+    // r2p[0][1] = p2->y + (w1/2) * sin((360 - p2->angle) * PI / 180) - (h2/2) * cos((360 - p2->angle) * PI / 180);
+    // r2p[1][1] = p2->y + (w1/2) * sin((360 - p2->angle) * PI / 180) + (h2/2) * cos((360 - p2->angle) * PI / 180);
+    // r2p[2][1] = p2->y - (w1/2) * sin((360 - p2->angle) * PI / 180) + (h2/2) * cos((360 - p2->angle) * PI / 180);
+    // r2p[3][1] = p2->y - (w1/2) * sin((360 - p2->angle) * PI / 180) - (h2/2) * cos((360 - p2->angle) * PI / 180);
+
+    // for (int i = 0; i < 4; i++) {
+    //     std::pair<double, double> l1p1;
+    //     std::pair<double, double> l1p2;
+    //     l1p1.first = r1p[i][0];
+    //     l1p1.second = r1p[i][1] * -1;
+    //     l1p2.first = r1p[(i+1)%4][0];
+    //     l1p2.second = r1p[(i+1)%4][1] * -1;
+    //     for (int j = 0; j < 4; j++) {
+    //         std::pair<double, double> l2p1;
+    //         std::pair<double, double> l2p2;
+    //         l2p1.first = r2p[j][0];
+    //         l2p1.second = r2p[j][1] * -1;
+    //         l2p2.first = r2p[(j+1)%4][0];
+    //         l2p2.second = r2p[(j+1)%4][1] * -1;
+    //         if (CollisionChecker::IsLinesIntersect(l1p1,l1p2,l2p1,l2p2)) {
+    //             delete p1;
+    //             delete p2;
+    //             return true;
+    //         }
+    //     }
+    // }
+
+    // delete p1;
+    // delete p2;
+    // return false;
 }
 bool CollisionChecker::IsLinesIntersect(std::pair<double, double> l1p1, std::pair<double, double> l1p2, std::pair<double, double> l2p1, std::pair<double, double> l2p2) {
     int o1 = CollisionChecker::PointsOrientation(l1p1, l1p2, l2p1);
@@ -136,44 +156,75 @@ bool CollisionChecker::IsPointOnLine(std::pair<double, double> lp1, std::pair<do
 }
 
 bool CollisionChecker::CheckCollisionRectangleCircle(IRectangleCollider * cr1, ICircleCollider * cc2) {
-    bool result = false;
     double r = cc2->GetRadius();
+    Position * p1 = new Position(cr1->GetPosition()->x, cr1->GetPosition()->y, cr1->GetPosition()->angle);
+    Position * p2 = new Position(cc2->GetPosition()->x-r, cc2->GetPosition()->y-r, cc2->GetPosition()->angle);
     double w = cr1->GetWidth();
     double h = cr1->GetHeight();
-    double cx;
-    double cy;
-    // Move circle as if rectangle was in 0,0
-    Position * pc2 = new Position(cc2->GetPosition()->x - cr1->GetPosition()->x, cc2->GetPosition()->y - cr1->GetPosition()->y, 0);
-    // Rotate circle center
-    Position * pc2c = new Position(
-        pc2->x * cos((360 - cr1->GetPosition()->angle) * PI / 180) - pc2->y * sin((360 - cr1->GetPosition()->angle) * PI / 180),
-        pc2->x * sin((360 - cr1->GetPosition()->angle) * PI / 180) + pc2->y * cos((360 - cr1->GetPosition()->angle) * PI / 180),
-        cr1->GetPosition()->angle
-    );
-
-    // Get closest X to circle on rectangle
-    if (pc2c->x + r > -1 * w / 2 && pc2c->x - r < w / 2) {
-        cx = pc2c->x;
-        cx = cx > w / 2 ? w / 2 : cx;
-        cx = cx < -1 * w / 2 ? -1 * w / 2 : cx;
-    } else {
-        delete pc2;
-        delete pc2c;
-        return false;
+    double x = p1->x;
+    double y = p1->y;
+    if (p1->x < p2->x) {
+        x = p2->x;
+    } else if (p1->x > p2->x + w) {
+        x = p2->x + w;
     }
-    // Get closest Y to circle on rectangle
-    if (pc2c->y + r > -1 * h / 2 && pc2c->y - r < h / 2) {
-        cy = pc2c->y;
-        cy = cy > h / 2 ? h / 2 : cy;
-        cy = cy < -1 * h / 2 ? -1 * h / 2 : cy;
-    } else {
-        delete pc2;
-        delete pc2c;
-        return false;
+    if (p1->y < p2->y) {
+        y = p2->y;
+    } else if (p1->y > p2->y + h) {
+        y = p2->y + h;
     }
+    double dx = p1->x - x;
+    double dy = p1->y - y;
+    double distance = sqrt( (dx*dx) + (dy*dy) );
 
-    result = pow(pc2c->x - cx, 2) + pow(pc2c->y - cy, 2) < pow(r, 2);
-    delete pc2;
-    delete pc2c;
-    return result;
+    // if the distance is less than the radius, collision!
+    if (distance <= r) {
+        delete p1;
+        delete p2;
+        return true;
+    }
+    delete p1;
+    delete p2;
+    return false;
+
+    // bool result = false;
+    // double r = cc2->GetRadius();
+    // double w = cr1->GetWidth();
+    // double h = cr1->GetHeight();
+    // double cx;
+    // double cy;
+    // // Move circle as if rectangle was in 0,0
+    // Position * pc2 = new Position(cc2->GetPosition()->x - cr1->GetPosition()->x, cc2->GetPosition()->y - cr1->GetPosition()->y, 0);
+    // // Rotate circle center
+    // Position * pc2c = new Position(
+    //     pc2->x * cos((360 - cr1->GetPosition()->angle) * PI / 180) - pc2->y * sin((360 - cr1->GetPosition()->angle) * PI / 180),
+    //     pc2->x * sin((360 - cr1->GetPosition()->angle) * PI / 180) + pc2->y * cos((360 - cr1->GetPosition()->angle) * PI / 180),
+    //     cr1->GetPosition()->angle
+    // );
+
+    // // Get closest X to circle on rectangle
+    // if (pc2c->x + r > -1 * w / 2 && pc2c->x - r < w / 2) {
+    //     cx = pc2c->x;
+    //     cx = cx > w / 2 ? w / 2 : cx;
+    //     cx = cx < -1 * w / 2 ? -1 * w / 2 : cx;
+    // } else {
+    //     delete pc2;
+    //     delete pc2c;
+    //     return false;
+    // }
+    // // Get closest Y to circle on rectangle
+    // if (pc2c->y + r > -1 * h / 2 && pc2c->y - r < h / 2) {
+    //     cy = pc2c->y;
+    //     cy = cy > h / 2 ? h / 2 : cy;
+    //     cy = cy < -1 * h / 2 ? -1 * h / 2 : cy;
+    // } else {
+    //     delete pc2;
+    //     delete pc2c;
+    //     return false;
+    // }
+
+    // result = pow(pc2c->x - cx, 2) + pow(pc2c->y - cy, 2) < pow(r, 2);
+    // delete pc2;
+    // delete pc2c;
+    // return result;
 }

@@ -25,6 +25,7 @@ public:
     void SetMap(IMap * map) { this->_map = map; }
     int GetId() { return this->_id; }
     void SetId(int id) { this->_id = id; }
+    virtual void RecalcColliderPosition() = 0;
     virtual void Update() = 0;
     virtual ~IGameObject() {};
 

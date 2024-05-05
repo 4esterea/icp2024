@@ -25,6 +25,7 @@ class ControlledRobot: public IControlledRobot {
         void SetSpeedDirection(SpeedDirection speedDirection);
         RotationDirection GetRotationDirection();
         void SetRotationDirection(RotationDirection rotationDirection);
+        void RecalcColliderPosition();
         void Update();
 };
 

@@ -22,6 +22,10 @@ double ControlledRobot::GetSpeed() {
     return this->_speed;
 }
 
+void ControlledRobot::RecalcColliderPosition() {
+    this->_collider->GetPosition()->SetPosition(this->_position->x, this->_position->y, this->_position->angle);
+}
+
 void ControlledRobot::SetSpeed(double speed) {
     this->_speed = speed;
 }

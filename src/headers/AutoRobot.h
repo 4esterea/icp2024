@@ -24,6 +24,7 @@ class AutoRobot: public IAutoRobot {
         void SetSpeed(double speed);
         double GetRotationAngle();
         void SetRotationAngle(double rotationAngle);
+        void RecalcColliderPosition();
         void Update();
 };
 
