@@ -19,7 +19,14 @@ class RobotWidget : public QWidget {
     Q_OBJECT
 
 public:
-    explicit RobotWidget(QWidget *parent, RobotGraphicItem* robot, bool isRemote);
+    /**
+     * @brief Constructor for RobotWidget class.
+     *
+     * @param parent The parent QWidget object.
+     * @param robot The RobotGraphicItem object.
+     * @param isRemote A boolean indicating whether the robot is remote.
+     */
+     explicit RobotWidget(QWidget *parent, RobotGraphicItem* robot, bool isRemote);
 
 private:
     RobotGraphicItem* _robot = nullptr;

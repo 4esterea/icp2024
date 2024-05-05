@@ -21,6 +21,12 @@ class ObstacleWidget : public QWidget {
     Q_OBJECT
 
 public:
+    /**
+     * @brief Constructor for ObstacleWidget class.
+     *
+     * @param parent The parent QWidget object.
+     * @param obstacle The ObstacleGraphicItem object.
+     */
     explicit ObstacleWidget(QWidget *parent, ObstacleGraphicItem* obstacle);
 
 private:

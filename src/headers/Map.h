@@ -35,9 +35,20 @@ class Map: public IMap {
         Map(int width, int height);
 };
 
-
+/**
+ * @brief Converts an integer to a speed direction.
+ *
+ * @param i The integer to convert.
+ * @return The corresponding speed direction.
+ */
 SpeedDirection MapIntToSpeedDirection(int i);
 
+/**
+ * @brief Converts an integer to a rotation direction.
+ *
+ * @param i The integer to convert.
+ * @return The corresponding rotation direction.
+ */
 RotationDirection MapIntToRotationDirection(int i);
 
 #endif

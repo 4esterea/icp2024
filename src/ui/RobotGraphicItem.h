@@ -27,13 +27,60 @@ class AutoRobot;
 class RobotGraphicItem : public QGraphicsEllipseItem
 {
 public:
+    /**
+     * @brief Constructor for RobotGraphicItem class.
+     *
+     * @param viewport The viewport object.
+     * @param parent The parent QGraphicsItem object.
+     * @param robot The IRobot object.
+     */
     RobotGraphicItem(Viewport* viewport = nullptr, QGraphicsItem *parent = nullptr, IRobot * robot = nullptr);
+
+    /**
+     * @brief Event handler for hover enter event.
+     *
+     * @param event The QGraphicsSceneHoverEvent object.
+     */
     void hoverEnterEvent(QGraphicsSceneHoverEvent* event);
+
+    /**
+     * @brief Event handler for hover leave event.
+     *
+     * @param event The QGraphicsSceneHoverEvent object.
+     */
     void hoverLeaveEvent(QGraphicsSceneHoverEvent* event);
+
+    /**
+     * @brief Event handler for mouse double click event.
+     *
+     * @param event The QGraphicsSceneMouseEvent object.
+     */
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event);
+
+    /**
+     * @brief Updates the RobotGraphicItem.
+     */
     void Update();
+
+    /**
+     * @brief Gets the settings of the RobotGraphicItem.
+     *
+     * @return A pointer to the QWidget object.
+     */
     QWidget* getSettings();
+
+    /**
+     * @brief Gets the IRobot object.
+     *
+     * @return A pointer to the IRobot object.
+     */
     IRobot* getGameObject();
+
+    /**
+     * @brief Gets the vision of the RobotGraphicItem.
+     *
+     * @return A pointer to the QGraphicsRectItem object.
+     */
     QGraphicsRectItem* getVision();
 
 private:

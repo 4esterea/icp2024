@@ -91,6 +91,9 @@ void MainWindow::setUiDefaultState()
 
 MainWindow::~MainWindow()
 {
+    if (_fileToSave == "./temp.json"){
+        QFile::remove(_fileToSave);
+    }
     delete ui;
 }
 

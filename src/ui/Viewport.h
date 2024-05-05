@@ -16,13 +16,46 @@
 
 class Viewport : public QGraphicsView {
 public:
+    /**
+     * @brief Constructor for Viewport class.
+     *
+     * @param parent The parent QWidget object.
+     * @param map The Map object.
+     */
     Viewport(QWidget* parent = nullptr, Map* map = nullptr);
+
+    /**
+     * @brief Draws all elements in the viewport.
+     */
     void drawAll();
+
+    /**
+     * @brief Updates the viewport.
+     */
     void Update();
+
+    /**
+     * @brief Event handler for mouse press event.
+     *
+     * @param event The QMouseEvent object.
+     */
     void mousePressEvent(QMouseEvent *event) override;
+
+    /**
+     * @brief Hides all settings in the viewport.
+     */
     void hideAllSettings();
-	QGraphicsScene* scene;
+
+     /**
+    * @brief A pointer to the QGraphicsScene object.
+    */
+	   QGraphicsScene* scene;
 protected:
+     /**
+    * @brief Event handler for wheel event.
+    *
+    * @param event The QWheelEvent object.
+    */
     void wheelEvent(QWheelEvent *event) override;
 private:
     Map* _map;
