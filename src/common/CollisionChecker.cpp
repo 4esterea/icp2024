@@ -159,8 +159,8 @@ bool CollisionChecker::IsPointOnLine(std::pair<double, double> lp1, std::pair<do
 
 bool CollisionChecker::CheckCollisionRectangleCircle(IRectangleCollider * cr1, ICircleCollider * cc2) {
     double r = cc2->GetRadius();
-    Position * p1 = new Position(cr1->GetPosition()->x, cr1->GetPosition()->y, cr1->GetPosition()->angle);
-    Position * p2 = new Position(cc2->GetPosition()->x-r, cc2->GetPosition()->y-r, cc2->GetPosition()->angle);
+    Position * p2 = new Position(cr1->GetPosition()->x, cr1->GetPosition()->y, cr1->GetPosition()->angle);
+    Position * p1 = new Position(cc2->GetPosition()->x+r, cc2->GetPosition()->y+r, cc2->GetPosition()->angle);
     double w = cr1->GetWidth();
     double h = cr1->GetHeight();
     double x = p1->x;
