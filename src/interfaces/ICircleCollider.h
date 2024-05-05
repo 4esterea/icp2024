@@ -3,7 +3,7 @@
  * @author Sniehovskyi Nikita (xsnieh00)
  * @author Zhdanovich Iaroslav (xzhdan00)
  * @date 08.04.2024
- * @brief Definition of Circle Collider doubleerface
+ * @brief Definition of Circle Collider interface
  */
 
 #ifndef __ICIRCLECOLLIDER_H__

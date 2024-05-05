@@ -3,7 +3,7 @@
  * @author Sniehovskyi Nikita (xsnieh00)
  * @author Zhdanovich Iaroslav (xzhdan00)
  * @date 08.04.2024
- * @brief Definition of Game Object doubleerface
+ * @brief Definition of Game Object interface
  */
 
 #ifndef __IGAMEOBJECT_H__

@@ -3,7 +3,7 @@
  * @author Sniehovskyi Nikita (xsnieh00)
  * @author Zhdanovich Iaroslav (xzhdan00)
  * @date 08.04.2024
- * @brief Definition of Position doubleerface
+ * @brief Definition of Position interface
  */
 
 #ifndef __IPOSITION_H__

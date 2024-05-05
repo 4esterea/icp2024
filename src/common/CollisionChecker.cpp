@@ -1,7 +1,7 @@
 /**
  * @file CollisionChecker.cpp
  * @author Sniehovskyi Nikita (xsnieh00)
- * @author TODO
+ * @author Zhdanovich Iaroslav (xzhdan00)
  * @date 04.05.2024
  * @brief Implementation of Collision Checker.
  */
@@ -117,10 +117,10 @@ bool CollisionChecker::CheckCollisionRectangleRectangle(IRectangleCollider * cr1
     // return false;
 }
 bool CollisionChecker::IsLinesIntersect(std::pair<double, double> l1p1, std::pair<double, double> l1p2, std::pair<double, double> l2p1, std::pair<double, double> l2p2) {
-    int o1 = CollisionChecker::PointsOrientation(l1p1, l1p2, l2p1);
-    int o2 = CollisionChecker::PointsOrientation(l1p1, l1p2, l2p2);
-    int o3 = CollisionChecker::PointsOrientation(l2p1, l2p2, l1p1);
-    int o4 = CollisionChecker::PointsOrientation(l2p1, l2p2, l1p2);
+    int o1 = CollisionChecker::GetPointsOrientation(l1p1, l1p2, l2p1);
+    int o2 = CollisionChecker::GetPointsOrientation(l1p1, l1p2, l2p2);
+    int o3 = CollisionChecker::GetPointsOrientation(l2p1, l2p2, l1p1);
+    int o4 = CollisionChecker::GetPointsOrientation(l2p1, l2p2, l1p2);
 
     if (o1 != o2 && o3 != o4) {
         return true;
@@ -140,7 +140,7 @@ bool CollisionChecker::IsLinesIntersect(std::pair<double, double> l1p1, std::pai
     return false;
 }
 
-PointsOrientation CollisionChecker::PointsOrientation(std::pair<double, double> p1, std::pair<double, double> p2, std::pair<double, double> p3) {
+PointsOrientation CollisionChecker::GetPointsOrientation(std::pair<double, double> p1, std::pair<double, double> p2, std::pair<double, double> p3) {
     double result = (p3.first - p2.first) * (p2.second - p1.second) - (p3.second - p2.second) * (p2.first - p1.first);
     if (result < 0.005 && result > -0.005) {
         return epo_collinear;

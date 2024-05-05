@@ -44,7 +44,7 @@ ObstacleGraphicItem::ObstacleGraphicItem(Viewport* viewport, QGraphicsItem* pare
 
 void ObstacleGraphicItem::hoverEnterEvent(QGraphicsSceneHoverEvent* event) {
     MainWindow* mainWindow = dynamic_cast<MainWindow*>(_viewport->parentWidget()->parentWidget());
-    if (mainWindow && mainWindow->isEditingEnabled() && mainWindow->isDefault()) {
+    if (mainWindow && mainWindow->isEditingEnabled() && mainWindow->isDefault() && !mainWindow->isLaunched()) {
 		setFlag(QGraphicsItem::ItemIsMovable, true);
         setPen(QPen({Qt::red, 2}));
     }
@@ -53,7 +53,7 @@ void ObstacleGraphicItem::hoverEnterEvent(QGraphicsSceneHoverEvent* event) {
 
 void ObstacleGraphicItem::hoverLeaveEvent(QGraphicsSceneHoverEvent* event) {
     MainWindow* mainWindow = dynamic_cast<MainWindow*>(_viewport->parentWidget()->parentWidget());
-    if (mainWindow && mainWindow->isEditingEnabled() && mainWindow->isDefault()) {
+    if (mainWindow && mainWindow->isEditingEnabled() && mainWindow->isDefault() && !mainWindow->isLaunched()) {
         setFlag(QGraphicsItem::ItemIsMovable, false);
         setPen(QPen({Qt::white, 2}));
     }

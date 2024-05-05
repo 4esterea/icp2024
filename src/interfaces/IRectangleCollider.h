@@ -3,7 +3,7 @@
  * @author Sniehovskyi Nikita (xsnieh00)
  * @author Zhdanovich Iaroslav (xzhdan00)
  * @date 08.04.2024
- * @brief Definition of Rectangle Collider doubleerface
+ * @brief Definition of Rectangle Collider interface
  */
 
 #ifndef __IRECTANGLECOLLIDER_H__

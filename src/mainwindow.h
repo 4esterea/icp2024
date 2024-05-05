@@ -34,6 +34,7 @@ public:
     bool isRCRobotMode();
     bool isEditingEnabled();
     bool isDefault();
+    bool isLaunched();
     void setDefaultEditingState();
     void RunSimulation();
     Map* getMap();

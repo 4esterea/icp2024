@@ -3,7 +3,7 @@
  * @author Sniehovskyi Nikita (xsnieh00)
  * @author Zhdanovich Iaroslav (xzhdan00)
  * @date 08.04.2024
- * @brief Definition of Square Collider doubleerface
+ * @brief Definition of Square Collider interface
  */
 
 #ifndef __SQUAREICOLLIDER_H__
