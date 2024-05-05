@@ -51,6 +51,9 @@ int Map::LoadJSON(string json) {
             case eot_obstacle: {
                 width = gameObject["RectangleCollider"].toObject()["width"].toInt();
                 height = gameObject["RectangleCollider"].toObject()["height"].toInt();
+                if (pos_x == 0 || pos_y == 0 || pos_x == _width || pos_y == _height){
+                    break;
+                }
                 this->AddGameObject(new Obstacle(pos_x, pos_y, pos_angle, width, height));
                 break;
             }
@@ -96,7 +99,7 @@ string Map::SaveJSON() {
     json.insert("height", this->_height);
 
     for (uint64_t i = 0; i < this->_gameObjects.size(); i++) {
-        qDebug() << "Saving object: " << this->_gameObjects[i];
+        qDebug() << "Saving object: " << this->_gameObjects[i] << " type: " << this->_gameObjects[i]->GetObjectType();
         position.insert("x", this->_gameObjects[i]->GetPosition()->x);
         position.insert("y", this->_gameObjects[i]->GetPosition()->y);
         position.insert("angle", this->_gameObjects[i]->GetPosition()->angle);
