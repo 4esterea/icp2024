@@ -23,8 +23,8 @@ public:
     IPosition * GetPosition() { return this->_position; };
     ObjectType GetObjectType() { return this->_objectType; };
     void SetMap(IMap * map) { this->_map = map; }
-    double GetId() { return this->_id; }
-    void SetId(double id) { this->_id = id; }
+    int GetId() { return this->_id; }
+    void SetId(int id) { this->_id = id; }
     virtual void Update() = 0;
     virtual ~IGameObject() {};
 
@@ -33,7 +33,7 @@ protected:
     ICollider * _collider;
     ObjectType _objectType;
     IMap * _map; // Map to which GameObject belongs
-    double _id; // Id of object whithin the map
+    int _id; // Id of object whithin the map
 };
 
 #endif

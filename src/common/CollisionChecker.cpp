@@ -50,23 +50,25 @@ bool CollisionChecker::CheckCollisionRectangleRectangle(IRectangleCollider * cr1
     double w2 = cr2->GetWidth();
     double h1 = cr1->GetHeight();
     double h2 = cr2->GetHeight();
+    p1->y *= -1;
+    p2->y *= -1;
     // Corner points of first rectangle
-    r1p[0][0] = p1->x + w1/2 * cos((360 - p1->angle) * PI / 180) - h1/2 * sin((360 - p1->angle) * PI / 180);
-    r1p[1][0] = p1->x + w1/2 * cos((360 - p1->angle) * PI / 180) + h1/2 * sin((360 - p1->angle) * PI / 180);
+    r1p[0][0] = p1->x + w1/2 * cos((360 - p1->angle) * PI / 180) + h1/2 * sin((360 - p1->angle) * PI / 180);
+    r1p[1][0] = p1->x + w1/2 * cos((360 - p1->angle) * PI / 180) - h1/2 * sin((360 - p1->angle) * PI / 180);
     r1p[2][0] = p1->x - w1/2 * cos((360 - p1->angle) * PI / 180) - h1/2 * sin((360 - p1->angle) * PI / 180);
     r1p[3][0] = p1->x - w1/2 * cos((360 - p1->angle) * PI / 180) + h1/2 * sin((360 - p1->angle) * PI / 180);
-    r1p[0][1] = p1->y + w1/2 * sin((360 - p1->angle) * PI / 180) - h1/2 * cos((360 - p1->angle) * PI / 180);
-    r1p[1][1] = p1->y + w1/2 * sin((360 - p1->angle) * PI / 180) + h1/2 * cos((360 - p1->angle) * PI / 180);
+    r1p[0][1] = p1->y + w1/2 * sin((360 - p1->angle) * PI / 180) + h1/2 * cos((360 - p1->angle) * PI / 180);
+    r1p[1][1] = p1->y + w1/2 * sin((360 - p1->angle) * PI / 180) - h1/2 * cos((360 - p1->angle) * PI / 180);
     r1p[2][1] = p1->y - w1/2 * sin((360 - p1->angle) * PI / 180) - h1/2 * cos((360 - p1->angle) * PI / 180);
     r1p[3][1] = p1->y - w1/2 * sin((360 - p1->angle) * PI / 180) + h1/2 * cos((360 - p1->angle) * PI / 180);
 
     // Corner points of second rectangle
-    r2p[0][0] = p2->x + w2/2 * cos((360 - p2->angle) * PI / 180) - h2/2 * sin((360 - p2->angle) * PI / 180);
-    r2p[1][0] = p2->x + w2/2 * cos((360 - p2->angle) * PI / 180) + h2/2 * sin((360 - p2->angle) * PI / 180);
+    r2p[0][0] = p2->x + w2/2 * cos((360 - p2->angle) * PI / 180) + h2/2 * sin((360 - p2->angle) * PI / 180);
+    r2p[1][0] = p2->x + w2/2 * cos((360 - p2->angle) * PI / 180) - h2/2 * sin((360 - p2->angle) * PI / 180);
     r2p[2][0] = p2->x - w2/2 * cos((360 - p2->angle) * PI / 180) - h2/2 * sin((360 - p2->angle) * PI / 180);
     r2p[3][0] = p2->x - w2/2 * cos((360 - p2->angle) * PI / 180) + h2/2 * sin((360 - p2->angle) * PI / 180);
-    r2p[0][1] = p2->y + w2/2 * sin((360 - p2->angle) * PI / 180) - h2/2 * cos((360 - p2->angle) * PI / 180);
-    r2p[1][1] = p2->y + w2/2 * sin((360 - p2->angle) * PI / 180) + h2/2 * cos((360 - p2->angle) * PI / 180);
+    r2p[0][1] = p2->y + w2/2 * sin((360 - p2->angle) * PI / 180) + h2/2 * cos((360 - p2->angle) * PI / 180);
+    r2p[1][1] = p2->y + w2/2 * sin((360 - p2->angle) * PI / 180) - h2/2 * cos((360 - p2->angle) * PI / 180);
     r2p[2][1] = p2->y - w2/2 * sin((360 - p2->angle) * PI / 180) - h2/2 * cos((360 - p2->angle) * PI / 180);
     r2p[3][1] = p2->y - w2/2 * sin((360 - p2->angle) * PI / 180) + h2/2 * cos((360 - p2->angle) * PI / 180);
 
@@ -74,16 +76,16 @@ bool CollisionChecker::CheckCollisionRectangleRectangle(IRectangleCollider * cr1
         std::pair<double, double> l1p1;
         std::pair<double, double> l1p2;
         l1p1.first = r1p[i][0];
-        l1p1.second = r1p[i][1];
+        l1p1.second = r1p[i][1] * -1;
         l1p2.first = r1p[(i+1)%4][0];
-        l1p2.second = r1p[(i+1)%4][1];
+        l1p2.second = r1p[(i+1)%4][1] * -1;
         for (int j = 0; j < 4; j++) {
             std::pair<double, double> l2p1;
             std::pair<double, double> l2p2;
             l2p1.first = r2p[j][0];
-            l2p1.second = r2p[j][1];
+            l2p1.second = r2p[j][1] * -1;
             l2p2.first = r2p[(j+1)%4][0];
-            l2p2.second = r2p[(j+1)%4][1];
+            l2p2.second = r2p[(j+1)%4][1] * -1;
             if (CollisionChecker::IsLinesIntersect(l1p1,l1p2,l2p1,l2p2)) {
                 qDebug() << "TRUE";
                 return true;
@@ -103,27 +105,27 @@ bool CollisionChecker::IsLinesIntersect(std::pair<double, double> l1p1, std::pai
     if (o1 != o2 && o3 != o4) {
         return true;
     }
-    if (o1 == epo_collinear && CollisionChecker::IsPointOnLine(l1p1, l2p1, l1p2)) {
+    if (o1 == epo_collinear && CollisionChecker::IsPointOnLine(l1p1, l1p2, l2p1)) {
         return true;
     }
-    if (o2 == epo_collinear && CollisionChecker::IsPointOnLine(l1p1, l2p2, l1p2)) {
+    if (o2 == epo_collinear && CollisionChecker::IsPointOnLine(l1p1, l1p2, l2p2)) {
         return true;
     }
-    if (o3 == epo_collinear && CollisionChecker::IsPointOnLine(l2p1, l1p1, l2p2)) {
+    if (o3 == epo_collinear && CollisionChecker::IsPointOnLine(l2p1, l2p2, l1p1)) {
         return true;
     }
-    if (o4 == epo_collinear && CollisionChecker::IsPointOnLine(l2p1, l1p2, l2p2)) {
+    if (o4 == epo_collinear && CollisionChecker::IsPointOnLine(l2p1, l2p2, l1p2)) {
         return true;
     }
     return false;
 }
 
 PointsOrientation CollisionChecker::PointsOrientation(std::pair<double, double> p1, std::pair<double, double> p2, std::pair<double, double> p3) {
-    double result = (p2.second - p1.second) * (p3.first - p2.first) - (p2.first - p1.first) * (p3.second - p2.second);
-    if (round(result / 1000) * 1000 == 0) {
+    double result = (p3.first - p2.first) * (p2.second - p1.second) - (p3.second - p2.second) * (p2.first - p1.first);
+    if (result < 0.005 && result > -0.005) {
         return epo_collinear;
     }
-    return result > 0? epo_clockwise : epo_counter_clockwise; // clock or counterclock wise
+    return result > 0 ? epo_clockwise : epo_counter_clockwise; // clock or counterclock wise
 }
 
 bool CollisionChecker::IsPointOnLine(std::pair<double, double> lp1, std::pair<double, double> lp2, std::pair<double, double> p) {
