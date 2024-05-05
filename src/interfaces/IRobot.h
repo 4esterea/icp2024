@@ -16,8 +16,6 @@ class IRobot : public IGameObject {
     public:
         IRectangleCollider * GetVision() { return this->_vision; }
         void SetVision(IRectangleCollider * vision) { this->_vision = vision; }
-        RotationDirection GetCollisionBehavior() { return this->_collisionBehavior; }
-        void SetCollisionBehavior(RotationDirection collisionBehavior) { this->_collisionBehavior = collisionBehavior; }
         virtual void Update() = 0;
         virtual double GetSpeed() = 0;
         virtual void SetSpeed(double speed) = 0;
@@ -26,10 +24,9 @@ class IRobot : public IGameObject {
         virtual ~IRobot() {};
 
     protected:
-        double _speed; // Constant through run
-        double _rotationAngle; // Constant through run
-        IRectangleCollider * _vision; // <Right sigth collider, Left sight collider>
-        RotationDirection _collisionBehavior;
+        double _speed;
+        double _rotationAngle;
+        IRectangleCollider * _vision; // Vision box
 };
 
 #endif

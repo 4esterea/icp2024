@@ -28,7 +28,6 @@ double Map::LoadJSON(string json) {
     QString str = QString::fromStdString(json);
     double width;
     double height;
-    double radius;
 
     _gameObjects.clear();
     doc = QJsonDocument::fromJson(str.toUtf8());
@@ -59,8 +58,8 @@ double Map::LoadJSON(string json) {
                 IAutoRobot * ar = new AutoRobot(pos_x, pos_y, pos_angle, gameObject["CircleCollider"].toObject()["radius"].toDouble());
                 ar->SetSpeed(gameObject["Robot"].toObject()["speed"].toDouble());
                 ar->SetRotationAngle(gameObject["Robot"].toObject()["rotationAngle"].toDouble());
+                ar->GetVision()->SetWidth(gameObject["Robot"].toObject()["visionDistance"].toDouble());
                 this->AddGameObject(ar);
-                // TODO add colliders
                 break;
             }
             case eot_controlled_robot: {
@@ -69,7 +68,7 @@ double Map::LoadJSON(string json) {
                 cr->SetRotationAngle(gameObject["Robot"].toObject()["rotationAngle"].toDouble());
                 cr->SetSpeedDirection(MapIntToSpeedDirection(gameObject["ControlledRobot"].toObject()["speedDirection"].toDouble()));
                 cr->SetRotationDirection(MapIntToRotationDirection(gameObject["ControlledRobot"].toObject()["rotationDirection"].toDouble()));
-                radius = gameObject["CircleCollider"].toObject()["radius"].toDouble();
+                cr->GetVision()->SetWidth(gameObject["Robot"].toObject()["visionDistance"].toDouble());
                 this->AddGameObject(cr);
                 break;
             }
@@ -126,6 +125,7 @@ string Map::SaveJSON() {
                 gameObject.insert("CircleCollider", circleCollider);
                 robot.insert("speed", ar->GetSpeed());
                 robot.insert("rotationAngle", ar->GetRotationAngle());
+                robot.insert("visionDistance", ar->GetVision()->GetWidth());
                 gameObject.insert("Robot", robot);
                 // TODO add colliders
                 break;
@@ -144,6 +144,7 @@ string Map::SaveJSON() {
                 controlledRobot.insert("speedDirection", cr->GetSpeedDirection());
                 controlledRobot.insert("rotationDirection", cr->GetRotationDirection());
                 gameObject.insert("ControlledRobot", controlledRobot);
+                robot.insert("visionDistance", cr->GetVision()->GetWidth());
                 break;
         }
         gameObjects.push_back(gameObject);
