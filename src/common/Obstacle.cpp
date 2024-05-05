@@ -21,18 +21,18 @@ void Obstacle::RecalcColliderPosition() {
 }
 
 void Obstacle::Update() {
-    for (uint64_t i = 0; i < this->_map->getGameObjects().size(); i++) {
-        IGameObject * go = this->_map->getGameObjects()[i];
-        if (this->_id == go->GetId()) {
-            // Skip if the same object
-            continue;
-        }
-        qDebug() << "R" << this->GetId() << ": Check " << go->GetObjectType();
-        if (this->GetCollider()->CheckCollision(go->GetCollider())) {
-            // Collision detected -> move object back
-            qDebug() << "TRUE";
-            // qDebug() << "x1 " << this->GetPosition()->x;
-            break;
-        }
-    }
+    // for (uint64_t i = 0; i < this->_map->getGameObjects().size(); i++) {
+    //     IGameObject * go = this->_map->getGameObjects()[i];
+    //     if (this->_id == go->GetId()) {
+    //         // Skip if the same object
+    //         continue;
+    //     }
+    //     qDebug() << "R" << this->GetId() << ": Check " << go->GetObjectType();
+    //     if (this->GetCollider()->CheckCollision(go->GetCollider())) {
+    //         // Collision detected -> move object back
+    //         qDebug() << "TRUE";
+    //         // qDebug() << "x1 " << this->GetPosition()->x;
+    //         break;
+    //     }
+    // }
 }
