@@ -18,7 +18,14 @@ using namespace std;
 
 class IAutoRobot : public IRobot {
     public:
-        virtual ~IAutoRobot() {};
+    /**
+     * @brief Virtual destructor for the IAutoRobot interface.
+     */
+    virtual ~IAutoRobot() {};
+
+    protected:
+        IRectangleCollider * _vision; // <Right sigth collider, Left sight collider>
+
 };
 
 #endif

@@ -23,15 +23,62 @@
 #include "../headers/ControlledRobot.h"
 
 class Map: public IMap {
-    public:
-        void AddGameObject(IGameObject * gameObject);
-        void RemoveGameObject(IGameObject * gameObject);
-        std::pair<int, int> getSize();
-        void Update();
-        double LoadJSON(string json);
-        string SaveJSON();
-        const std::vector<IGameObject*>& getGameObjects() const override;
-        Map(int width, int height);
+public:
+    /**
+   * @brief Adds a game object to the map.
+   *
+   * @param gameObject The game object to add.
+   */
+    void AddGameObject(IGameObject * gameObject);
+
+    /**
+     * @brief Removes a game object from the map.
+     *
+     * @param gameObject The game object to remove.
+     */
+    void RemoveGameObject(IGameObject * gameObject);
+
+    /**
+     * @brief Gets the size of the map.
+     *
+     * @return A pair of integers representing the width and height of the map.
+     */
+    std::pair<int, int> getSize();
+
+    /**
+     * @brief Updates the state of the map.
+     */
+    void Update();
+
+    /**
+     * @brief Loads the map from a JSON string.
+     *
+     * @param json The JSON string to load the map from.
+     * @return A double representing the success of the operation.
+     */
+    double LoadJSON(string json);
+
+    /**
+     * @brief Saves the map to a JSON string.
+     *
+     * @return The JSON string representing the map.
+     */
+    string SaveJSON();
+
+    /**
+     * @brief Gets the game objects in the map.
+     *
+     * @return A vector of pointers to the game objects in the map.
+     */
+    const std::vector<IGameObject*>& getGameObjects() const override;
+
+    /**
+     * @brief Constructor for the Map class.
+     *
+     * @param width The width of the map.
+     * @param height The height of the map.
+     */
+    Map(int width, int height);
 };
 
 /**

@@ -17,10 +17,32 @@ using namespace std;
 
 class ICollider {
     public:
-        IPosition * GetPosition() { return this->_position; };
-        ColliderType GetColliderType() { return this->_colliderType; };
-        virtual bool CheckCollision(ICollider * collider) = 0;
-        virtual ~ICollider() {};
+    /**
+     * @brief Gets the position of the collider.
+     *
+     * @return A pointer to the position of the collider.
+     */
+    IPosition * GetPosition();
+
+    /**
+     * @brief Gets the type of the collider.
+     *
+     * @return The type of the collider.
+     */
+    ColliderType GetColliderType();
+
+    /**
+     * @brief Checks if this collider is colliding with another collider.
+     *
+     * @param collider The other collider to check collision with.
+     * @return True if this collider is colliding with the other collider, false otherwise.
+     */
+    virtual bool CheckCollision(ICollider * collider) = 0;
+
+    /**
+     * @brief Virtual destructor for the ICollider interface.
+     */
+    virtual ~ICollider();
 
     protected:
         IPosition * _position;

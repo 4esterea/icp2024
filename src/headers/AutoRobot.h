@@ -19,13 +19,53 @@
 
 class AutoRobot: public IAutoRobot {
     public:
-        AutoRobot(double x, double y, double angle, double radius);
-        double GetSpeed();
-        void SetSpeed(double speed);
-        double GetRotationAngle();
-        void SetRotationAngle(double rotationAngle);
-        void RecalcColliderPosition();
-        void Update();
+    /**
+    * @brief Constructor for the AutoRobot class.
+    *
+    * @param x The initial x-coordinate of the robot.
+    * @param y The initial y-coordinate of the robot.
+    * @param angle The initial angle of the robot.
+    * @param radius The radius of the robot.
+    */
+    AutoRobot(double x, double y, double angle, double radius);
+
+    /**
+     * @brief Gets the speed of the robot.
+     *
+     * @return The speed of the robot.
+     */
+    double GetSpeed();
+
+    /**
+     * @brief Sets the speed of the robot.
+     *
+     * @param speed The speed to set the robot to.
+     */
+    void SetSpeed(double speed);
+
+    /**
+     * @brief Gets the rotation angle of the robot.
+     *
+     * @return The rotation angle of the robot.
+     */
+    double GetRotationAngle();
+
+    /**
+     * @brief Sets the rotation angle of the robot.
+     *
+     * @param rotationAngle The rotation angle to set the robot to.
+     */
+    void SetRotationAngle(double rotationAngle);
+
+    /**
+     * @brief Recalculates the position of the robot's collider.
+     */
+    void RecalcColliderPosition();
+
+    /**
+     * @brief Updates the state of the robot.
+     */
+    void Update();
 };
 
 #endif
