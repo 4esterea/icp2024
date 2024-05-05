@@ -13,11 +13,38 @@
 
 class IRectangleCollider : public ICollider {
     public:
-        virtual double GetWidth() = 0;
-        virtual void SetWidth(double width) = 0;
-        virtual double GetHeight() = 0;
-        virtual void SetHeight(double height) = 0;
-        virtual ~IRectangleCollider() {};
+    /**
+     * @brief Gets the width of the rectangle collider.
+     *
+     * @return The width of the rectangle collider.
+     */
+    virtual double GetWidth() = 0;
+
+    /**
+     * @brief Sets the width of the rectangle collider.
+     *
+     * @param width The width to set the rectangle collider to.
+     */
+    virtual void SetWidth(double width) = 0;
+
+    /**
+     * @brief Gets the height of the rectangle collider.
+     *
+     * @return The height of the rectangle collider.
+     */
+    virtual double GetHeight() = 0;
+
+    /**
+     * @brief Sets the height of the rectangle collider.
+     *
+     * @param height The height to set the rectangle collider to.
+     */
+    virtual void SetHeight(double height) = 0;
+
+    /**
+     * @brief Virtual destructor for the IRectangleCollider interface.
+     */
+    virtual ~IRectangleCollider() {};
 
     protected:
         double _width;

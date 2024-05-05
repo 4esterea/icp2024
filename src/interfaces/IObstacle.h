@@ -16,8 +16,17 @@ using namespace std;
 
 class IObstacle : public IGameObject {
     public:
-        IRectangleCollider * GetCollider() { return dynamic_cast<IRectangleCollider *>(this->_collider); };
-        virtual ~IObstacle() {};
+    /**
+     * @brief Gets the rectangle collider of the obstacle.
+     *
+     * @return A pointer to the rectangle collider of the obstacle.
+     */
+    IRectangleCollider * GetCollider();
+
+    /**
+     * @brief Virtual destructor for the IObstacle interface.
+     */
+    virtual ~IObstacle();
 };
 
 #endif

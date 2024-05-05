@@ -18,9 +18,24 @@ using namespace std;
 
 class IAutoRobot : public IRobot {
     public:
-        IRectangleCollider * GetVision() { return this->_vision; }
-        void SetVision(IRectangleCollider * vision) { this->_vision = vision; }
-        virtual ~IAutoRobot() {};
+    /**
+    * @brief Gets the vision of the auto robot.
+    *
+    * @return A pointer to the rectangle collider representing the robot's vision.
+    */
+    IRectangleCollider * GetVision();
+
+    /**
+     * @brief Sets the vision of the auto robot.
+     *
+     * @param vision A pointer to the rectangle collider to set as the robot's vision.
+     */
+    void SetVision(IRectangleCollider * vision);
+
+    /**
+     * @brief Virtual destructor for the IAutoRobot interface.
+     */
+    virtual ~IAutoRobot();
 
     protected:
         IRectangleCollider * _vision; // <Right sigth collider, Left sight collider>

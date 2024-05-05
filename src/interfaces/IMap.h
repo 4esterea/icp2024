@@ -17,12 +17,44 @@ using namespace std;
 
 class IMap {
     public:
-        virtual void AddGameObject(IGameObject * gameObject) = 0;
-        virtual void Update() = 0;
-        virtual double LoadJSON(string json) = 0;
-        virtual string SaveJSON() = 0;
-        virtual const std::vector<IGameObject*>& getGameObjects() const = 0;
-        virtual ~IMap() {};
+    /**
+     * @brief Adds a game object to the map.
+     *
+     * @param gameObject A pointer to the game object to add.
+     */
+    virtual void AddGameObject(IGameObject * gameObject) = 0;
+
+    /**
+     * @brief Updates the state of the map.
+     */
+    virtual void Update() = 0;
+
+    /**
+     * @brief Loads the map from a JSON string.
+     *
+     * @param json The JSON string to load the map from.
+     * @return The result of the loading operation.
+     */
+    virtual double LoadJSON(string json) = 0;
+
+    /**
+     * @brief Saves the map to a JSON string.
+     *
+     * @return The JSON string representing the map.
+     */
+    virtual string SaveJSON() = 0;
+
+    /**
+     * @brief Gets the game objects in the map.
+     *
+     * @return A vector of pointers to the game objects in the map.
+     */
+    virtual const std::vector<IGameObject*>& getGameObjects() const = 0;
+
+    /**
+     * @brief Virtual destructor for the IMap interface.
+     */
+    virtual ~IMap() {};
 
     protected:
         double _width;
