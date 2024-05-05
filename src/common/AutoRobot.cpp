@@ -16,7 +16,7 @@ AutoRobot::AutoRobot(double x, double y, double angle, double radius) {
     this->_objectType = eot_auto_robot;
     this->_speed = 0;
     this->_rotationAngle = 0;
-    this->_collisionBox
+
     // TODO Add collision boxes
 }
 

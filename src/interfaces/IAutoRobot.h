@@ -12,17 +12,18 @@
 #include <utility>
 
 #include "IRobot.h"
+#include "IRectangleCollider.h"
 
 using namespace std;
 
 class IAutoRobot : public IRobot {
     public:
-        ICollider * GetVision() { return this->_vision; }
-        void SetVision(ICollider * vision) { this->_vision = vision; }
+        IRectangleCollider * GetVision() { return this->_vision; }
+        void SetVision(IRectangleCollider * vision) { this->_vision = vision; }
         virtual ~IAutoRobot() {};
 
     protected:
-        ICollider * _vision; // <Right sigth collider, Left sight collider>
+        IRectangleCollider * _vision; // <Right sigth collider, Left sight collider>
 };
 
 #endif
