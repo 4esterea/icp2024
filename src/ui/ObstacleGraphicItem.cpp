@@ -5,19 +5,23 @@ class Obstacle;
 
 ObstacleGraphicItem::ObstacleGraphicItem(Viewport* viewport, QGraphicsItem* parent, Obstacle* obstacle)
     : QGraphicsRectItem(parent), _viewport(viewport), _obstacle(obstacle) {
-    setAcceptHoverEvents(true);
     setZValue(10);
     setPen(QPen({Qt::white, 2}));
     setBrush(QColor(255, 255, 255, 32));
-    setFlag(QGraphicsItem::ItemIsMovable, true);
-    setFlag(QGraphicsItem::ItemSendsScenePositionChanges, true);
-    setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);
-    setFlag(QGraphicsItem::ItemIsFocusable, true);
     auto collider = _obstacle->GetCollider();
     this->setPos(_obstacle->GetCollider()->GetPosition()->x, _obstacle->GetCollider()->GetPosition()->y);
     this->setRect(0, 0, collider->GetWidth(), collider->GetHeight());
     this->setRotation(collider->GetPosition()->angle);
-
+    std::pair<int, int> mapSize = dynamic_cast<MainWindow*>(_viewport->parentWidget()->parentWidget())->getMap()->getSize();
+    if (collider->GetPosition()->x != 0 && collider->GetPosition()->y != 0 && collider->GetPosition()->y != mapSize.second && collider->GetPosition()->x != mapSize.first){
+        setAcceptHoverEvents(true);
+        setFlag(QGraphicsItem::ItemIsMovable, true);
+        setFlag(QGraphicsItem::ItemSendsScenePositionChanges, true);
+        setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);
+        setFlag(QGraphicsItem::ItemIsFocusable, true);
+    } else {
+        this->setAcceptedMouseButtons(Qt::NoButton);
+    }
 }
 
 
