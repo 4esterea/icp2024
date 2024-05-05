@@ -1,3 +1,12 @@
+/**
+* @file ObstacleGraphicItem.cpp
+ * @author Sniehovskyi Nikita (xsnieh00)
+ * @author Zhdanovich Iaroslav (xzhdan00)
+ * @date 01.05.2024
+ * @brief Implementation of ObstacleGraphicItem
+ */
+
+
 #include "ObstacleGraphicItem.h"
 
 

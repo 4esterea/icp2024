@@ -1,3 +1,12 @@
+/**
+* @file mainwindow.h
+ * @author Sniehovskyi Nikita (xsnieh00)
+ * @author Zhdanovich Iaroslav (xzhdan00)
+ * @date 08.04.2024
+ * @brief Header file of mainwindow.cpp
+ */
+
+
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 

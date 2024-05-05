@@ -1,7 +1,7 @@
 /**
  * @file SquareCollider.h
  * @author Sniehovskyi Nikita (xsnieh00)
- * @author TODO
+ * @author Zhdanovich Iaroslav (xzhdan00)
  * @date 28.04.2024
  * @brief Declaration of Square Collider.
  */

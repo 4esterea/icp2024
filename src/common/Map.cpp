@@ -1,7 +1,7 @@
 /**
  * @file Map.c
  * @author Sniehovskyi Nikita (xsnieh00)
- * @author TODO
+ * @author Zhdanovich Iaroslav (xzhdan00)
  * @date 28.04.2024
  * @brief Common Map implementation.
  */
@@ -18,6 +18,7 @@ void Map::Update() {
     for (uint64_t i = 0; i < this->_gameObjects.size(); i++) {
         this->_gameObjects[i]->Update();
         // qDebug() << "X: " << this->_gameObjects[i]->GetPosition()->x << " Y: " << this->_gameObjects[i]->GetPosition()->y;
+        qDebug() << _gameObjects.size();
     }
 }
 

@@ -1,5 +1,15 @@
+/**
+* @file mainwindow.cpp
+ * @author Sniehovskyi Nikita (xsnieh00)
+ * @author Zhdanovich Iaroslav (xzhdan00)
+ * @date 08.04.2024
+ * @brief Implementation of mainwindow
+ */
+
+
+
 #include "mainwindow.h"
-#include "ui/clickableLabel.h"
+#include "ui/ClickableLabel.h"
 #include <QFileDialog>
 #include <QGraphicsScene>
 #include <QGraphicsRectItem>
@@ -274,6 +284,7 @@ void MainWindow::on_pushButtonConfirm_clicked(){
     delete _map;
     _map = new Map(ui->widthInput->text().toInt(), ui->heightInput->text().toInt());
     ui->viewport->drawAll();
+    ui->labelCurrent->setText("Current Layout: <none>");
 }
 
 bool MainWindow::isObstacleMode()

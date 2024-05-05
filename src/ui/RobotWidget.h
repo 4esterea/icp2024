@@ -1,3 +1,12 @@
+/**
+* @file RobotWidget.h
+ * @author Sniehovskyi Nikita (xsnieh00)
+ * @author Zhdanovich Iaroslav (xzhdan00)
+ * @date 01.05.2024
+ * @brief Declaration of RobotWidget
+ */
+
+
 #ifndef ROBOTWIDGET_H
 #define ROBOTWIDGET_H
 

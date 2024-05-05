@@ -1,7 +1,7 @@
 /**
  * @file ControlledRobot.h
  * @author Sniehovskyi Nikita (xsnieh00)
- * @author TODO
+ * @author Zhdanovich Iaroslav (xzhdan00)
  * @date 03.05.2024
  * @brief Common Controlled Robot declaration.
  */

@@ -1,3 +1,11 @@
+/**
+* @file Viewport.h
+ * @author Sniehovskyi Nikita (xsnieh00)
+ * @author Zhdanovich Iaroslav (xzhdan00)
+ * @date 01.05.2024
+ * @brief Declaration of Viewport
+ */
+
 #ifndef VIEWPORT_H
 #define VIEWPORT_H
 
