@@ -8,7 +8,7 @@
 
 
 ObstacleWidget::ObstacleWidget(QWidget *parent, ObstacleGraphicItem* obstacle) : QWidget(parent), _obstacle(obstacle) {
-    this->setStyleSheet("background-color: white;");
+    this->setStyleSheet("background-color: white; color: black;");
     this->setFixedWidth(200);
 
     QLabel *obstacleLabel = new QLabel("Obstacle", this);

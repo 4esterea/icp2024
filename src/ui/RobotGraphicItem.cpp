@@ -70,7 +70,6 @@ void RobotGraphicItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event) {
         }
         int viewportWidth = _viewport->width();
         int viewportHeight = _viewport->height();
-        qDebug() << "Viewport width: " << viewportWidth << " height: " << viewportHeight;
         bool isCloserToLeft = x < viewportWidth / 2;
         bool isCloserToTop = y < viewportHeight / 2;
 
@@ -101,8 +100,8 @@ QVariant RobotGraphicItem::itemChange(GraphicsItemChange change, const QVariant 
             viewport->hideAllSettings();
         }
         QPointF newPos = value.toPointF();
-		_robot->GetPosition()->x = newPos.x();
-        _robot->GetPosition()->y = newPos.y();
+        _robot->GetCollider()->GetPosition()->SetPosition(newPos.x(), newPos.y());
+        _robot->GetPosition()->SetPosition(newPos.x(), newPos.y());
     }
     return QGraphicsItem::itemChange(change, value);
 }
@@ -111,6 +110,7 @@ void RobotGraphicItem::setRotation(int angle) {
     setTransformOriginPoint(25, 25);
     QGraphicsEllipseItem::setRotation(angle);
     _robot->GetPosition()->angle = angle;
+    _robot->GetCollider()->GetPosition()->angle = angle;
 }
 
 void RobotGraphicItem::Update() {

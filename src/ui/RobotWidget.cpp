@@ -21,7 +21,7 @@ RobotWidget::RobotWidget(QWidget *parent, RobotGraphicItem* robot, bool isRemote
     angleLabel->setFixedHeight(25);
 
     QLineEdit *angleInput = new QLineEdit(this);
-    angleInput->setStyleSheet("QLineEdit { background-color: white; } QLineEdit:hover { background-color: yellow; } QLineEdit:focus { background-color: white; }");
+    angleInput->setStyleSheet("QLineEdit { background-color: white; } QLineEdit:focus { background-color: white; }");
     angleInput->setAlignment(Qt::AlignCenter);
     angleInput->setValidator(new QIntValidator(0, 360, this));
     angleInput->setText(QString::number(_robot->getGameObject()->GetPosition()->angle));
