@@ -17,10 +17,12 @@ using namespace std;
 
 class IAutoRobot : public IRobot {
     public:
+        ICollider * GetVision() { return this->_vision; }
+        void SetVision(ICollider * vision) { this->_vision = vision; }
         virtual ~IAutoRobot() {};
 
     protected:
-        pair<ICollider, ICollider> * _collisionBox; // <Right sigth collider, Left sight collider>
+        ICollider * _vision; // <Right sigth collider, Left sight collider>
 };
 
 #endif
