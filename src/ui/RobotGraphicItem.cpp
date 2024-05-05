@@ -1,3 +1,13 @@
+/**
+* @file RobotGraphicItem.cpp
+ * @author Sniehovskyi Nikita (xsnieh00)
+ * @author Zhdanovich Iaroslav (xzhdan00)
+ * @date 01.05.2024
+ * @brief Implementation of RobotGraphicItem
+ */
+
+
+
 #include "RobotGraphicItem.h"
 
 RobotGraphicItem::RobotGraphicItem(Viewport* viewport, QGraphicsItem* parent, IRobot* robot)
@@ -6,7 +16,8 @@ RobotGraphicItem::RobotGraphicItem(Viewport* viewport, QGraphicsItem* parent, IR
     _direction = new QGraphicsLineItem(this);
     _direction->setLine(25, 25, 50, 25);
     _vision = new QGraphicsRectItem(this);
-    _vision->setRect(25, 0, 100, 50);
+    //_vision->setRect(25, 0, _robot->GetVision().rect().width(), 50);
+    _vision->setRect(25, 0, 100, 50); // TODO: ^use the upper line after the robot is implemented
     _vision->setPen(QPen(QColor(255, 0, 0, 128), 2));
     _vision->setFlag(QGraphicsItem::ItemStacksBehindParent, true);
     if (_isRemote) {
@@ -121,4 +132,29 @@ void RobotGraphicItem::Update() {
 
 IRobot* RobotGraphicItem::getGameObject() {
     return _robot;
+}
+
+QGraphicsRectItem* RobotGraphicItem::getVision() {
+    return _vision;
+}
+
+void RobotGraphicItem::keyPressEvent(QKeyEvent *event) {
+    if (_isRemote) {
+        switch (event->key()){
+           case Qt::Key_W:
+               qDebug() << "W pressed";
+               break;
+           case Qt::Key_S:
+               qDebug() << "S pressed";
+               break;
+           case Qt::Key_A:
+               qDebug() << "A pressed";
+               break;
+           case Qt::Key_D:
+               qDebug() << "D pressed";
+               break;
+           default:
+               QGraphicsEllipseItem::keyPressEvent(event);
+        }
+    }
 }

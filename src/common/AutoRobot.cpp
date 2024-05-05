@@ -1,7 +1,7 @@
 /**
  * @file AutoRobot.c
  * @author Sniehovskyi Nikita (xsnieh00)
- * @author TODO
+ * @author Zhdanovich Iaroslav (xzhdan00)
  * @date 03.05.2024
  * @brief AutoRobot common implementation.
  */
@@ -59,16 +59,9 @@ void AutoRobot::Update() {
             // Skip if the same object
             continue;
         }
-        qDebug() << "Obstacle: x " << go->GetCollider()->GetPosition()->x << " y " << go->GetCollider()->GetPosition()->y;
-        qDebug() << "vision: x " << this->_vision->GetPosition()->x << " y " << this->_vision->GetPosition()->y;
-        qDebug() << "angle: x " << this->_position->x << " y " << this->_position->y;
         if (this->_vision->CheckCollision(go->GetCollider())) {
             // Collision detected -> turn
             isSight = true;
-            qDebug() << "Vision";
-            // this->GetCollider()->GetPosition()->SetPosition(pos.x, pos.y, this->GetPosition()->angle);
-        } else {
-            qDebug() << "No vision";
         }
         if (this->GetCollider()->CheckCollision(go->GetCollider())) {
             // Collision detected -> move object back

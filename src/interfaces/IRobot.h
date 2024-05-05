@@ -1,9 +1,9 @@
 /**
  * @file IRobot.h
  * @author Sniehovskyi Nikita (xsnieh00)
- * @author TODO
+ * @author Zhdanovich Iaroslav (xzhdan00)
  * @date 08.04.2024
- * @brief Definition of Robot doubleerface
+ * @brief Definition of Robot interface
  */
 
 #ifndef __IROBOT_H__

@@ -1,3 +1,13 @@
+/**
+* @file RobotWidget.cpp
+ * @author Sniehovskyi Nikita (xsnieh00)
+ * @author Zhdanovich Iaroslav (xzhdan00)
+ * @date 01.05.2024
+ * @brief Implementation of RobotWidget
+ */
+
+
+
 #include "RobotWidget.h"
 #include <QVBoxLayout>
 #include <QLabel>
@@ -54,7 +64,7 @@ RobotWidget::RobotWidget(QWidget *parent, RobotGraphicItem* robot, bool isRemote
     QLineEdit *collisionDistanceInput = new QLineEdit(this);
     collisionDistanceInput->setAlignment(Qt::AlignCenter);
     collisionDistanceInput->setValidator(new QIntValidator(0, 1000, this));
-    //collisionDistanceInput->setText(QString::number(_robot->getCollisionDistance()));
+    //collisionDistanceInput->setText(QString::number(_robot->getGameObject()->GetVision()->rect().width()));
     collisionDistanceInput->setFixedHeight(25);
 
 
@@ -106,10 +116,12 @@ RobotWidget::RobotWidget(QWidget *parent, RobotGraphicItem* robot, bool isRemote
 
     connect(moveSpeedInput, &QLineEdit::textChanged, [this](const QString &value) {
         _robot->getGameObject()->SetSpeed(value.toInt());
+        qDebug() << _robot->getVision()->rect().width();
     });
 
     connect(collisionDistanceInput, &QLineEdit::textChanged, [this](const QString &value) {
-        // TODO
+        //_robot->getGameObject()->GetVision().setRect(25, 0, value.toInt(), 50); // TODO: uncomment after the robot is implemented
+        _robot->getVision()->setRect(25, 0, value.toInt(), 50);
     });
 
 

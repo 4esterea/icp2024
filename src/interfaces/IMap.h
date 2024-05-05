@@ -1,9 +1,9 @@
 /**
  * @file IMap.h
  * @author Sniehovskyi Nikita (xsnieh00)
- * @author TODO
+ * @author Zhdanovich Iaroslav (xzhdan00)
  * @date 08.04.2024
- * @brief Definition of Map doubleerface
+ * @brief Definition of Map interface
  */
 
 #ifndef __IMAP_H__

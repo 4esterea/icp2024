@@ -1,3 +1,13 @@
+/**
+* @file Viewport.cpp
+ * @author Sniehovskyi Nikita (xsnieh00)
+ * @author Zhdanovich Iaroslav (xzhdan00)
+ * @date 01.05.2024
+ * @brief Implementation of Viewport
+ */
+
+
+
 #include "Viewport.h"
 #include "src/headers/Map.h"
 #include "src/headers/Obstacle.h"

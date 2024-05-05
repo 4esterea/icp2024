@@ -7,7 +7,7 @@ CXXFLAGS=-std=c++17 -Wall -Wextra
 PRO=Application.pro
 OBJS_DIR=objs/
 MOC_DIR=moc/
-QBLOAT=.qmake.stash qMakefile ui_mainwindow.h
+QBLOAT=.qmake.stash qMakefile ui_mainwindow.h qrc_resources.cpp
 
 all: clean build
 

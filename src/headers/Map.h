@@ -1,7 +1,7 @@
 /**
  * @file Map.h
  * @author Sniehovskyi Nikita (xsnieh00)
- * @author TODO
+ * @author Zhdanovich Iaroslav (xzhdan00)
  * @date 28.04.2024
  * @brief Common Map declaration.
  */
@@ -18,7 +18,6 @@
 #include "../interfaces/IMap.h"
 #include "../interfaces/IRectangleCollider.h"
 #include "../interfaces/ICircleCollider.h"
-#include "../interfaces/ISquareCollider.h"
 #include "../headers/Obstacle.h"
 #include "../headers/AutoRobot.h"
 #include "../headers/ControlledRobot.h"
@@ -35,9 +34,20 @@ class Map: public IMap {
         Map(int width, int height);
 };
 
-
+/**
+ * @brief Converts an integer to a speed direction.
+ *
+ * @param i The integer to convert.
+ * @return The corresponding speed direction.
+ */
 SpeedDirection MapIntToSpeedDirection(int i);
 
+/**
+ * @brief Converts an integer to a rotation direction.
+ *
+ * @param i The integer to convert.
+ * @return The corresponding rotation direction.
+ */
 RotationDirection MapIntToRotationDirection(int i);
 
 #endif

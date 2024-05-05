@@ -1,7 +1,7 @@
 /**
  * @file CollisionChecker.cpp
  * @author Sniehovskyi Nikita (xsnieh00)
- * @author TODO
+ * @author Zhdanovich Iaroslav (xzhdan00)
  * @date 04.05.2024
  * @brief Implementation of Collision Checker.
  */
@@ -41,16 +41,6 @@ bool CollisionChecker::CheckCollisionCircleCircle(ICircleCollider * cc1, ICircle
 }
 
 bool CollisionChecker::CheckCollisionRectangleRectangle(IRectangleCollider * cr1, IRectangleCollider * cr2) {
-    // Position * p1 = dynamic_cast<Position *>(cr1->GetPosition());
-    // Position * p2 = dynamic_cast<Position *>(cr2->GetPosition());
-    // double w1 = cr1->GetWidth();
-    // double w2 = cr2->GetWidth();
-    // double h1 = cr1->GetHeight();
-    // double h2 = cr2->GetHeight();
-    // if ((p1->x < p2->x + w2) && (p1->x + w1 > p2->x) && (p1->y < p2->y + h2) && (p1->y + h1 > p2->y)) {
-    //     return true;
-    // }
-    // return false;
     double r1p[4][2];
     double r2p[4][2];
     Position * pp1 = dynamic_cast<Position *>(cr1->GetPosition());
@@ -65,10 +55,6 @@ bool CollisionChecker::CheckCollisionRectangleRectangle(IRectangleCollider * cr1
     p2->y *= -1;
     p1->x = p1->x + h1/2;
     p1->y = p1->y - h1/2;
-    // p2->x = pp2->x + (w2/2) * cos((360 - p2->angle) * PI / 180) - (-h2/2) * sin((360 - p2->angle) * PI / 180);
-    // p2->y = -1*pp2->y + (w2/2) * sin((360 - p2->angle) * PI / 180) + (-h2/2) * cos((360 - p2->angle) * PI / 180);
-
-    qDebug() << "RX: " << pp1->x << "RY: " << pp1->y << "RA: " << pp1->angle << "CX: " << p1->x << "CY: " << p1->y << "CA: " << p1->angle;
 
     r1p[0][0] = p1->x + h1/2 * sin((360 - p1->angle) * PI / 180);
     r1p[1][0] = p1->x + w1 * cos((360 - p1->angle) * PI / 180) + h1/2 * sin((360 - p1->angle) * PI / 180);
@@ -78,10 +64,6 @@ bool CollisionChecker::CheckCollisionRectangleRectangle(IRectangleCollider * cr1
     r1p[1][1] = p1->y + w1 * sin((360 - p1->angle) * PI / 180) + h1/2 * cos((360 - p1->angle) * PI / 180);
     r1p[2][1] = p1->y + w1 * sin((360 - p1->angle) * PI / 180) + -h1/2 * cos((360 - p1->angle) * PI / 180);
     r1p[3][1] = p1->y + -h1/2 * cos((360 - p1->angle) * PI / 180);
-    // r1p[0][1] = p1->y;
-    // r1p[1][1] = p1->y + (w1/2) * sin((360 - p1->angle) * PI / 180) + (-h1/2) * cos((360 - p1->angle) * PI / 180);
-    // r1p[2][1] = p1->y - (w1/2) * sin((360 - p1->angle) * PI / 180) + (-h1/2) * cos((360 - p1->angle) * PI / 180);
-    // r1p[3][1] = p1->y - (w1/2) * sin((360 - p1->angle) * PI / 180) + (-h1/2) * cos((360 - p1->angle) * PI / 180);
 
     r2p[0][0] = pp2->x;
     r2p[1][0] = pp2->x;
@@ -158,37 +140,6 @@ bool CollisionChecker::IsPointOnLine(std::pair<double, double> lp1, std::pair<do
 }
 
 bool CollisionChecker::CheckCollisionRectangleCircle(IRectangleCollider * cr1, ICircleCollider * cc2) {
-    // double r = cc2->GetRadius();
-    // Position * p2 = new Position(cr1->GetPosition()->x, cr1->GetPosition()->y, cr1->GetPosition()->angle);
-    // Position * p1 = new Position(cc2->GetPosition()->x+r, cc2->GetPosition()->y+r, cc2->GetPosition()->angle);
-    // double w = cr1->GetWidth();
-    // double h = cr1->GetHeight();
-    // double x = p1->x;
-    // double y = p1->y;
-    // if (p1->x < p2->x) {
-    //     x = p2->x;
-    // } else if (p1->x > p2->x + w) {
-    //     x = p2->x + w;
-    // }
-    // if (p1->y < p2->y) {
-    //     y = p2->y;
-    // } else if (p1->y > p2->y + h) {
-    //     y = p2->y + h;
-    // }
-    // double dx = p1->x - x;
-    // double dy = p1->y - y;
-    // double distance = sqrt( (dx*dx) + (dy*dy) );
-
-    // // if the distance is less than the radius, collision!
-    // if (distance <= r) {
-    //     delete p1;
-    //     delete p2;
-    //     return true;
-    // }
-    // delete p1;
-    // delete p2;
-    // return false;
-
     bool result = false;
     double r = cc2->GetRadius();
     double w = cr1->GetWidth();

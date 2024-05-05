@@ -1,7 +1,7 @@
 /**
  * @file Map.c
  * @author Sniehovskyi Nikita (xsnieh00)
- * @author TODO
+ * @author Zhdanovich Iaroslav (xzhdan00)
  * @date 28.04.2024
  * @brief Common Map implementation.
  */
@@ -47,6 +47,9 @@ double Map::LoadJSON(string json) {
         switch(gameObject["objectType"].toInt()) {
             case eot_gameobject: continue;
             case eot_obstacle: {
+                if (pos_x == 0 || pos_y == 0 || pos_x == _width || pos_y == _height){
+                    break;
+                }
                 width = gameObject["RectangleCollider"].toObject()["width"].toDouble();
                 height = gameObject["RectangleCollider"].toObject()["height"].toDouble();
                 this->AddGameObject(new Obstacle(pos_x, pos_y, pos_angle, width, height));

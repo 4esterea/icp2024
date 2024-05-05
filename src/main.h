@@ -1,9 +1,9 @@
 /**
  * @file main.h
  * @author Sniehovskyi Nikita (xsnieh00)
- * @author TODO
+ * @author Zhdanovich Iaroslav (xzhdan00)
  * @date 08.04.2024
- * @brief Header file of main.c
+ * @brief Header file of main.cpp
  */
 
 #include <QApplication>

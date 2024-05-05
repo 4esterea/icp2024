@@ -13,7 +13,6 @@ SOURCES += \
     src/common/CircleCollider.cpp \
     src/common/CollisionChecker.cpp \
     src/common/ControlledRobot.cpp \
-    src/common/SquareCollider.cpp \
     src/ui/ObstacleGraphicItem.cpp \
     src/ui/ObstacleWidget.cpp \
     src/ui/RobotGraphicItem.cpp \
@@ -33,7 +32,6 @@ HEADERS += \
     src/headers/CircleCollider.h \
     src/headers/CollisionChecker.h \
     src/headers/ControlledRobot.h \
-    src/headers/SquareCollider.h \
     src/interfaces/IAutoRobot.h \
     src/interfaces/ICircleCollider.h \
     src/interfaces/ICollider.h \
@@ -44,7 +42,6 @@ HEADERS += \
     src/interfaces/IPosition.h \
     src/interfaces/IRectangleCollider.h \
     src/interfaces/IRobot.h \
-    src/interfaces/ISquareCollider.h \
     src/main.h \
     src/mainwindow.h\
     src/ui/ObstacleGraphicItem.h \

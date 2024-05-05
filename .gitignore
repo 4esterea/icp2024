@@ -11,4 +11,5 @@ ui_mainwindow.h
 Application
 xsnieh00-xlogin00.zip
 qrc_resources.cpp
-lvl/
+doc/latex
+doc/html

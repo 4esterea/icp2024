@@ -1,7 +1,7 @@
 /**
  * @file CollisionChecker.h
  * @author Sniehovskyi Nikita (xsnieh00)
- * @author TODO
+ * @author Zhdanovich Iaroslav (xzhdan00)
  * @date 04.05.2024
  * @brief Static class for collision checks.
  */

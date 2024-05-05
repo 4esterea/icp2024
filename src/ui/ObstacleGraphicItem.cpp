@@ -1,3 +1,12 @@
+/**
+* @file ObstacleGraphicItem.cpp
+ * @author Sniehovskyi Nikita (xsnieh00)
+ * @author Zhdanovich Iaroslav (xzhdan00)
+ * @date 01.05.2024
+ * @brief Implementation of ObstacleGraphicItem
+ */
+
+
 #include "ObstacleGraphicItem.h"
 
 
@@ -18,13 +27,24 @@ ObstacleGraphicItem::ObstacleGraphicItem(Viewport* viewport, QGraphicsItem* pare
     this->setRect(0, 0, collider->GetWidth(), collider->GetHeight());
     this->setRotation(collider->GetPosition()->angle);
     this->_obstacle->RecalcColliderPosition();
+    std::pair<int, int> mapSize = dynamic_cast<MainWindow*>(_viewport->parentWidget()->parentWidget())->getMap()->getSize();
+    if (collider->GetPosition()->x != 0 && collider->GetPosition()->y != 0 && collider->GetPosition()->y != mapSize.second && collider->GetPosition()->x != mapSize.first){
+        setAcceptHoverEvents(true);
+        setFlag(QGraphicsItem::ItemIsMovable, true);
+        setFlag(QGraphicsItem::ItemSendsScenePositionChanges, true);
+        setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);
+        setFlag(QGraphicsItem::ItemIsFocusable, true);
+    } else {
+        this->setAcceptedMouseButtons(Qt::NoButton);
+    }
+
 
 }
 
 
 void ObstacleGraphicItem::hoverEnterEvent(QGraphicsSceneHoverEvent* event) {
     MainWindow* mainWindow = dynamic_cast<MainWindow*>(_viewport->parentWidget()->parentWidget());
-    if (mainWindow && mainWindow->isEditingEnabled() && mainWindow->isDefault()) {
+    if (mainWindow && mainWindow->isEditingEnabled() && mainWindow->isDefault() && !mainWindow->isLaunched()) {
 		setFlag(QGraphicsItem::ItemIsMovable, true);
         setPen(QPen({Qt::red, 2}));
     }
@@ -33,7 +53,7 @@ void ObstacleGraphicItem::hoverEnterEvent(QGraphicsSceneHoverEvent* event) {
 
 void ObstacleGraphicItem::hoverLeaveEvent(QGraphicsSceneHoverEvent* event) {
     MainWindow* mainWindow = dynamic_cast<MainWindow*>(_viewport->parentWidget()->parentWidget());
-    if (mainWindow && mainWindow->isEditingEnabled() && mainWindow->isDefault()) {
+    if (mainWindow && mainWindow->isEditingEnabled() && mainWindow->isDefault() && !mainWindow->isLaunched()) {
         setFlag(QGraphicsItem::ItemIsMovable, false);
         setPen(QPen({Qt::white, 2}));
     }

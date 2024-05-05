@@ -1,3 +1,12 @@
+/**
+* @file mainwindow.h
+ * @author Sniehovskyi Nikita (xsnieh00)
+ * @author Zhdanovich Iaroslav (xzhdan00)
+ * @date 08.04.2024
+ * @brief Header file of mainwindow.cpp
+ */
+
+
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
@@ -18,16 +27,76 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
-    bool isObstacleMode();
-    bool isAutoRobotMode();
-    bool isRCRobotMode();
-    bool isEditingEnabled();
-    bool isDefault();
-    void setDefaultEditingState();
-    void RunSimulation();
-    Map* getMap();
+    /**
+ * @brief Constructor for MainWindow class.
+ *
+ * @param parent The parent QWidget object.
+ */
+explicit MainWindow(QWidget *parent = nullptr);
+
+/**
+ * @brief Destructor for MainWindow class.
+ */
+~MainWindow();
+
+/**
+ * @brief Checks if obstacle mode is active.
+ *
+ * @return True if obstacle mode is active, false otherwise.
+ */
+bool isObstacleMode();
+
+/**
+ * @brief Checks if auto robot mode is active.
+ *
+ * @return True if auto robot mode is active, false otherwise.
+ */
+bool isAutoRobotMode();
+
+/**
+ * @brief Checks if RC robot mode is active.
+ *
+ * @return True if RC robot mode is active, false otherwise.
+ */
+bool isRCRobotMode();
+
+/**
+ * @brief Checks if editing is enabled.
+ *
+ * @return True if editing is enabled, false otherwise.
+ */
+bool isEditingEnabled();
+
+/**
+ * @brief Checks if the default state is active.
+ *
+ * @return True if the default state is active, false otherwise.
+ */
+bool isDefault();
+
+/**
+ * @brief Checks if the simulation is launched.
+ *
+ * @return True if the simulation is launched, false otherwise.
+ */
+bool isLaunched();
+
+/**
+ * @brief Sets the default editing state.
+ */
+void setDefaultEditingState();
+
+/**
+ * @brief Runs the simulation.
+ */
+void RunSimulation();
+
+/**
+ * @brief Gets the map object.
+ *
+ * @return A pointer to the Map object.
+ */
+Map* getMap();
 
 private slots:
     void on_pushButtonEdit_clicked(bool checked);
@@ -46,7 +115,7 @@ private:
     Ui::MainWindow *ui;
     void setUiDefaultState();
     void loadLevel();
-    QString _fileToOpen = "lvl/lvl1.json";
+    QString _fileToOpen = "examples/lvl1.json";
     QString _fileToSave;
     bool _editingEnabled;
     bool _isLaunched;
