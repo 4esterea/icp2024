@@ -11,6 +11,7 @@
 
 #include "../interfaces/IRectangleCollider.h"
 #include "Position.h"
+#include "CollisionChecker.h"
 
 class RectangleCollider : public IRectangleCollider {
     public:

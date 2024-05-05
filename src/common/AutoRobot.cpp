@@ -38,7 +38,6 @@ void AutoRobot::SetRotationAngle(double rotationAngle) {
 #include <QDebug>
 void AutoRobot::Update() {
     Position pos = *(dynamic_cast<Position *>(this->GetPosition()));
-    IMap * map = dynamic_cast<Map *>(this->_map);
 
     // Object movement
     this->GetPosition()->angle = std::fmod((this->GetPosition()->angle + this->_rotationAngle), 360);

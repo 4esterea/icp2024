@@ -42,12 +42,21 @@ enum SpeedDirection: int {
 };
 
 /**
- * @brief Direction of rotation 
+ * @brief Direction of rotation
  */
 enum RotationDirection {
     erd_right = -1,
     erd_none = 0,
     erd_left = 1
+};
+
+/**
+ * @brief Line orientation
+ */
+enum PointsOrientation {
+    epo_collinear = 0,
+    epo_clockwise = 1,
+    epo_counter_clockwise = 2
 };
 
 #endif

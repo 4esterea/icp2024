@@ -16,7 +16,7 @@ RectangleCollider::RectangleCollider(double x, double y, double angle, double wi
 }
 
 bool RectangleCollider::CheckCollision(ICollider * collider) {
-    return false; // TODO
+    return CollisionChecker::CheckCollision(this, collider);
 }
 
 double RectangleCollider::GetWidth() {

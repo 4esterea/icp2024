@@ -9,6 +9,7 @@
 #ifndef __OBSTACLE_H__
 #define __OBSTACLE_H__
 
+#include <cstdint>
 #include "../interfaces/IObstacle.h"
 #include "../headers/RectangleCollider.h"
 #include "../headers/Position.h"
