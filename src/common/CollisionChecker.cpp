@@ -9,6 +9,9 @@
 #include "../headers/CollisionChecker.h"
 
 bool CollisionChecker::CheckCollision(ICollider * c1, ICollider * c2) {
+    QGraphicsItem * qg1;
+    QGraphicsItem * qg2;
+
     // 2 Circle Colliders
     if (c1->GetColliderType() == ect_circle_collider && c2->GetColliderType() == ect_circle_collider) {
         ICircleCollider * cc1 = dynamic_cast<ICircleCollider *>(c1);
@@ -32,6 +35,23 @@ bool CollisionChecker::CheckCollision(ICollider * c1, ICollider * c2) {
         IRectangleCollider * rc1 = dynamic_cast<IRectangleCollider *>(c1);
         IRectangleCollider * rc2 = dynamic_cast<IRectangleCollider *>(c2);
         return CollisionChecker::CheckCollisionRectangleRectangle(rc1, rc2);
+    }
+
+    // Qt colliders
+    if ((c1->GetColliderType() == ect_qt_qrect_collider || c1->GetColliderType() == ect_qt_qcirc_collider) && (c2->GetColliderType() == ect_qt_qrect_collider || c2->GetColliderType() == ect_qt_qcirc_collider)) {
+        // if (c1->GetColliderType() == ect_qt_qrect_collider) {
+        //     qg1 = dynamic_cast<IQtRectCollider *>(c1)->GetGraphics();
+        // } else if (c1->GetColliderType() == ect_qt_qcirc_collider) {
+        //     qg1 = dynamic_cast<IQtCircleCollider *>(c1)->GetGraphics();
+        // }
+        // if (c2->GetColliderType() == ect_qt_qrect_collider) {
+        //     qg2 = dynamic_cast<IQtRectCollider *>(c2)->GetGraphics();
+        // } else if (c2->GetColliderType() == ect_qt_qcirc_collider) {
+        //     qg2 = dynamic_cast<IQtCircleCollider *>(c2)->GetGraphics();
+        // }
+        qg1 = dynamic_cast<IQtCollider *>(c1)->GetGraphics();
+        qg2 = dynamic_cast<IQtCollider *>(c2)->GetGraphics();
+        return qg1->collidesWithItem(qg2);
     }
     return false;
 }
