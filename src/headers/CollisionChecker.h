@@ -14,6 +14,8 @@
 #include "../interfaces/ICollider.h"
 #include "../interfaces/ICircleCollider.h"
 #include "../interfaces/IRectangleCollider.h"
+#include "../interfaces/IQtRectCollider.h"
+#include "../interfaces/IQtCircleCollider.h"
 #include "Position.h"
 
 class CollisionChecker {

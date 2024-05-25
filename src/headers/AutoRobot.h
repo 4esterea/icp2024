@@ -12,7 +12,8 @@
 #include <cmath>
 #include <string>
 #include "../interfaces/IAutoRobot.h"
-#include "../headers/RectangleCollider.h"
+#include "../headers/QtCircleCollider.h"
+#include "../headers/QtRectCollider.h"
 #include "../headers/CircleCollider.h"
 #include "../headers/Position.h"
 #include "types.h"

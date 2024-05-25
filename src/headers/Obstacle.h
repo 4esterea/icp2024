@@ -12,6 +12,7 @@
 #include <cstdint>
 #include "../interfaces/IObstacle.h"
 #include "../headers/RectangleCollider.h"
+#include "../headers/QtRectCollider.h"
 #include "../headers/Position.h"
 #include "types.h"
 

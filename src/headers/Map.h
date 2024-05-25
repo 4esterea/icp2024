@@ -1,4 +1,4 @@
-/**
+ /**
  * @file Map.h
  * @author Sniehovskyi Nikita (xsnieh00)
  * @author Zhdanovich Iaroslav (xzhdan00)

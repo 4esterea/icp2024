@@ -13,7 +13,9 @@
 #define MAX_MAP_GAMEOBJECTS 100
 #define FRAME_TIMEGAP_MS 30
 
-#define SIMRULE_ROTATE_IF_STUCK true
+#define SIMRULE_ROBOT_DEFAULT_SPEED 8
+#define SIMRULE_ROBOT_DEFAULT_ANGLE 5
+#define SIMRULE_ROTATE_IF_STUCK false
 
 /**
  * @brief Type of object
@@ -32,7 +34,9 @@ enum ColliderType {
     ect_collider = 0,
     ect_circle_collider = 1,
     ect_rectangle_collider = 2,
-    ect_square_collider = 3
+    ect_square_collider = 3,
+    ect_qt_qrect_collider = 4,
+    ect_qt_qcirc_collider = 5
 };
 
 /**
