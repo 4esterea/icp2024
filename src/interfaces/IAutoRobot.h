@@ -13,6 +13,7 @@
 
 #include "IRobot.h"
 #include "IRectangleCollider.h"
+#include "IQtCircleCollider.h"
 
 using namespace std;
 
