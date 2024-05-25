@@ -13,6 +13,8 @@ SOURCES += \
     src/common/CircleCollider.cpp \
     src/common/CollisionChecker.cpp \
     src/common/ControlledRobot.cpp \
+    src/common/QtCircleCollider.cpp \
+    src/common/QtRectCollider.cpp \
     src/ui/ObstacleGraphicItem.cpp \
     src/ui/ObstacleWidget.cpp \
     src/ui/RobotGraphicItem.cpp \
@@ -32,14 +34,20 @@ HEADERS += \
     src/headers/CircleCollider.h \
     src/headers/CollisionChecker.h \
     src/headers/ControlledRobot.h \
+    src/headers/QtCircleCollider.h \
+    src/headers/QtRectCollider.h \
     src/interfaces/IAutoRobot.h \
     src/interfaces/ICircleCollider.h \
     src/interfaces/ICollider.h \
     src/interfaces/IControlledRobot.h \
     src/interfaces/IGameObject.h \
+    src/interfaces/IGraphicsObject.h \
     src/interfaces/IMap.h \
     src/interfaces/IObstacle.h \
     src/interfaces/IPosition.h \
+    src/interfaces/IQtCircleCollider.h \
+    src/interfaces/IQtCollider.h \
+    src/interfaces/IQtRectCollider.h \
     src/interfaces/IRectangleCollider.h \
     src/interfaces/IRobot.h \
     src/main.h \

@@ -22,13 +22,11 @@ ObstacleGraphicItem::ObstacleGraphicItem(Viewport* viewport, QGraphicsItem* pare
     setFlag(QGraphicsItem::ItemSendsScenePositionChanges, true);
     setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);
     setFlag(QGraphicsItem::ItemIsFocusable, true);
-    auto collider = _obstacle->GetCollider();
-    this->setPos(_obstacle->GetCollider()->GetPosition()->x, _obstacle->GetCollider()->GetPosition()->y);
-    this->setRect(0, 0, collider->GetWidth(), collider->GetHeight());
-    this->setRotation(collider->GetPosition()->angle);
-    this->_obstacle->RecalcColliderPosition();
+    this->setPos(_obstacle->GetPosition()->x, _obstacle->GetPosition()->y);
+    this->setRect(0, 0, _obstacle->GetWidth(), _obstacle->GetHeight());
+    this->setRotation(_obstacle->GetPosition()->angle);
     std::pair<int, int> mapSize = dynamic_cast<MainWindow*>(_viewport->parentWidget()->parentWidget())->getMap()->getSize();
-    if (collider->GetPosition()->x != 0 && collider->GetPosition()->y != 0 && collider->GetPosition()->y != mapSize.second && collider->GetPosition()->x != mapSize.first){
+    if (_obstacle->GetPosition()->x != 0 && _obstacle->GetPosition()->y != 0 && _obstacle->GetPosition()->y != mapSize.second && _obstacle->GetPosition()->x != mapSize.first){
         setAcceptHoverEvents(true);
         setFlag(QGraphicsItem::ItemIsMovable, true);
         setFlag(QGraphicsItem::ItemSendsScenePositionChanges, true);
@@ -37,8 +35,6 @@ ObstacleGraphicItem::ObstacleGraphicItem(Viewport* viewport, QGraphicsItem* pare
     } else {
         this->setAcceptedMouseButtons(Qt::NoButton);
     }
-
-
 }
 
 
@@ -132,7 +128,7 @@ void ObstacleGraphicItem::setRotation(int angle) {
     qreal centerY = this->boundingRect().height() / 2.0;
     this->setTransformOriginPoint(centerX, centerY);
     QGraphicsRectItem::setRotation(angle);
-    this->_obstacle->GetCollider()->GetPosition()->SetPosition(new Position(this->_obstacle->GetPosition()->x, this->_obstacle->GetPosition()->y, angle));
+    // this->_obstacle->GetCollider()->GetPosition()->SetPosition(new Position(this->_obstacle->GetPosition()->x, this->_obstacle->GetPosition()->y, angle));
     this->_obstacle->GetPosition()->SetPosition(this->_obstacle->GetPosition()->x, this->_obstacle->GetPosition()->y, angle);
     this->_obstacle->RecalcColliderPosition();
 }
@@ -153,7 +149,7 @@ QVariant ObstacleGraphicItem::itemChange(GraphicsItemChange change, const QVaria
             this->_obstacle->GetCollider()->SetWidth(newSize);
             this->_obstacle->GetCollider()->SetHeight(newSize);
         }
-        this->_obstacle->RecalcColliderPosition();
+        // this->_obstacle->RecalcColliderPosition();
     }
     return QGraphicsItem::itemChange(change, value);
 }
