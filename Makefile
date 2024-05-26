@@ -9,7 +9,9 @@ OBJS_DIR=objs/
 MOC_DIR=moc/
 QBLOAT=.qmake.stash qMakefile ui_mainwindow.h qrc_resources.cpp
 
-.PHONY: clean build
+.PHONY: all clean build
+
+all: clean build
 
 build:
 	qmake ${PRO} -o qMakefile
