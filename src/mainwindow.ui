@@ -610,7 +610,7 @@
   <customwidget>
    <class>ClickableLabel</class>
    <extends>QLabel</extends>
-   <header location="global">src/ui/clickableLabel.h</header>
+   <header location="global">src/ui/ClickableLabel.h</header>
   </customwidget>
   <customwidget>
    <class>Viewport</class>
