@@ -145,8 +145,7 @@ void MainWindow::on_pushButtonLaunch_clicked(bool checked)
         ui->pushButtonSave->setEnabled(0);
         ui->pushButtonNew->setEnabled(0);
         ui->pushButtonPause->show();
-		ui->viewport->setFocus();
-        this->_timer->start(FRAME_TIMEGAP_MS);
+        this->_timer->start(SIMRULE_FRAME_TIMEGAP_MS);
     } else {
 
         if (!file.open(QIODevice::ReadOnly)) {
@@ -183,7 +182,7 @@ void MainWindow::on_pushButtonPause_clicked(bool checked){
         qDebug() << "Simulation is running";
         this->setWindowTitle("2d robot simulator [RUNNING]");
         ui->pushButtonPause->setText("PAUSE");
-        this->_timer->start(FRAME_TIMEGAP_MS);
+        this->_timer->start(SIMRULE_FRAME_TIMEGAP_MS);
     }
 }
 

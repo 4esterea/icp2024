@@ -10,12 +10,13 @@
 #define __TYPES_H__
 
 #define PI 3.14159265
-#define MAX_MAP_GAMEOBJECTS 100
-#define FRAME_TIMEGAP_MS 30
 
-#define SIMRULE_ROBOT_DEFAULT_SPEED 8
-#define SIMRULE_ROBOT_DEFAULT_ANGLE 5
-#define SIMRULE_ROTATE_IF_STUCK false
+#define SIMRULE_MAX_MAP_GOBJECTS 100
+#define SIMRULE_FRAME_TIMEGAP_MS 30
+#define SIMRULE_ROBOT_DEFAULT_SPEED 200
+#define SIMRULE_ROBOT_DEFAULT_ANGLE 180
+#define SIMRULE_ROTATE_IF_STUCK true
+#define SIMRULE_ROTATE_TIMES_SLOWER 3
 
 /**
  * @brief Type of object
@@ -51,9 +52,9 @@ enum SpeedDirection: int {
  * @brief Direction of rotation
  */
 enum RotationDirection {
-    erd_right = -1,
+    erd_right = 1,
     erd_none = 0,
-    erd_left = 1
+    erd_left = -1
 };
 
 /**

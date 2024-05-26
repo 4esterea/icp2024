@@ -64,7 +64,7 @@ RobotWidget::RobotWidget(QWidget *parent, RobotGraphicItem* robot, bool isRemote
     QLineEdit *collisionDistanceInput = new QLineEdit(this);
     collisionDistanceInput->setAlignment(Qt::AlignCenter);
     collisionDistanceInput->setValidator(new QIntValidator(0, 1000, this));
-    //collisionDistanceInput->setText(QString::number(_robot->getGameObject()->GetVision()->GetWidth())); SEGFAULT
+    collisionDistanceInput->setText(QString::number(dynamic_cast<IQtRectCollider *>(_robot->getGameObject()->GetVision())->GetWidth())); // SEGFAULT
     collisionDistanceInput->setFixedHeight(25);
 
 

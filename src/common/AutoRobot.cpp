@@ -45,11 +45,14 @@ void AutoRobot::SetRotationAngle(double rotationAngle) {
 
 void AutoRobot::Update() {
     Position pos = *(dynamic_cast<Position *>(this->GetPosition()));
+    double rotationAngle = std::fmod(this->_rotationAngle * SIMRULE_FRAME_TIMEGAP_MS * this->_collisionBehavior / 1000, 360);
+    double speed = this->GetSpeed() * SIMRULE_FRAME_TIMEGAP_MS / 1000;
     bool isSight = false;
+    bool isStuck = false;
 
     // Object movement
-    this->GetPosition()->x = this->GetPosition()->x + this->GetSpeed() * cos(this->GetPosition()->angle * PI / 180);
-    this->GetPosition()->y = this->GetPosition()->y + this->GetSpeed() * sin(this->GetPosition()->angle * PI / 180);
+    this->GetPosition()->x = this->GetPosition()->x + speed * cos(this->GetPosition()->angle * PI / 180);
+    this->GetPosition()->y = this->GetPosition()->y + speed * sin(this->GetPosition()->angle * PI / 180);
     // // Move colliders respectively
     this->RecalcColliderPosition();
     // // Collision checks
@@ -59,24 +62,22 @@ void AutoRobot::Update() {
             // Skip if the same object
             continue;
         }
-        if (this->GetCollider()->CheckCollision(go->GetCollider())){
-            // Collision detected -> move object back
-            if (SIMRULE_ROTATE_IF_STUCK) {
-                this->GetPosition()->angle = std::fmod((this->GetPosition()->angle + this->_rotationAngle / 4), 360); // /4 so robot will rotate slower when hit
-            }
-            this->GetPosition()->SetPosition(pos.x, pos.y);
-            // Move colliders respectively
-            this->RecalcColliderPosition();
-            isSight = false;
-            break;
-        }
         if (this->_vision->CheckCollision(go->GetCollider())) {
             // Collision detected -> turn
             isSight = true;
         }
+        if (this->GetCollider()->CheckCollision(go->GetCollider())){
+            isStuck = true;
+            break;
+        }
     }
-    if (isSight) {
-        this->GetPosition()->angle = std::fmod((this->GetPosition()->angle + this->_rotationAngle), 360) * this->_collisionBehavior;
+    if ((isStuck && SIMRULE_ROTATE_IF_STUCK) || isSight) {
+        // Rotate if stuck
+        this->GetPosition()->angle = this->GetPosition()->angle + rotationAngle;
+    }
+    if (isStuck && isSight) {
+        // Collision detected -> move object back
+        this->GetPosition()->SetPosition(pos.x, pos.y);
     }
     this->RecalcColliderPosition();
 }
