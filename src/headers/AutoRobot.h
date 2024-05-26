@@ -35,17 +35,17 @@ public:
      * @brief Get the robot's speed (pure virtual).
      * @return The robot's speed.
      */
-    virtual double GetSpeed() = 0;
+    double GetSpeed();
     /**
      * @brief Set the robot's speed (pure virtual).
      * @param speed The new speed for the robot.
      */
-    virtual void SetSpeed(double speed) = 0;
+    void SetSpeed(double speed);
     /**
      * @brief Get the robot's rotation angle (pure virtual).
      * @return The rotation angle in radians.
      */
-    virtual double GetRotationAngle() = 0;
+    double GetRotationAngle();
     /**
      * @brief Set the robot's rotation angle (pure virtual).
      * @param rotationAngle The new rotation angle in radians.
