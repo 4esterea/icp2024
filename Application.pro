@@ -19,7 +19,7 @@ SOURCES += \
     src/ui/ObstacleWidget.cpp \
     src/ui/RobotGraphicItem.cpp \
     src/ui/RobotWidget.cpp \
-    src/ui/clickableLabel.cpp\
+    src/ui/ClickableLabel.cpp\
     src/main.cpp \
     src/mainwindow.cpp\
     src/common/Obstacle.cpp \
@@ -56,7 +56,7 @@ HEADERS += \
     src/ui/ObstacleWidget.h \
     src/ui/RobotGraphicItem.h \
     src/ui/RobotWidget.h \
-    src/ui/clickableLabel.h\
+    src/ui/ClickableLabel.h\
     src/ui/Viewport.h\
     src/headers/Map.h\
     src/headers/RectangleCollider.h\
