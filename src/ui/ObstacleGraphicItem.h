@@ -26,6 +26,13 @@
 
 class ObstacleWidget;
 
+/**
+ * @class ObstacleGraphicItem
+ * @brief This class represents a custom QGraphicsRectItem for an obstacle in the application.
+ *
+ * The ObstacleGraphicItem class extends QGraphicsRectItem and provides functionalities for handling
+ * different events and managing the graphical representation of an obstacle in the GUI.
+ */
 class ObstacleGraphicItem : public QGraphicsRectItem {
 
 public:

@@ -17,6 +17,13 @@
 
 class ObstacleGraphicItem;
 
+/**
+ * @class ObstacleWidget
+ * @brief This class represents a custom widget for an obstacle in the application.
+ *
+ * The ObstacleWidget class extends QWidget and provides functionalities for displaying
+ * and managing the obstacle's properties in the GUI.
+ */
 class ObstacleWidget : public QWidget {
     Q_OBJECT
 

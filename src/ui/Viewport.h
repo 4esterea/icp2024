@@ -16,6 +16,13 @@
 
 class MainWindow;
 
+/**
+ * @class Viewport
+ * @brief This class represents the viewport in the application.
+ *
+ * The Viewport class extends QGraphicsView and provides functionalities for handling
+ * different events and managing the graphical representation of the application.
+ */
 class Viewport : public QGraphicsView {
 public:
     /**
@@ -48,14 +55,23 @@ public:
      */
     void hideAllSettings();
 
-     /**
+    /**
     * @brief A pointer to the QGraphicsScene object.
     */
 	   QGraphicsScene* scene;
 
+    /**
+     * @brief Checks if a remote-controlled robot is placed in the viewport.
+     *
+     * @return True if the robot is placed, false otherwise.
+     */
     bool isRCRobotPlaced();
 
+    /**
+     * @brief Removes the remote-controlled robot from the viewport.
+     */
     void removeRC();
+
 protected:
      /**
     * @brief Event handler for wheel event.
@@ -63,6 +79,11 @@ protected:
     * @param event The QWheelEvent object.
     */
     void wheelEvent(QWheelEvent *event) override;
+    /**
+     * @brief Handles the key press events in the Viewport.
+     *
+     * @param event The QKeyEvent object representing the key press event.
+     */
     void keyPressEvent(QKeyEvent *event) override;
 private:
     MainWindow* _mainWindow;

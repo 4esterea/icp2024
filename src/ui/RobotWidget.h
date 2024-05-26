@@ -15,6 +15,13 @@
 
 class RobotGraphicItem;
 
+/**
+ * @class RobotWidget
+ * @brief This class represents a custom widget for a robot in the application.
+ *
+ * The RobotWidget class extends QWidget and provides functionalities for displaying
+ * and managing the robot's properties in the GUI.
+ */
 class RobotWidget : public QWidget {
     Q_OBJECT
 

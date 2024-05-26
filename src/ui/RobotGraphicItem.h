@@ -26,6 +26,13 @@
 class AutoRobot;
 class Viewport;
 
+/**
+ * @class RobotGraphicItem
+ * @brief This class represents a custom QGraphicsEllipseItem for a robot in the application.
+ *
+ * The RobotGraphicItem class extends QGraphicsEllipseItem and provides functionalities for handling
+ * different events and managing the graphical representation of a robot in the GUI.
+ */
 class RobotGraphicItem : public QGraphicsEllipseItem
 {
 public:
@@ -105,6 +112,11 @@ private:
     QGraphicsLineItem* _direction = nullptr;
 
 public slots:
+    /**
+     * @brief Sets the rotation angle of the RobotGraphicItem.
+     *
+     * @param angle The rotation angle in degrees.
+     */
     void setRotation(int angle);
 };
 

@@ -13,6 +13,13 @@
 #include <QWidget>
 #include <Qt>
 
+/**
+ * @class ClickableLabel
+ * @brief This class represents a custom QLabel that emits a signal when clicked.
+ *
+ * The ClickableLabel class extends QLabel and provides functionalities for handling
+ * mouse press events and emitting a signal when such an event occurs.
+ */
 class ClickableLabel : public QLabel {
     Q_OBJECT
 
@@ -31,11 +38,18 @@ public:
     ~ClickableLabel();
 
 signals:
+    /**
+     * @brief This signal is emitted when a mouse press event occurs on the ClickableLabel.
+     */
     void clicked();
 
 protected:
+    /**
+     * @brief This method is called whenever a mouse press event occurs on this widget.
+     *
+     * @param event Provides details about the mouse press event such as the position of the mouse cursor, the button that was pressed, and the state of keyboard modifiers.
+     */
     void mousePressEvent(QMouseEvent* event);
-
 };
 
 #endif // CLICKABLELABEL_H

@@ -120,7 +120,7 @@ RobotWidget::RobotWidget(QWidget *parent, RobotGraphicItem* robot, bool isRemote
     });
 
     connect(collisionDistanceInput, &QLineEdit::textChanged, [this](const QString &value) {
-		//_robot->getGameObject()->GetVision()->SetWidth(value.toInt());
+		_robot->getGameObject()->GetVision()->SetWidth(value.toInt());
         _robot->getVision()->setRect(25, 0, value.toInt(), 50);
     });
 
