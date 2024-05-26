@@ -11,17 +11,44 @@
 
 #include "ICollider.h"
 
-class IRectangleCollider : public ICollider {
-    public:
-        virtual double GetWidth() = 0;
-        virtual void SetWidth(double width) = 0;
-        virtual double GetHeight() = 0;
-        virtual void SetHeight(double height) = 0;
-        virtual ~IRectangleCollider() {};
+/**
+ * @brief Base class for rectangle colliders.
 
-    protected:
-        double _width;
-        double _height;
+ */
+class IRectangleCollider : public ICollider {
+public:
+    /**
+     * @brief Get the width of the collider.
+     * @return The width of the collider.
+     */
+    virtual double GetWidth() = 0;
+
+    /**
+     * @brief Set the width of the collider.
+     * @param width The new width for the collider.
+     */
+    virtual void SetWidth(double width) = 0;
+
+    /**
+     * @brief Get the height of the collider.
+     * @return The height of the collider.
+     */
+    virtual double GetHeight() = 0;
+
+    /**
+     * @brief Set the height of the collider.
+     * @param height The new height for the collider.
+     */
+    virtual void SetHeight(double height) = 0;
+
+    /**
+     * @brief Virtual destructor for IRectangleCollider.
+     */
+    virtual ~IRectangleCollider() {};
+
+protected:
+    double _width;
+    double _height;
 };
 
 #endif

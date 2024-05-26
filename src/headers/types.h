@@ -17,6 +17,7 @@
 #define SIMRULE_ROBOT_DEFAULT_ANGLE 180
 #define SIMRULE_ROTATE_IF_STUCK true
 #define SIMRULE_ROTATE_TIMES_SLOWER 3
+#define SIMRULE_RC_STOP_ON_VISION true
 
 /**
  * @brief Type of object
