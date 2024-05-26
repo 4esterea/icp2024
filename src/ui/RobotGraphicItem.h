@@ -97,7 +97,7 @@ public:
 
 private:
     QVariant itemChange(GraphicsItemChange change, const QVariant &value);
-    QWidget* _viewport;
+    Viewport* _viewport;
     QWidget* _settings = nullptr;
     IRobot* _robot;
     QGraphicsRectItem* _vision = nullptr;

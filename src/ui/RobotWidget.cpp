@@ -83,6 +83,24 @@ RobotWidget::RobotWidget(QWidget *parent, RobotGraphicItem* robot, bool isRemote
     layout->addWidget(moveSpeedInput);
     layout->addWidget(collisionDistanceLabel);
     layout->addWidget(collisionDistanceInput);
+    if (!isRemote){
+        QLabel *evadingBehaviourLabel = new QLabel("Base Evading Behaviour", this);
+        evadingBehaviourLabel->setAlignment(Qt::AlignCenter);
+        evadingBehaviourLabel->setFixedHeight(25);
+
+        QComboBox *evadingBehaviourInput = new QComboBox(this);
+        evadingBehaviourInput->addItem("Move Left");
+        evadingBehaviourInput->addItem("Move Right");
+        //evadingBehaviourInput->setCurrentText(_robot->getEvadingBehaviour());
+        evadingBehaviourInput->setFixedHeight(25);
+
+        layout->addWidget(evadingBehaviourLabel);
+        layout->addWidget(evadingBehaviourInput);
+
+        connect(evadingBehaviourInput, &QComboBox::currentTextChanged, [this](const QString &value) {
+        // TODO
+        });
+    }
 
     layout->addWidget(okButton);
 

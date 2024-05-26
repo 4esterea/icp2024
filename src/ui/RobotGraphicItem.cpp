@@ -95,6 +95,7 @@ void RobotGraphicItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event) {
     } else if (mainWindow && mainWindow->isEditingEnabled() && event->button() == Qt::RightButton){
         qDebug() << "Deleting the robot on the position : " << this->pos().x() << " : " << this->pos().y();
         dynamic_cast<Viewport*>(_viewport)->scene->removeItem(this);
+        _viewport->removeRC();
         auto reference = this->_robot;
         mainWindow->getMap()->RemoveGameObject(reference);
         delete reference;
@@ -138,4 +139,3 @@ IRobot* RobotGraphicItem::getGameObject() {
 QGraphicsRectItem* RobotGraphicItem::getVision() {
     return _vision;
 }
-

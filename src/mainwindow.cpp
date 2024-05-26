@@ -20,8 +20,7 @@
 #include "ui_mainwindow.h"
 #include <QMessageBox>
 #include <QFont>
-
-
+#include <QKeyEvent>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -90,6 +89,7 @@ void MainWindow::setUiDefaultState()
     ui->obstacleIcon->setScaledContents(true);
     ui->obstacleIcon->setMaximumSize(50, 50);
     ui->editMode->hide();
+    ui->widgetControls->hide();
     this->_map = new Map(0, 0);
 }
 
@@ -145,6 +145,11 @@ void MainWindow::on_pushButtonLaunch_clicked(bool checked)
         ui->pushButtonSave->setEnabled(0);
         ui->pushButtonNew->setEnabled(0);
         ui->pushButtonPause->show();
+
+        if(ui->viewport->isRCRobotPlaced()){
+            ui->widgetControls->show();
+        }
+
         this->_timer->start(SIMRULE_FRAME_TIMEGAP_MS);
     } else {
 
@@ -167,6 +172,7 @@ void MainWindow::on_pushButtonLaunch_clicked(bool checked)
         ui->pushButtonSave->setEnabled(1);
         ui->pushButtonNew->setEnabled(1);
         ui->pushButtonPause->hide();
+        ui->widgetControls->hide();
         this->_timer->stop();
     }
 }
@@ -346,4 +352,24 @@ Map* MainWindow::getMap()
 void MainWindow::RunSimulation() {
     this->_map->Update();
     ui->viewport->Update();
+}
+
+void MainWindow::on_pushButtonForward_clicked(){
+    QKeyEvent *keyEvent = new QKeyEvent(QEvent::KeyPress, Qt::Key_W, Qt::NoModifier);
+    QCoreApplication::postEvent(ui->viewport, keyEvent);
+}
+
+void MainWindow::on_pushButtonBrake_clicked(){
+    QKeyEvent *keyEvent = new QKeyEvent(QEvent::KeyPress, Qt::Key_S, Qt::NoModifier);
+    QCoreApplication::postEvent(ui->viewport, keyEvent);
+}
+
+void MainWindow::on_pushButtonLeft_clicked(){
+    QKeyEvent *keyEvent = new QKeyEvent(QEvent::KeyPress, Qt::Key_A, Qt::NoModifier);
+    QCoreApplication::postEvent(ui->viewport, keyEvent);
+}
+
+void MainWindow::on_pushButtonRight_clicked(){
+    QKeyEvent *keyEvent = new QKeyEvent(QEvent::KeyPress, Qt::Key_D, Qt::NoModifier);
+    QCoreApplication::postEvent(ui->viewport, keyEvent);
 }

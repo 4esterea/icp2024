@@ -106,6 +106,10 @@ private slots:
     void on_pushButtonNew_clicked();
     void on_pushButtonCancel_clicked();
     void on_pushButtonConfirm_clicked();
+    void on_pushButtonForward_clicked();
+    void on_pushButtonBrake_clicked();
+    void on_pushButtonLeft_clicked();
+    void on_pushButtonRight_clicked();
     void on_autoRobotIcon_clicked();
     void on_RCRobotIcon_clicked();
     void on_obstacleIcon_clicked();

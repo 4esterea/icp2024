@@ -243,3 +243,11 @@ void Viewport::keyPressEvent(QKeyEvent *event) {
         }
     }
 }
+
+bool Viewport::isRCRobotPlaced() {
+    return _isRCRobotPlaced;
+}
+
+void Viewport::removeRC() {
+    _isRCRobotPlaced = false;
+}

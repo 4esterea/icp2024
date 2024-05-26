@@ -53,6 +53,9 @@ public:
     */
 	   QGraphicsScene* scene;
 
+    bool isRCRobotPlaced();
+
+    void removeRC();
 protected:
      /**
     * @brief Event handler for wheel event.
