@@ -71,9 +71,14 @@ void AutoRobot::Update() {
             break;
         }
     }
-    if ((isStuck && SIMRULE_ROTATE_IF_STUCK) || isSight) {
-        // Rotate if stuck
-        this->GetPosition()->angle = this->GetPosition()->angle + rotationAngle;
+    if (!SIMRULE_ROTATE_IF_STUCK) {
+        if (isSight && !isStuck) {
+            this->GetPosition()->angle = this->GetPosition()->angle + rotationAngle;
+        }
+    } else {
+        if (isSight || isStuck) {
+            this->GetPosition()->angle = this->GetPosition()->angle + rotationAngle;
+        }
     }
     if (isStuck && isSight) {
         // Collision detected -> move object back
