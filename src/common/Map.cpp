@@ -57,7 +57,10 @@ double Map::LoadJSON(string json) {
             }
             case eot_auto_robot: {
                 IAutoRobot * ar = new AutoRobot(pos_x, pos_y, pos_angle, gameObject["radius"].toDouble());
+                int cb = gameObject["Robot"].toObject()["collisionBehavior"].toInt();
+                RotationDirection rd = cb == -1 ? erd_left : cb == 0 ? erd_none : erd_right;
                 ar->SetSpeed(gameObject["Robot"].toObject()["speed"].toDouble());
+                ar->SetCollisionBehavior(rd);
                 ar->SetRotationAngle(gameObject["Robot"].toObject()["rotationAngle"].toDouble());
                 this->AddGameObject(ar);
                 // TODO add colliders
@@ -117,6 +120,7 @@ string Map::SaveJSON() {
                 position.insert("y", this->_gameObjects[i]->GetPosition()->y);
                 position.insert("angle", this->_gameObjects[i]->GetPosition()->angle);
                 robot.insert("speed", ar->GetSpeed());
+                robot.insert("collisionBehavior", ar->GetCollisionBehavior());
                 robot.insert("rotationAngle", ar->GetRotationAngle());
                 gameObject.insert("Robot", robot);
                 // TODO add colliders
