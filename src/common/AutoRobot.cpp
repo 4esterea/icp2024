@@ -18,7 +18,7 @@ AutoRobot::AutoRobot(double x, double y, double angle, double radius) {
     this->_speed = SIMRULE_ROBOT_DEFAULT_SPEED;
     this->_rotationAngle = SIMRULE_ROBOT_DEFAULT_ANGLE;
     this->_vision = new QtRectCollider(0,0,0,0,0);
-    this->_collisionBehavior = erd_none;
+    this->_collisionBehavior = erd_right;
 }
 
 void AutoRobot::RecalcColliderPosition() {
