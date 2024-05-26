@@ -199,11 +199,11 @@ void Viewport::Update() {
 
 
 void Viewport::wheelEvent(QWheelEvent *event) {
-     //if (event->delta() > 0) {
-     //    scale(1.15, 1.15);
-     //} else {
-     //    scale(0.85, 0.85);
-     //}
+     if (event->delta() > 0) {
+         scale(1.15, 1.15);
+     } else {
+         scale(0.85, 0.85);
+     }
      QGraphicsView::wheelEvent(event);
 }
 
