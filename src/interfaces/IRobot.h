@@ -11,7 +11,7 @@
 
 #include "IGameObject.h"
 #include "IQtCircleCollider.h"
-#include "IQtCollider.h"
+#include "IQtRectCollider.h"
 
 /**
  * @brief Base class for robots in the simulation.
@@ -24,13 +24,13 @@ public:
      * @brief Get the robot's vision collider.
      * @return Vision collider.
      */
-    IQtCollider * GetVision() { return this->_vision; }
+    IQtRectCollider * GetVision() { return this->_vision; }
 
     /**
      * @brief Set the robot's vision collider.
      * @param New vision collider.
      */
-    void SetVision(IQtCollider * vision) { this->_vision = vision; }
+    void SetVision(IQtRectCollider * vision) { this->_vision = vision; }
 
     /**
      * @brief Get the robot's collision behavior.
@@ -100,7 +100,7 @@ protected:
     double _radius;
     double _speed; // Constant throughout run
     double _rotationAngle; // Constant throughout run
-    IQtCollider* _vision; // <Right sight collider, Left sight collider>
+    IQtRectCollider* _vision;
     RotationDirection _collisionBehavior;
 };
 
