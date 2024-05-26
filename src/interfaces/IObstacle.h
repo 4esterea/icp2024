@@ -17,9 +17,9 @@ using namespace std;
 class IObstacle : public IGameObject {
     public:
         double GetWidth() { return this->_width; }
-        void SetWidth(double width) { this->_width = width; }
+        void SetWidth(double width) { this->_width = width; this->GetCollider()->SetWidth(width); }
         double GetHeight() { return this->_height; }
-        void SetHeight(double height) { this->_height = height; }
+        void SetHeight(double height) { this->_height = height; this->GetCollider()->SetHeight(height); }
         IQtRectCollider * GetCollider() { return dynamic_cast<IQtRectCollider *>(this->_collider); };
         virtual ~IObstacle() {};
 

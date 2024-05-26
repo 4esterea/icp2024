@@ -18,6 +18,7 @@ class IPosition {
         virtual void SetPosition(IPosition * position) = 0;
         virtual void SetPosition(double x, double y, double angle) = 0;
         virtual void SetPosition(double x, double y) = 0;
+        virtual void SetPosition(double angle) = 0;
         virtual ~IPosition() {};
 };
 
