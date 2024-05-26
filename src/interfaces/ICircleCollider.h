@@ -15,32 +15,10 @@ using namespace std;
 
 class ICircleCollider : public ICollider {
     public:
-    /**
-     * @brief Checks if this collider is colliding with another collider.
-     *
-     * @param collider The other collider to check collision with.
-     * @return True if this collider is colliding with the other collider, false otherwise.
-     */
-    virtual bool CheckCollision(ICollider * collider) = 0;
-
-    /**
-     * @brief Gets the radius of the circle collider.
-     *
-     * @return The radius of the circle collider.
-     */
-    virtual double GetRadius() = 0;
-
-    /**
-     * @brief Sets the radius of the circle collider.
-     *
-     * @param radius The radius to set the circle collider to.
-     */
-    virtual void SetRadius(double radius) = 0;
-
-    /**
-     * @brief Virtual destructor for the ICircleCollider interface.
-     */
-    virtual ~ICircleCollider() {};
+        virtual bool CheckCollision(ICollider * collider) = 0;
+        virtual double GetRadius() = 0;
+        virtual void SetRadius(double radius) = 0;
+        virtual ~ICircleCollider() {};
 
     protected:
         double _radius;

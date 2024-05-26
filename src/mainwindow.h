@@ -15,7 +15,6 @@
 #include <QTimer>
 #include <QFileDialog>
 #include <QFileInfo>
-#include "src/ui/clickableLabel.h"
 #include "src/headers/Map.h"
 
 namespace Ui {
@@ -115,8 +114,10 @@ private:
     Ui::MainWindow *ui;
     void setUiDefaultState();
     void loadLevel();
-    QString _fileToOpen = "examples/lvl1.json";
+    QString _fileToOpen;
     QString _fileToSave;
+    std::string _defaultJSON = R"({"gameObjects":[{"Position":{"angle":0,"x":0,"y":0},"objectType":1,"width":1000},{"Position":{"angle":0,"x":1000,"y":0},"objectType":1,"width":1000},{"Position":{"angle":0,"x":0,"y":0},"objectType":1,"width":1},{"Position":{"angle":0,"x":0,"y":1000},"objectType":1,"width":1}],"height":1000,"width":1000})";
+    bool _isLayoutSet = false;
     bool _editingEnabled;
     bool _isLaunched;
     bool _isPaused;

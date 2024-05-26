@@ -18,7 +18,6 @@
 #include "src/ui/ObstacleGraphicItem.h"
 #include "src/ui/RobotGraphicItem.h"
 #include <QMouseEvent>
-#include "../mainwindow.h"
 #include <QPainter>
 
 Viewport::Viewport(QWidget* parent, Map* map) : QGraphicsView(parent), _map(map) {
@@ -30,23 +29,36 @@ Viewport::Viewport(QWidget* parent, Map* map) : QGraphicsView(parent), _map(map)
     this->setScene(this->scene);
     this->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     this->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    _mainWindow = qobject_cast<MainWindow*>(this->parentWidget()->parentWidget());
 }
 
 void Viewport::drawAll() {
     qDebug() << "Drawing...";
     this->scene->clear();
     _isRCRobotPlaced = false;
-    MainWindow* mainWindow = qobject_cast<MainWindow*>(this->parentWidget()->parentWidget());
-    auto map = mainWindow->getMap();
+    auto map = _mainWindow->getMap();
     if (map != nullptr) {
         auto mapSize = map->getSize();
         this->scene->setSceneRect(0, 0, mapSize.first, mapSize.second);
         this->fitInView(this->scene->sceneRect(), Qt::KeepAspectRatio);
 
         Obstacle* leftBoundary = new Obstacle(0, 0, 0, 1, mapSize.second);
+        ObstacleGraphicItem* leftBoundaryProjection = new ObstacleGraphicItem(this, nullptr, leftBoundary);
+        leftBoundary->GetCollider()->SetGraphics(leftBoundaryProjection);
+        this->scene->addItem(leftBoundaryProjection);
         Obstacle* rightBoundary = new Obstacle(mapSize.first, 0, 0, 1, mapSize.second);
+        ObstacleGraphicItem* rightBoundaryProjection = new ObstacleGraphicItem(this, nullptr, rightBoundary);
+        rightBoundary->GetCollider()->SetGraphics(rightBoundaryProjection);
+        this->scene->addItem(rightBoundaryProjection);
         Obstacle* topBoundary = new Obstacle(0, 0, 0, mapSize.first, 1);
+        ObstacleGraphicItem* topBoundaryProjection = new ObstacleGraphicItem(this, nullptr, topBoundary);
+        topBoundary->GetCollider()->SetGraphics(topBoundaryProjection);
+        this->scene->addItem(topBoundaryProjection);
         Obstacle* bottomBoundary = new Obstacle(0, mapSize.second, 0, mapSize.first, 1);
+        ObstacleGraphicItem* bottomBoundaryProjection = new ObstacleGraphicItem(this, nullptr, bottomBoundary);
+        bottomBoundary->GetCollider()->SetGraphics(bottomBoundaryProjection);
+        this->scene->addItem(bottomBoundaryProjection);
+        this->update();
 
         map->AddGameObject(leftBoundary);
         map->AddGameObject(rightBoundary);
@@ -60,6 +72,7 @@ void Viewport::drawAll() {
                     auto obstacle = dynamic_cast<Obstacle*>(gameObject);
                     if (obstacle) {
                         auto obstacleRect = new ObstacleGraphicItem(this, nullptr, obstacle);
+                        obstacle->GetCollider()->SetGraphics(obstacleRect);
                         this->scene->addItem(obstacleRect);
                     }
                     break;
@@ -68,6 +81,7 @@ void Viewport::drawAll() {
                     auto autoRobot = dynamic_cast<AutoRobot *>(gameObject);
                     if (autoRobot) {
                         auto autoRobotItem = new RobotGraphicItem(this, nullptr, autoRobot);
+                        autoRobot->GetCollider()->SetGraphics(autoRobotItem);
                         this->scene->addItem(autoRobotItem);
                     }
                     break;
@@ -76,6 +90,7 @@ void Viewport::drawAll() {
                     auto controlledRobot = dynamic_cast<ControlledRobot *>(gameObject);
                     if (controlledRobot) {
                         auto controlledRobotItem = new RobotGraphicItem(this, nullptr, controlledRobot);
+                        controlledRobot->GetCollider()->SetGraphics(controlledRobotItem);
                         this->scene->addItem(controlledRobotItem);
                         _isRCRobotPlaced = true;
                     }
@@ -115,6 +130,7 @@ void Viewport::mousePressEvent(QMouseEvent *event) {
             qDebug() << "Obstacle is being placed at " << pt.x() << " : " << pt.y();
             Obstacle* object = new Obstacle(pt.x(), pt.y(), 0, 50, 50);
             ObstacleGraphicItem* projection = new ObstacleGraphicItem(this, nullptr, object);
+            object->GetCollider()->SetGraphics(projection);
             mainWindow->getMap()->AddGameObject(object);
             this->scene->addItem(projection);
             this->update();
@@ -123,6 +139,7 @@ void Viewport::mousePressEvent(QMouseEvent *event) {
             qDebug() << "AutoRobot is being placed at " << pt.x() << " : " << pt.y();
             AutoRobot* object = new AutoRobot(pt.x()-25, pt.y()-25, 0, 25);
             RobotGraphicItem* projection = new RobotGraphicItem(this, nullptr, object);
+            object->GetCollider()->SetGraphics(projection);
             projection->setPos(pt.x()-25, pt.y()-25);
             mainWindow->getMap()->AddGameObject(object);
             this->scene->addItem(projection);
@@ -133,6 +150,7 @@ void Viewport::mousePressEvent(QMouseEvent *event) {
             qDebug() << "RCRobot is being placed at " << pt.x() << " : " << pt.y();
             ControlledRobot* object = new ControlledRobot(pt.x()-25, pt.y()-25, 0, 25);
             RobotGraphicItem* projection = new RobotGraphicItem(this, nullptr, object);
+            object->GetCollider()->SetGraphics(projection);
             projection->setPos(pt.x()-25, pt.y()-25);
             mainWindow->getMap()->AddGameObject(object);
             this->scene->addItem(projection);
@@ -181,10 +199,47 @@ void Viewport::Update() {
 
 
 void Viewport::wheelEvent(QWheelEvent *event) {
-     // if (event->delta() > 0) {
-     //     scale(1.15, 1.15);
-     // } else {
-     //     scale(0.85, 0.85);
-     // }
+     //if (event->delta() > 0) {
+     //    scale(1.15, 1.15);
+     //} else {
+     //    scale(0.85, 0.85);
+     //}
      QGraphicsView::wheelEvent(event);
+}
+
+
+void Viewport::keyPressEvent(QKeyEvent *event) {
+    auto map = _mainWindow->getMap();
+    auto items = map->getGameObjects();
+    for (auto& item : items) {
+        auto robot = dynamic_cast<IControlledRobot*>(item);
+        if (robot) {
+            switch (event->key()){
+                case Qt::Key_W:
+                    qDebug() << "W pressed";
+                    robot->SetSpeedDirection(esd_forward);
+                    robot->SetRotationDirection(erd_none);
+                    break;
+                case Qt::Key_S:
+                    robot->SetSpeedDirection(esd_none);
+                    robot->SetRotationDirection(erd_none);
+                    qDebug() << "S pressed";
+                    break;
+                case Qt::Key_A:
+                    if (robot->GetSpeedDirection() != esd_none) {
+                        dynamic_cast<IControlledRobot *>(robot)->SetRotationDirection(erd_left);
+                    }
+                    qDebug() << "A pressed";
+                    break;
+                case Qt::Key_D:
+                    if (robot->GetSpeedDirection() != esd_none) {
+                        dynamic_cast<IControlledRobot *>(robot)->SetRotationDirection(erd_right);
+                    }
+                    qDebug() << "D pressed";
+                    break;
+                default:
+                    QGraphicsView::keyPressEvent(event);
+            }
+        }
+    }
 }

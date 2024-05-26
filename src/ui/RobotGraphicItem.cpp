@@ -20,9 +20,11 @@ RobotGraphicItem::RobotGraphicItem(Viewport* viewport, QGraphicsItem* parent, IR
     _vision->setRect(25, 0, 100, 50); // TODO: ^use the upper line after the robot is implemented
     _vision->setPen(QPen(QColor(255, 0, 0, 128), 2));
     _vision->setFlag(QGraphicsItem::ItemStacksBehindParent, true);
+    _robot->GetVision()->SetGraphics(_vision);
     if (_isRemote) {
         _direction->setPen(QPen({Qt::yellow, 2}));
         setPen(QPen({Qt::yellow, 2}));
+		setFlag(QGraphicsItem::ItemIsFocusable, true);
     } else {
         _direction->setPen(QPen({Qt::white, 2}));
         setPen(QPen({Qt::white, 2}));
@@ -33,10 +35,9 @@ RobotGraphicItem::RobotGraphicItem(Viewport* viewport, QGraphicsItem* parent, IR
     setFlag(QGraphicsItem::ItemSendsScenePositionChanges, true);
     setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);
     setFlag(QGraphicsItem::ItemIsFocusable, true);
-    auto collider = dynamic_cast<CircleCollider *>(_robot->GetCollider());
-    this->setPos(_robot->GetCollider()->GetPosition()->x, _robot->GetCollider()->GetPosition()->y);
-    this->setRect(0, 0, collider->GetRadius() * 2, collider->GetRadius() * 2);
-    this->setRotation(collider->GetPosition()->angle);
+    this->setPos(_robot->GetPosition()->x, _robot->GetPosition()->y);
+    this->setRect(0, 0, _robot->GetCollider()->GetRadius() * 2, _robot->GetCollider()->GetRadius() * 2);
+    this->setRotation(_robot->GetPosition()->angle);
 }
 
 void RobotGraphicItem::hoverEnterEvent(QGraphicsSceneHoverEvent* event) {
@@ -79,6 +80,7 @@ void RobotGraphicItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event) {
         if(_settings == nullptr){
                 _settings = new RobotWidget(_viewport, this, _isRemote);
         }
+
         int viewportWidth = _viewport->width();
         int viewportHeight = _viewport->height();
         bool isCloserToLeft = x < viewportWidth / 2;
@@ -111,7 +113,7 @@ QVariant RobotGraphicItem::itemChange(GraphicsItemChange change, const QVariant 
             viewport->hideAllSettings();
         }
         QPointF newPos = value.toPointF();
-        _robot->GetCollider()->GetPosition()->SetPosition(newPos.x(), newPos.y());
+        // _robot->GetCollider()->GetPosition()->SetPosition(newPos.x(), newPos.y());
         _robot->GetPosition()->SetPosition(newPos.x(), newPos.y());
     }
     return QGraphicsItem::itemChange(change, value);
@@ -121,7 +123,6 @@ void RobotGraphicItem::setRotation(int angle) {
     setTransformOriginPoint(25, 25);
     QGraphicsEllipseItem::setRotation(angle);
     _robot->GetPosition()->angle = angle;
-    _robot->GetCollider()->GetPosition()->angle = angle;
 }
 
 void RobotGraphicItem::Update() {
@@ -138,23 +139,3 @@ QGraphicsRectItem* RobotGraphicItem::getVision() {
     return _vision;
 }
 
-void RobotGraphicItem::keyPressEvent(QKeyEvent *event) {
-    if (_isRemote) {
-        switch (event->key()){
-           case Qt::Key_W:
-               qDebug() << "W pressed";
-               break;
-           case Qt::Key_S:
-               qDebug() << "S pressed";
-               break;
-           case Qt::Key_A:
-               qDebug() << "A pressed";
-               break;
-           case Qt::Key_D:
-               qDebug() << "D pressed";
-               break;
-           default:
-               QGraphicsEllipseItem::keyPressEvent(event);
-        }
-    }
-}

@@ -14,11 +14,11 @@
 #include <QGraphicsSceneHoverEvent>
 #include <QGraphicsRectItem>
 #include <QBrush>
+#include <QPen>
 #include "ObstacleWidget.h"
 #include "src/headers/Obstacle.h"
 #include "Viewport.h"
 #include <QGraphicsRectItem>
-#include <QPen>
 #include <QDebug>
 #include <QWidget>
 #include <QPointF>

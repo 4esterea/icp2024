@@ -10,23 +10,22 @@
 #define __IOBSTACLE_H__
 
 #include "IGameObject.h"
-#include "../headers/RectangleCollider.h"
+#include "IQtRectCollider.h"
 
 using namespace std;
 
 class IObstacle : public IGameObject {
     public:
-    /**
-     * @brief Gets the rectangle collider of the obstacle.
-     *
-     * @return A pointer to the rectangle collider of the obstacle.
-     */
-    IRectangleCollider * GetCollider();
+        double GetWidth() { return this->_width; }
+        void SetWidth(double width) { this->_width = width; this->GetCollider()->SetWidth(width); }
+        double GetHeight() { return this->_height; }
+        void SetHeight(double height) { this->_height = height; this->GetCollider()->SetHeight(height); }
+        IQtRectCollider * GetCollider() { return dynamic_cast<IQtRectCollider *>(this->_collider); };
+        virtual ~IObstacle() {};
 
-    /**
-     * @brief Virtual destructor for the IObstacle interface.
-     */
-    virtual ~IObstacle();
+    protected:
+        double _width;
+        double _height;
 };
 
 #endif

@@ -10,12 +10,18 @@
 #define __IROBOT_H__
 
 #include "IGameObject.h"
-#include "IRectangleCollider.h"
+#include "IQtCircleCollider.h"
+#include "IQtCollider.h"
 
 class IRobot : public IGameObject {
     public:
-        IRectangleCollider * GetVision() { return this->_vision; }
-        void SetVision(IRectangleCollider * vision) { this->_vision = vision; }
+        IQtCollider * GetVision() { return this->_vision; }
+        void SetVision(IQtCollider * vision) { this->_vision = vision; }
+        RotationDirection GetCollisionBehavior() { return this->_collisionBehavior; }
+        void SetCollisionBehavior(RotationDirection collisionBehavior) { this->_collisionBehavior = collisionBehavior; }
+        IQtCircleCollider * GetCollider() { return dynamic_cast<IQtCircleCollider *>(this->_collider); };
+        double GetRadius() { return this->_radius; }
+        void SetRadius(double radius) { this->_radius = radius; }
         virtual void Update() = 0;
         virtual double GetSpeed() = 0;
         virtual void SetSpeed(double speed) = 0;
@@ -24,9 +30,11 @@ class IRobot : public IGameObject {
         virtual ~IRobot() {};
 
     protected:
-        double _speed;
-        double _rotationAngle;
-        IRectangleCollider * _vision; // Vision box
+        double _radius;
+        double _speed; // Constant through run
+        double _rotationAngle; // Constant through run
+        IQtCollider * _vision; // <Right sigth collider, Left sight collider>
+        RotationDirection _collisionBehavior;
 };
 
 #endif

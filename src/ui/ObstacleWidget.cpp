@@ -25,15 +25,15 @@ ObstacleWidget::ObstacleWidget(QWidget *parent, ObstacleGraphicItem* obstacle) :
     obstacleLabel->setStyleSheet("background-color: gray;");
     obstacleLabel->setFixedHeight(30);
 
-    //QLabel *rotationLabel = new QLabel("Rotation (°)", this);
-    //rotationLabel->setAlignment(Qt::AlignCenter);
-    //rotationLabel->setFixedHeight(30);
+    QLabel *rotationLabel = new QLabel("Rotation (°)", this);
+    rotationLabel->setAlignment(Qt::AlignCenter);
+    rotationLabel->setFixedHeight(30);
 
-    //QLineEdit *rotationInput = new QLineEdit(this);
-    //rotationInput->setAlignment(Qt::AlignCenter);
-    //rotationInput->setValidator(new QIntValidator(0, 360, this));
-    //rotationInput->setText(QString::number(this->_obstacle->rotation()));
-    //rotationInput->setFixedHeight(30);
+    QLineEdit *rotationInput = new QLineEdit(this);
+    rotationInput->setAlignment(Qt::AlignCenter);
+    rotationInput->setValidator(new QIntValidator(0, 360, this));
+    rotationInput->setText(QString::number(this->_obstacle->rotation()));
+    rotationInput->setFixedHeight(30);
 
     QLabel *widthLabel = new QLabel("Width", this);
     widthLabel->setAlignment(Qt::AlignCenter);
@@ -62,8 +62,8 @@ ObstacleWidget::ObstacleWidget(QWidget *parent, ObstacleGraphicItem* obstacle) :
     layout->setSpacing(0);
     layout->setContentsMargins(0, 0, 0, 0);
     layout->addWidget(obstacleLabel);
-    //layout->addWidget(rotationLabel);
-    //layout->addWidget(rotationInput);
+    layout->addWidget(rotationLabel);
+    layout->addWidget(rotationInput);
     layout->addWidget(widthLabel);
     layout->addWidget(widthInput);
     layout->addWidget(heightLabel);
@@ -73,9 +73,9 @@ ObstacleWidget::ObstacleWidget(QWidget *parent, ObstacleGraphicItem* obstacle) :
     this->setLayout(layout);
 
 
-    //connect(rotationInput, &QLineEdit::textChanged, [this](const QString &value) {
-    //    this->_obstacle->setRotation(value.toInt());
-    //});
+    connect(rotationInput, &QLineEdit::textChanged, [this](const QString &value) {
+        this->_obstacle->setRotation(value.toInt());
+    });
 
     connect(widthInput, &QLineEdit::textChanged, [this](const QString &value) {
         this->_obstacle->setWidth(value.toInt());

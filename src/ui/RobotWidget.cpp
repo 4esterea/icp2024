@@ -64,7 +64,7 @@ RobotWidget::RobotWidget(QWidget *parent, RobotGraphicItem* robot, bool isRemote
     QLineEdit *collisionDistanceInput = new QLineEdit(this);
     collisionDistanceInput->setAlignment(Qt::AlignCenter);
     collisionDistanceInput->setValidator(new QIntValidator(0, 1000, this));
-    //collisionDistanceInput->setText(QString::number(_robot->getGameObject()->GetVision()->rect().width()));
+    collisionDistanceInput->setText(QString::number(dynamic_cast<IQtRectCollider *>(_robot->getGameObject()->GetVision())->GetWidth())); // SEGFAULT
     collisionDistanceInput->setFixedHeight(25);
 
 
@@ -83,24 +83,6 @@ RobotWidget::RobotWidget(QWidget *parent, RobotGraphicItem* robot, bool isRemote
     layout->addWidget(moveSpeedInput);
     layout->addWidget(collisionDistanceLabel);
     layout->addWidget(collisionDistanceInput);
-    if (!isRemote){
-        QLabel *evadingBehaviourLabel = new QLabel("Base Evading Behaviour", this);
-        evadingBehaviourLabel->setAlignment(Qt::AlignCenter);
-        evadingBehaviourLabel->setFixedHeight(25);
-
-        QComboBox *evadingBehaviourInput = new QComboBox(this);
-        evadingBehaviourInput->addItem("Move Left");
-        evadingBehaviourInput->addItem("Move Right");
-        //evadingBehaviourInput->setCurrentText(_robot->getEvadingBehaviour());
-        evadingBehaviourInput->setFixedHeight(25);
-
-        layout->addWidget(evadingBehaviourLabel);
-        layout->addWidget(evadingBehaviourInput);
-
-        connect(evadingBehaviourInput, &QComboBox::currentTextChanged, [this](const QString &value) {
-        // TODO
-    });
-    }
 
     layout->addWidget(okButton);
 
@@ -120,11 +102,9 @@ RobotWidget::RobotWidget(QWidget *parent, RobotGraphicItem* robot, bool isRemote
     });
 
     connect(collisionDistanceInput, &QLineEdit::textChanged, [this](const QString &value) {
-        //_robot->getGameObject()->GetVision().setRect(25, 0, value.toInt(), 50); // TODO: uncomment after the robot is implemented
+		//_robot->getGameObject()->GetVision()->SetWidth(value.toInt());
         _robot->getVision()->setRect(25, 0, value.toInt(), 50);
     });
-
-
 
     connect(okButton, &QPushButton::clicked, this, &RobotWidget::hide);
 }

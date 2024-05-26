@@ -13,19 +13,13 @@
 
 #include "IRobot.h"
 #include "IRectangleCollider.h"
+#include "IQtCircleCollider.h"
 
 using namespace std;
 
 class IAutoRobot : public IRobot {
     public:
-    /**
-     * @brief Virtual destructor for the IAutoRobot interface.
-     */
-    virtual ~IAutoRobot() {};
-
-    protected:
-        IRectangleCollider * _vision; // <Right sigth collider, Left sight collider>
-
+        virtual ~IAutoRobot() {};
 };
 
 #endif

@@ -9,7 +9,6 @@
 
 
 #include "mainwindow.h"
-#include "ui/ClickableLabel.h"
 #include <QFileDialog>
 #include <QGraphicsScene>
 #include <QGraphicsRectItem>
@@ -39,13 +38,18 @@ MainWindow::MainWindow(QWidget *parent)
 
 void MainWindow::loadLevel()
 {
-    QFile file(_fileToOpen);
-    if (!file.open(QIODevice::ReadOnly)) {
-        qDebug() << "Failed to open the file\n";
-        return;
+    if (_isLayoutSet){
+        QFile file(_fileToOpen);
+        if (!file.open(QIODevice::ReadOnly)) {
+            qDebug() << "Failed to open the file\n";
+            return;
+        }
+        std::string json = file.readAll().toStdString();
+        _map->LoadJSON(json);
+    } else {
+        _map->LoadJSON(_defaultJSON);
+        _isLayoutSet = true;
     }
-    std::string json = file.readAll().toStdString();
-    _map->LoadJSON(json);
     ui->viewport->drawAll();
 }
 
@@ -141,7 +145,7 @@ void MainWindow::on_pushButtonLaunch_clicked(bool checked)
         ui->pushButtonSave->setEnabled(0);
         ui->pushButtonNew->setEnabled(0);
         ui->pushButtonPause->show();
-        this->_timer->start(FRAME_TIMEGAP_MS);
+        this->_timer->start(SIMRULE_FRAME_TIMEGAP_MS);
     } else {
 
         if (!file.open(QIODevice::ReadOnly)) {
@@ -178,7 +182,7 @@ void MainWindow::on_pushButtonPause_clicked(bool checked){
         qDebug() << "Simulation is running";
         this->setWindowTitle("2d robot simulator [RUNNING]");
         ui->pushButtonPause->setText("PAUSE");
-        this->_timer->start(FRAME_TIMEGAP_MS);
+        this->_timer->start(SIMRULE_FRAME_TIMEGAP_MS);
     }
 }
 
