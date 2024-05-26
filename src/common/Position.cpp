@@ -25,6 +25,10 @@ void Position::SetPosition(double x, double y) {
     this->y = y;
 }
 
+void Position::SetPosition(double angle) {
+    this->angle = angle;
+}
+
 void Position::SetPosition(IPosition * position) {
     this->x = position->x;
     this->y = position->y;
