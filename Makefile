@@ -11,6 +11,8 @@ QBLOAT=.qmake.stash qMakefile ui_mainwindow.h qrc_resources.cpp
 
 all: clean build
 
+.PHONY: all
+
 build:
 	qmake ${PRO} -o qMakefile
 	make -f qMakefile
