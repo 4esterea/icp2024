@@ -91,14 +91,14 @@ RobotWidget::RobotWidget(QWidget *parent, RobotGraphicItem* robot, bool isRemote
         QComboBox *evadingBehaviourInput = new QComboBox(this);
         evadingBehaviourInput->addItem("Move Left");
         evadingBehaviourInput->addItem("Move Right");
-        //evadingBehaviourInput->setCurrentText(_robot->getEvadingBehaviour());
+        evadingBehaviourInput->setCurrentText((_robot->getGameObject()->GetCollisionBehavior() == erd_left ? "Move Left" : "Move Right"));
         evadingBehaviourInput->setFixedHeight(25);
 
         layout->addWidget(evadingBehaviourLabel);
         layout->addWidget(evadingBehaviourInput);
 
         connect(evadingBehaviourInput, &QComboBox::currentTextChanged, [this](const QString &value) {
-        // TODO
+            _robot->getGameObject()->SetCollisionBehavior(value == "Move Left" ? erd_left : erd_right);
         });
     }
 
