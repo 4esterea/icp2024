@@ -15,7 +15,6 @@
 #include <QTimer>
 #include <QFileDialog>
 #include <QFileInfo>
-#include "src/ui/clickableLabel.h"
 #include "src/headers/Map.h"
 
 namespace Ui {
