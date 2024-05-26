@@ -11,13 +11,41 @@
 
 #include "../interfaces/IPosition.h"
 
+/**
+ * @brief The Position class Basic position
+ */
 class Position: public IPosition {
-    public:
-        Position(double x, double y, double angle);
-        void SetPosition(IPosition * position);
-        void SetPosition(double x, double y, double angle);
-        void SetPosition(double x, double y);
-        void SetPosition(double angle);
+public:
+    /**
+     * @brief Position Constructor of position
+     * @param x X coordinate
+     * @param y Y coordinate
+     * @param angle Angle of rotation
+     */
+    Position(double x, double y, double angle);
+    /**
+     * @brief SetPosition Sets new position
+     * @param position New position
+     */
+    void SetPosition(IPosition * position);
+    /**
+     * @brief SetPosition Sets new position
+     * @param x New x coord
+     * @param y New y coord
+     * @param angle New angle
+     */
+    void SetPosition(double x, double y, double angle);
+    /**
+     * @brief SetPosition Sets new position
+     * @param x New x coord
+     * @param y New y coord
+     */
+    void SetPosition(double x, double y);
+    /**
+     * @brief SetPosition Sets new position
+     * @param angle New angle
+     */
+    void SetPosition(double angle);
 };
 
 #endif

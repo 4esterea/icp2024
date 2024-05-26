@@ -22,16 +22,52 @@
 #include "../headers/AutoRobot.h"
 #include "../headers/ControlledRobot.h"
 
+ /**
+ * @brief The Map class Map where all gameobjects are located
+ */
 class Map: public IMap {
-    public:
-        void AddGameObject(IGameObject * gameObject);
-        void RemoveGameObject(IGameObject * gameObject);
-        std::pair<int, int> getSize();
-        void Update();
-        double LoadJSON(string json);
-        string SaveJSON();
-        const std::vector<IGameObject*>& getGameObjects() const override;
-        Map(int width, int height);
+public:
+    /**
+     * @brief Map Constructor of map
+     * @param width Width
+     * @param height Height
+     */
+    Map(int width, int height);
+    /**
+     * @brief AddGameObject Adds gameobject to the map
+     * @param gameObject New gameobject
+     */
+    void AddGameObject(IGameObject * gameObject);
+    /**
+     * @brief RemoveGameObject Removes game object from the map
+     * @param gameObject Gameobject to be removed
+     */
+    void RemoveGameObject(IGameObject * gameObject);
+    /**
+     * @brief getSize Returns size of map
+     * @return Pair of width and heigh
+     */
+    std::pair<int, int> getSize();
+    /**
+     * @brief Update Updates all gameobjects on the map
+     */
+    void Update();
+    /**
+     * @brief LoadJSON Initializes map from json
+     * @param json Map in json
+     * @return Error if occured
+     */
+    double LoadJSON(string json);
+    /**
+     * @brief SaveJSON Saves current map state to json
+     * @return Json string
+     */
+    string SaveJSON();
+    /**
+     * @brief getGameObjects Returns gameobjects that are currently on the map
+     * @return Vector of gameobjects
+     */
+    const std::vector<IGameObject*>& getGameObjects() const override;
 };
 
 /**

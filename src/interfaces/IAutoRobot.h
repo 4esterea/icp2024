@@ -17,9 +17,15 @@
 
 using namespace std;
 
+/**
+ * @brief The IAutoRobot class Auto robot
+ */
 class IAutoRobot : public IRobot {
-    public:
-        virtual ~IAutoRobot() {};
+public:
+    /**
+     * @brief ~IGameObject Virtual desctructor
+     */
+    virtual ~IAutoRobot() {};
 };
 
 #endif

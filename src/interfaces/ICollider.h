@@ -15,16 +15,35 @@
 
 using namespace std;
 
+/**
+ * @brief The ICollider class Base for colliders
+ */
 class ICollider {
-    public:
-        IPosition * GetPosition() { return this->_position; };
-        ColliderType GetColliderType() { return this->_colliderType; };
-        virtual bool CheckCollision(ICollider * collider) = 0;
-        virtual ~ICollider() {};
+public:
+    /**
+     * @brief GetPosition Returns position of the collider
+     * @return Position
+     */
+    IPosition * GetPosition() { return this->_position; };
+    /**
+     * @brief GetColliderType Returns collider's type
+     * @return Type of collider
+     */
+    ColliderType GetColliderType() { return this->_colliderType; };
+    /**
+     * @brief CheckCollision Checks collisions with another collider
+     * @param collider Collider
+     * @return True if collides
+     */
+    virtual bool CheckCollision(ICollider * collider) = 0;
+    /**
+     * @brief ~IGameObject Virtual desctructor
+     */
+    virtual ~ICollider() {};
 
-    protected:
-        IPosition * _position;
-        ColliderType _colliderType;
+protected:
+    IPosition * _position;
+    ColliderType _colliderType;
 };
 
 #endif

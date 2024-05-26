@@ -15,11 +15,30 @@
 #include "CollisionChecker.h"
 
 class CircleCollider : public ICircleCollider {
-    public:
-        CircleCollider(double x, double y, double angle, double radius);
-        double GetRadius();
-        void SetRadius(double radius);
-        bool CheckCollision(ICollider * collider);
+public:
+    /**
+     * @brief CircleCollider Constructor of circle collider
+     * @param x X coordinate
+     * @param y Y coordinate
+     * @param radius Radius of circle
+     */
+    CircleCollider(double x, double y, double angle, double radius);
+    /**
+     * @brief GetRadius Returns radius of the collider
+     * @return Ragius
+     */
+    double GetRadius();
+    /**
+     * @brief SetRadius Assignes new radius to the collider
+     * @param radius New radius
+     */
+    void SetRadius(double radius);
+    /**
+     * @brief CheckCollision Checks collisions with another collider
+     * @param collider Collider
+     * @return True if collides
+     */
+    bool CheckCollision(ICollider * collider);
 };
 
 #endif

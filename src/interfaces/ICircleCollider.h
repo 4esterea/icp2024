@@ -13,15 +13,34 @@
 
 using namespace std;
 
+/**
+ * @brief The ICircleCollider class Basic circle collider
+ */
 class ICircleCollider : public ICollider {
-    public:
-        virtual bool CheckCollision(ICollider * collider) = 0;
-        virtual double GetRadius() = 0;
-        virtual void SetRadius(double radius) = 0;
-        virtual ~ICircleCollider() {};
+public:
+    /**
+     * @brief GetRadius Returns radius of the collider
+     * @return Ragius
+     */
+    virtual double GetRadius() = 0;
+    /**
+     * @brief SetRadius Assignes new radius to the collider
+     * @param radius New radius
+     */
+    virtual void SetRadius(double radius) = 0;
+    /**
+     * @brief CheckCollision Checks collisions with another collider
+     * @param collider Collider
+     * @return True if collides
+     */
+    virtual bool CheckCollision(ICollider * collider) = 0;
+    /**
+     * @brief ~IGameObject Virtual desctructor
+     */
+    virtual ~ICircleCollider() {};
 
-    protected:
-        double _radius;
+protected:
+    double _radius;
 };
 
 #endif

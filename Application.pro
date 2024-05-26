@@ -41,7 +41,6 @@ HEADERS += \
     src/interfaces/ICollider.h \
     src/interfaces/IControlledRobot.h \
     src/interfaces/IGameObject.h \
-    src/interfaces/IGraphicsObject.h \
     src/interfaces/IMap.h \
     src/interfaces/IObstacle.h \
     src/interfaces/IPosition.h \
