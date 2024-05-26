@@ -39,13 +39,18 @@ MainWindow::MainWindow(QWidget *parent)
 
 void MainWindow::loadLevel()
 {
-    QFile file(_fileToOpen);
-    if (!file.open(QIODevice::ReadOnly)) {
-        qDebug() << "Failed to open the file\n";
-        return;
+    if (_isLayoutSet){
+        QFile file(_fileToOpen);
+        if (!file.open(QIODevice::ReadOnly)) {
+            qDebug() << "Failed to open the file\n";
+            return;
+        }
+        std::string json = file.readAll().toStdString();
+        _map->LoadJSON(json);
+    } else {
+        _map->LoadJSON(_defaultJSON);
+        _isLayoutSet = true;
     }
-    std::string json = file.readAll().toStdString();
-    _map->LoadJSON(json);
     ui->viewport->drawAll();
 }
 

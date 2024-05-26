@@ -79,6 +79,7 @@ void RobotGraphicItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event) {
         if(_settings == nullptr){
                 _settings = new RobotWidget(_viewport, this, _isRemote);
         }
+
         int viewportWidth = _viewport->width();
         int viewportHeight = _viewport->height();
         bool isCloserToLeft = x < viewportWidth / 2;
