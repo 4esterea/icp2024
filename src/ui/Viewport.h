@@ -14,6 +14,8 @@
 #include "src/headers/Map.h"
 #include <QMessageBox>
 
+class MainWindow;
+
 class Viewport : public QGraphicsView {
 public:
     /**
@@ -50,6 +52,7 @@ public:
     * @brief A pointer to the QGraphicsScene object.
     */
 	   QGraphicsScene* scene;
+
 protected:
      /**
     * @brief Event handler for wheel event.
@@ -57,7 +60,9 @@ protected:
     * @param event The QWheelEvent object.
     */
     void wheelEvent(QWheelEvent *event) override;
+    void keyPressEvent(QKeyEvent *event) override;
 private:
+    MainWindow* _mainWindow;
     Map* _map;
     bool _isRCRobotPlaced = false;
 };

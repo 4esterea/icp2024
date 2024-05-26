@@ -18,7 +18,6 @@
 #include "src/ui/ObstacleGraphicItem.h"
 #include "src/ui/RobotGraphicItem.h"
 #include <QMouseEvent>
-#include "../mainwindow.h"
 #include <QPainter>
 
 Viewport::Viewport(QWidget* parent, Map* map) : QGraphicsView(parent), _map(map) {
@@ -30,14 +29,14 @@ Viewport::Viewport(QWidget* parent, Map* map) : QGraphicsView(parent), _map(map)
     this->setScene(this->scene);
     this->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     this->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    _mainWindow = qobject_cast<MainWindow*>(this->parentWidget()->parentWidget());
 }
 
 void Viewport::drawAll() {
     qDebug() << "Drawing...";
     this->scene->clear();
     _isRCRobotPlaced = false;
-    MainWindow* mainWindow = qobject_cast<MainWindow*>(this->parentWidget()->parentWidget());
-    auto map = mainWindow->getMap();
+    auto map = _mainWindow->getMap();
     if (map != nullptr) {
         auto mapSize = map->getSize();
         this->scene->setSceneRect(0, 0, mapSize.first, mapSize.second);
@@ -200,10 +199,47 @@ void Viewport::Update() {
 
 
 void Viewport::wheelEvent(QWheelEvent *event) {
-     // if (event->delta() > 0) {
-     //     scale(1.15, 1.15);
-     // } else {
-     //     scale(0.85, 0.85);
-     // }
+     //if (event->delta() > 0) {
+     //    scale(1.15, 1.15);
+     //} else {
+     //    scale(0.85, 0.85);
+     //}
      QGraphicsView::wheelEvent(event);
+}
+
+
+void Viewport::keyPressEvent(QKeyEvent *event) {
+    auto map = _mainWindow->getMap();
+    auto items = map->getGameObjects();
+    for (auto& item : items) {
+        auto robot = dynamic_cast<IControlledRobot*>(item);
+        if (robot) {
+            switch (event->key()){
+                case Qt::Key_W:
+                    qDebug() << "W pressed";
+                    robot->SetSpeedDirection(esd_forward);
+                    robot->SetRotationDirection(erd_none);
+                    break;
+                case Qt::Key_S:
+                    robot->SetSpeedDirection(esd_none);
+                    robot->SetRotationDirection(erd_none);
+                    qDebug() << "S pressed";
+                    break;
+                case Qt::Key_A:
+                    if (robot->GetSpeedDirection() != esd_none) {
+                        dynamic_cast<IControlledRobot *>(robot)->SetRotationDirection(erd_left);
+                    }
+                    qDebug() << "A pressed";
+                    break;
+                case Qt::Key_D:
+                    if (robot->GetSpeedDirection() != esd_none) {
+                        dynamic_cast<IControlledRobot *>(robot)->SetRotationDirection(erd_right);
+                    }
+                    qDebug() << "D pressed";
+                    break;
+                default:
+                    QGraphicsView::keyPressEvent(event);
+            }
+        }
+    }
 }

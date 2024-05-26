@@ -9,7 +9,6 @@
 
 
 #include "mainwindow.h"
-#include "ui/ClickableLabel.h"
 #include <QFileDialog>
 #include <QGraphicsScene>
 #include <QGraphicsRectItem>
@@ -146,6 +145,7 @@ void MainWindow::on_pushButtonLaunch_clicked(bool checked)
         ui->pushButtonSave->setEnabled(0);
         ui->pushButtonNew->setEnabled(0);
         ui->pushButtonPause->show();
+		ui->viewport->setFocus();
         this->_timer->start(FRAME_TIMEGAP_MS);
     } else {
 

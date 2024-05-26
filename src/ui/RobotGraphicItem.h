@@ -24,6 +24,7 @@
 #include "../mainwindow.h"
 
 class AutoRobot;
+class Viewport;
 
 class RobotGraphicItem : public QGraphicsEllipseItem
 {
@@ -67,7 +68,7 @@ public:
     *
     * @param event The QKeyEvent object representing the key press event.
     */
-    void keyPressEvent(QKeyEvent *event);
+    //void keyPressEvent(QKeyEvent *event);
     /**
      * @brief Updates the RobotGraphicItem.
      */

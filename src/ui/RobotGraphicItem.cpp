@@ -24,6 +24,7 @@ RobotGraphicItem::RobotGraphicItem(Viewport* viewport, QGraphicsItem* parent, IR
     if (_isRemote) {
         _direction->setPen(QPen({Qt::yellow, 2}));
         setPen(QPen({Qt::yellow, 2}));
+		setFlag(QGraphicsItem::ItemIsFocusable, true);
     } else {
         _direction->setPen(QPen({Qt::white, 2}));
         setPen(QPen({Qt::white, 2}));
@@ -138,33 +139,3 @@ QGraphicsRectItem* RobotGraphicItem::getVision() {
     return _vision;
 }
 
-void RobotGraphicItem::keyPressEvent(QKeyEvent *event) {
-    if (_isRemote) {
-        switch (event->key()){
-           case Qt::Key_W:
-               qDebug() << "W pressed";
-                dynamic_cast<IControlledRobot *>(_robot)->SetSpeedDirection(esd_forward);
-               dynamic_cast<IControlledRobot *>(_robot)->SetRotationDirection(erd_none);
-               break;
-           case Qt::Key_S:
-               dynamic_cast<IControlledRobot *>(_robot)->SetSpeedDirection(esd_none);
-               dynamic_cast<IControlledRobot *>(_robot)->SetRotationDirection(erd_none);
-               qDebug() << "S pressed";
-               break;
-           case Qt::Key_A:
-               if (dynamic_cast<IControlledRobot *>(_robot)->GetSpeedDirection() != esd_none) {
-                   dynamic_cast<IControlledRobot *>(_robot)->SetRotationDirection(erd_left);
-               }
-               qDebug() << "A pressed";
-               break;
-           case Qt::Key_D:
-               if (dynamic_cast<IControlledRobot *>(_robot)->GetSpeedDirection() != esd_none) {
-                   dynamic_cast<IControlledRobot *>(_robot)->SetRotationDirection(erd_right);
-               }
-               qDebug() << "D pressed";
-               break;
-           default:
-               QGraphicsEllipseItem::keyPressEvent(event);
-        }
-    }
-}
