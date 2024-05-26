@@ -27,19 +27,4 @@ void Obstacle::RecalcColliderPosition() {
 }
 
 void Obstacle::Update() {
-    // for (uint64_t i = 0; i < this->_map->getGameObjects().size(); i++) {
-    //     IGameObject * go = this->_map->getGameObjects()[i];
-    //     if (this->_id == go->GetId()) {
-    //         // Skip if the same object
-    //         continue;
-    //     }
-    //     if (go->GetObjectType() == eot_obstacle) {
-    //         qDebug() << dynamic_cast<IObstacle *>(go)->GetCollider()->GetAngle();
-    //         if (this->_collider->CheckCollision(dynamic_cast<IObstacle *>(go)->GetCollider())) {
-    //             qDebug() << "true";
-    //         } else {
-    //             qDebug() << "false";
-    //         }
-    //     }
-    // }
 }

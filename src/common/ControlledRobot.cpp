@@ -60,7 +60,8 @@ void ControlledRobot::SetRotationDirection(RotationDirection rotationDirection) 
 
 void ControlledRobot::Update() {
     Position pos = *(dynamic_cast<Position *>(this->GetPosition()));
-    double rotationAngle = std::fmod(this->_rotationAngle * SIMRULE_FRAME_TIMEGAP_MS * this->_rotationDirection / 1000, 360);
+    // double rotationAngle = std::fmod((this->_rotationAngle * SIMRULE_FRAME_TIMEGAP_MS) / 1000, 180);
+    double rotationAngle = this->_rotationAngle * this->_rotationDirection / 180;
     double speed = this->GetSpeed() * SIMRULE_FRAME_TIMEGAP_MS / 1000;
     bool isSight = false;
     bool isStuck = false;
@@ -71,6 +72,7 @@ void ControlledRobot::Update() {
         this->GetPosition()->y = this->GetPosition()->y + speed * sin(this->GetPosition()->angle * PI / 180);
     }
     this->GetPosition()->angle = std::fmod((this->GetPosition()->angle + rotationAngle), 360);
+    // this->GetPosition()->angle = std::fmod((this->GetPosition()->angle + rotationAngle), 360);
     // Collision checks
     for (uint64_t i = 0; i < this->_map->getGameObjects().size(); i++) {
         IGameObject * go = this->_map->getGameObjects()[i];
@@ -87,7 +89,7 @@ void ControlledRobot::Update() {
             break;
         }
     }
-    if (isStuck && isSight) {
+    if ((isStuck && isSight) || (SIMRULE_RC_STOP_ON_VISION && (isStuck || isSight))) {
         // Collision detected -> move object back
         this->GetPosition()->SetPosition(pos.x, pos.y);
     }
