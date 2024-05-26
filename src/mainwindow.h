@@ -15,8 +15,6 @@
 #include <QTimer>
 #include <QFileDialog>
 #include <QFileInfo>
-#include "ui/RobotGraphicItem.h"
-#include "ui/ClickableLabel.h"
 #include "src/headers/Map.h"
 
 namespace Ui {
