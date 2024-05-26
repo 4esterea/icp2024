@@ -103,7 +103,7 @@ string Map::SaveJSON() {
             case eot_gameobject: continue;
             case eot_obstacle:
                 gameObject.insert("width", dynamic_cast<IObstacle *>(this->_gameObjects[i])->GetWidth());
-                gameObject.insert("width", dynamic_cast<IObstacle *>(this->_gameObjects[i])->GetHeight());
+                gameObject.insert("height", dynamic_cast<IObstacle *>(this->_gameObjects[i])->GetHeight());
                 position.insert("x", this->_gameObjects[i]->GetPosition()->x);
                 position.insert("y", this->_gameObjects[i]->GetPosition()->y);
                 position.insert("angle", this->_gameObjects[i]->GetPosition()->angle);
