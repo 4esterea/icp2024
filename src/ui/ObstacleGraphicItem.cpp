@@ -141,7 +141,7 @@ QVariant ObstacleGraphicItem::itemChange(GraphicsItemChange change, const QVaria
             this->_obstacle->GetPosition()->SetPosition(newPos.x(), newPos.y());
         } else if (change == ItemRotationChange) {
             qreal newAngle = value.toReal();
-            this->_obstacle->GetCollider()->SetAngle(newAngle);
+            // this->_obstacle->GetCollider()->SetAngle(newAngle);
             this->_obstacle->GetPosition()->SetPosition(newAngle);
         } else if (change == ItemScaleChange) {
             qreal newSize = value.toReal();
